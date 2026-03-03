@@ -27,7 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-helvetica antialiased">
+      <body
+        className="font-helvetica antialiased
+       selection:bg-black dark:selection:bg-white
+        selection:text-white dark:selection:text-black"
+      >
         <nav>
           <TopBar />
         </nav>
