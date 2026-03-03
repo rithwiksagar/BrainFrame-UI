@@ -4,11 +4,11 @@ import {
   ModelItems,
   ModelSelector,
   ModelTrigger,
-} from "@/components/ai/modelSelector";
+} from "@/components/ai/modelSelector/ModelSelector";
 
 export default function Component() {
   return (
-    <div className="min-h-screen relative bg-white/95 dark:bg-black">
+    <div className="min-h-screen relative">
       <div className="flex h-screen items-center justify-center font-sans">
         <ModelSelector>
           <ModelTrigger />
