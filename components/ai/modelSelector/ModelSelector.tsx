@@ -85,7 +85,7 @@ function ModelSelector({ children }: ModelSelectorProps) {
         setSearch,
       }}
     >
-      {children}
+      <div className="h-screen flex justify-center items-center">{children}</div>
     </ModelSelectorContext.Provider>
   );
 }
@@ -203,10 +203,4 @@ function ModelItems() {
     </div>
   );
 }
-export {
-  ModelSelector,
-  ModelTrigger,
-  ModelContent,
-  ModelInput,
-  ModelItems,
-}
+export { ModelSelector, ModelTrigger, ModelContent, ModelInput, ModelItems };
