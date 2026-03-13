@@ -1,23 +1,31 @@
-import { DocsFooter } from "@/components/docsfooter"
+import { DocsFooter } from "@/components/docsfooter";
+import { CopyButton } from "@/components/copybutton";
+
 
 ## Installation
 
 Install and start using AI components in your Next.js project in just a few steps.
 
-<div className="prose dark:prose-invert prose-pre:bg-neutral-800 prose-pre:rounded-md max-w-60">
-```bash
-$ npx brainframe init
-```
+<div className="not-prose bg-neutral-200 dark:bg-neutral-900 text-black dark:text-white p-3 rounded-md flex items-center justify-between w-56">
+  <pre className="overflow-x-auto">
+    <code>npx brainframe init</code>
+  </pre>
+  <CopyButton />
 </div>
 
 ### Requirements
 
 Before installing the library, make sure your project includes:
 
-- *Next.js 14+*
-- *React 18+*
-- *Tailwind CSS*
+- _Next.js 14+_
+- _React 18+_
+- _Tailwind CSS_
 
 If you don't have Tailwind installed yet, follow the Tailwind CSS installation guide for Next.js.
 
-<DocsFooter prevHref = "introduction" prevTitle = "Introduction" nextHref = "modelselector" nextTitle = "Components"/>
+<DocsFooter
+  prevHref="introduction"
+  prevTitle="Introduction"
+  nextHref="modelselector"
+  nextTitle="Components"
+/>

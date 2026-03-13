@@ -5,12 +5,10 @@ import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import {
   Dispatch,
-  forwardRef,
   RefObject,
   SetStateAction,
-  useContext,
-  useRef,
 } from "react";
+
 
 interface topBarProps {
   topbarRef: RefObject<HTMLDivElement | null>;
@@ -26,7 +24,7 @@ export const TopBar = ({ topbarRef, setOpen }: topBarProps) => {
         <div className="">
           <Link
             href={"/"}
-            className="text-xl md:text-2xl font-medium tracking-wide"
+            className="text-xl md:text-2xl font-semibold tracking-wide"
           >
             BrainFrame.
           </Link>

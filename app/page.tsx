@@ -23,7 +23,7 @@ export default function Home() {
           Get Started
         </Link>
         <Link
-          href={"/modelselector"}
+          href={"/docs/modelselector"}
           className=" dark:bg-neutral-900 border border-neutral-700/40 
         py-2 px-3 lg:px-5 rounded-4xl text-[15px] lg:text-[18px] cursor-pointer hover:bg-white/90 dark:hover:bg-neutral-900/70"
         >
