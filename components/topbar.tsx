@@ -1,7 +1,7 @@
 "use client";
 import UseToggleTheme from "@/hooks/UseToggleTheme";
 import { SidebarContext } from "@/libs/sidebarcontext";
-import { Github, Menu } from "lucide-react";
+import { Github, PanelLeft } from "lucide-react";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import { useContext } from "react";
@@ -27,7 +27,7 @@ export default function TopBar() {
             <UseToggleTheme />
           </ThemeProvider>
         </div>
-        <Menu
+        <PanelLeft
           onClick={() => {
             setOpen(!open);
           }}

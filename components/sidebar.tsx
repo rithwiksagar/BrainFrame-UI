@@ -69,28 +69,25 @@ export default function Sidebar() {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{
-          opacity: 0,
-          width: 0,
-        }}
-        animate={{
-          opacity: 1,
-          width: 240,
-        }}
-        exit={{
-          width: 0,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 0.3,
-          ease: easeOut,
-        }}
-        className={`fixed left-0 top-0 z-999 h-160 w-60 pt-4 pb-12 border-r
+        // initial={{
+        //   width: 0,
+        // }}
+        // animate={{
+        //   width: 240,
+        // }}
+        // exit={{
+        //   width: 0,
+        // }}
+        // transition={{
+        //   duration: 0.3,
+        //   ease: easeOut,
+        // }}
+        className={`fixed left-0 top-0 z-999 h-160 pt-4 pb-12 border-r
      border-neutral-700/20 rounded-r-xl mt-13 md:mt-20 md:ml-5
      backdrop-blur-3xl md:backdrop-blur-none
      md:mask-[linear-gradient(to_bottom,transparent,black_15%,black_80%,transparent)]
       dark:border-neutral-100/10 overflow-y-scroll [scrollbar-width:none]
-      select-none ${open ? "block" : "hidden"} md:block`}
+      select-none ${open ? "w-60" : "w-0"} md:block md:transition-all tran duration-200 ease-out`}
       >
         {sidebarItems.map((elements) => (
           <div
@@ -104,7 +101,7 @@ export default function Sidebar() {
                 key={item.title}
                 className="text-neutral-900 flex flex-col font-medium py-1 pl-2 cursor-pointer text-[15px] dark:text-neutral-50/90 hover:bg-neutral-200/30 rounded-sm dark:hover:bg-neutral-800/60"
                 onClick={() => {
-                  setOpen(!open);
+                  setOpen(false);
                 }}
               >
                 {item.title}

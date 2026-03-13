@@ -4,7 +4,7 @@ export default function PreviewPage({ children }: { children: ReactNode }) {
   return (
     <div className="">
       <div className="flex space-x-3 my-2">
-        <h6 className="font-medium text-white">Preview</h6>
+        <h6 className="font-medium dark:text-white">Preview</h6>
         <h6 className="text-neutral-400 font-medium">Usage</h6>
       </div>
       <div
