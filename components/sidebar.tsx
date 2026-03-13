@@ -86,7 +86,7 @@ export const Sidebar = ({ sidebarRef, setOpen, open }: sidebarProps) => {
      backdrop-blur-3xl md:backdrop-blur-none
      md:mask-[linear-gradient(to_bottom,transparent,black_15%,black_80%,transparent)]
       dark:border-neutral-100/10 overflow-y-scroll [scrollbar-width:none]
-      select-none ${!open ? "w-0" : "w-60"} transition-[width] duration-200 ease-out md:transition-none`}
+      select-none ${!open ? "w-0" : "w-60 transition-[width] duration-200 ease-out"}`}
     >
       {sidebarItems.map((elements) => (
         <div
