@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/sidebar";
-import TopBar from "@/components/topbar";
-import { SidebarProvider } from "@/libs/sidebarcontext";
+import { ClientLayout } from "./clientlayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,15 +31,7 @@ export default function RootLayout({
        selection:bg-neutral-800 dark:selection:bg-white
         selection:text-white dark:selection:text-black"
       >
-        <SidebarProvider>
-          <nav>
-            <TopBar />
-          </nav>
-          <aside>
-            <Sidebar />
-          </aside>
-          <div className="mx-4 md:ml-74">{children}</div>
-        </SidebarProvider>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
