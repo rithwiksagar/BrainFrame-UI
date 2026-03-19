@@ -81,7 +81,7 @@ export const Sidebar = ({ sidebarRef, setOpen, open }: sidebarProps) => {
   return (
     <div
       ref={sidebarRef}
-      className={`fixed left-0 top-0 z-999 h-160 md:w-60 pt-4 pb-12 border-r
+      className={`fixed left-0 top-0 z-999 h-full md:h-160 md:w-60 pt-4 pb-12 border-r
      border-neutral-700/20 rounded-r-xl mt-13 md:mt-20 md:ml-5
      backdrop-blur-3xl md:backdrop-blur-none
      md:mask-[linear-gradient(to_bottom,transparent,black_15%,black_80%,transparent)]
