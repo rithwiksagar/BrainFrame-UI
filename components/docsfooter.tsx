@@ -20,7 +20,7 @@ export function DocsFooter({
         href={prevHref}
         className="px-3 border inline-flex justify-center items-center gap-1
         rounded-md dark:text-neutral-500 no-underline
-     dark:border-neutral-800/80 border-neutral-300 text-neutral-500 font-extralight text-[14px]"
+     dark:border-neutral-800/80 border-neutral-300 text-neutral-500 font-extralight text-[15px]"
       >
         <ArrowLeft className="size-3.5" />
         {prevTitle}
@@ -30,7 +30,7 @@ export function DocsFooter({
         className="px-3 border inline-flex justify-center items-center gap-1
         rounded-md dark:text-neutral-500 no-underline
      dark:border-neutral-800/80
-      border-neutral-300 text-neutral-600 font-extralight text-[14px]"
+      border-neutral-300 text-neutral-600 font-extralight text-[15px]"
       >
         {nextTitle}
         <ArrowRight className="size-3.5" />
