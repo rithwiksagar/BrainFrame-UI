@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/(exampledemo)/modelselector", "app/docs/modelselector/page.mdx"  ],
+, "app/(exampledemo)/modelselector", "app/docs/modelselector/page.mdx", "app/docs/prompt-input/page.mdx"  ],
   "exclude": ["node_modules"]
 }

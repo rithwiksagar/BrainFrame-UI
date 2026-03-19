@@ -30,7 +30,6 @@
   font-display: swap;
 }
 
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

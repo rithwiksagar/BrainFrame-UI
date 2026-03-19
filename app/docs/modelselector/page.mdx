@@ -1,18 +1,12 @@
 import { ModelContent, ModelInput, ModelItems, ModelSelector, ModelTrigger } from "@/components/ai/ModelSelector";
 import  PreviewPage  from "@/components/previewpage"
 import { DocsFooter } from "@/components/docsfooter"
+import ModelSelectorDemo from "./modelselectordemo"
 
 ### Model Selector
 
 A customizable component for selecting and switching between AI models.
-<PreviewPage>
-    <ModelSelector>
-    <ModelTrigger />
-    <ModelContent>
-        <ModelInput />
-        <ModelItems />
-    </ModelContent>
-    </ModelSelector>
-</PreviewPage>
 
-<DocsFooter prevHref = "installation" prevTitle = "Installation" nextHref = "promptinput" nextTitle = "Prompt Input"/>
+<ModelSelectorDemo />
+
+<DocsFooter prevHref = "installation" prevTitle = "Installation" nextHref = "prompt-input" nextTitle = "Prompt Input"/>

@@ -30,8 +30,8 @@ export const sidebarItems: sidebaritems[] = [
     id: "2",
     items: [
       { title: "Model Selector", href: "/docs/modelselector" },
-      { title: "Message", href: "/docs/message" },
       { title: "Prompt Input", href: "/docs/prompt-input" },
+      { title: "Message", href: "/docs/message" },
       { title: "Prompt Suggestion", href: "/docs/prompt-suggestion" },
       { title: "Chain of Thought", href: "/docs/chain-of-thought" },
       { title: "Feedback Bar", href: "/docs/feedback-bar" },

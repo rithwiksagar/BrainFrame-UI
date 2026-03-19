@@ -14,54 +14,16 @@ type ModelSelectorContextType = {
   setDefaultModel: Dispatch<SetStateAction<string>>;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
-};
-
-type modelsType = {
-  chef: string;
-  id: string;
-  names: string[];
+  models: { chef: string; id: string; names: string[] }[];
 };
 
 interface ModelSelectorProps {
   children: React.ReactNode;
+  models: { chef: string; id: string; names: string[] }[];
+  defaultModel: string;
+  setDefaultModel: Dispatch<SetStateAction<string>>;
 }
-const models: modelsType[] = [
-  {
-    chef: "OpenAI",
-    id: "gpt",
-    names: ["GPT-4o", "GPT-4o Mini", "o1", "o1 Mini"],
-  },
-  {
-    chef: "Anthropic",
-    id: "claude",
-    names: [
-      "Claude 4 Opus",
-      "Claude 4 Sonnet",
-      "Claude 3.5 Sonnet",
-      "Claude 3.5 Haiku",
-    ],
-  },
-  {
-    chef: "Google",
-    id: "gemini-2.0-flash-exp",
-    names: ["Gemini 2.0 Flash", "Gemini 1.5 Pro", "Gemini 1.5 Flash"],
-  },
-  {
-    chef: "Meta",
-    id: "llama-3.3-70b",
-    names: ["Llama 3.3 70B", "Llama 3.1 405B", "Llama 3.1 70B", "Llama 3.1 8B"],
-  },
-  {
-    chef: "DeepSeek",
-    id: "deepseek-r1",
-    names: ["DeepSeek R1", "DeepSeek V3", "DeepSeek Coder V2"],
-  },
-  {
-    chef: "Mistral AI",
-    id: "mistral-large",
-    names: ["Mistral Large", "Mistral Small"],
-  },
-];
+
 const ModelSelectorContext = createContext<ModelSelectorContextType | null>(
   null,
 );
@@ -70,9 +32,13 @@ function useModelSelector() {
   if (!Context) throw new Error("must be inside the selector");
   return Context;
 }
-function ModelSelector({ children }: ModelSelectorProps) {
+function ModelSelector({
+  children,
+  models,
+  defaultModel,
+  setDefaultModel,
+}: ModelSelectorProps) {
   const [open, setOpen] = useState(false);
-  const [defaultModel, setDefaultModel] = useState("Claude 4 sonnet");
   const [search, setSearch] = useState("");
   return (
     <ModelSelectorContext.Provider
@@ -83,6 +49,7 @@ function ModelSelector({ children }: ModelSelectorProps) {
         setDefaultModel,
         search,
         setSearch,
+        models,
       }}
     >
       <div className="flex justify-center items-center">{children}</div>
@@ -94,9 +61,9 @@ function ModelTrigger() {
   const { defaultModel, setOpen } = useModelSelector();
   return (
     <button
-      className="relative bg-white/60 dark:bg-neutral-900 p-1 rounded-md border
+      className="relative bg-[#f7f7f7] dark:bg-neutral-900 p-1 rounded-md border
        border-neutral-300/90 text-neutral-800/90 dark:text-neutral-50 dark:border-neutral-50/10 
-       px-4 dark:hover:bg-neutral-900/90 cursor-pointer "
+       px-4 dark:hover:bg-neutral-900/90 cursor-pointer text-[14px] lg:text-[16px]"
       onClick={() => {
         setOpen(true);
       }}
@@ -129,7 +96,7 @@ function ModelContent({ children }: { children: React.ReactNode }) {
             duration: 0.2,
             ease: easeOut,
           }}
-          className="absolute bg-white border dark:border-neutral-50/0 border-neutral-300/90  dark:bg-neutral-900 h-84 w-76 md:w-102 rounded-md flex flex-col"
+          className="absolute bg-[#f7f7f7] border dark:border-neutral-50/0 border-neutral-300/90  dark:bg-neutral-900 h-84 w-76 md:w-102 rounded-md flex flex-col"
         >
           {children}
         </motion.div>
@@ -167,14 +134,16 @@ function ModelInput() {
 }
 
 function ModelItems() {
-  const { search, setSearch, setDefaultModel, setOpen, defaultModel } =
+  const { search, setSearch, setDefaultModel, setOpen, defaultModel, models } =
     useModelSelector();
-
   const filteredModels = models.filter((model) =>
     model.names.some((n) => n.toLowerCase().includes(search.toLowerCase())),
   );
   return (
-    <div className="flex-1 overflow-y-auto [scrollbar-width:thin] [scrollbar-color:var(--color-zinc-300)_transparent] dark:[scrollbar-color:var(--color-zinc-500)_transparent]">
+    <div
+      className="flex-1 overflow-y-auto [scrollbar-width:thin] [scrollbar-color:var(--color-zinc-300)_transparent]
+     dark:[scrollbar-color:var(--color-zinc-500)_transparent]"
+    >
       {filteredModels.map((model) => (
         <div key={model.id} className="">
           <span className="text-neutral-900 font-medium dark:text-neutral-400 text-[14px] ml-2.5">
@@ -184,7 +153,9 @@ function ModelItems() {
             {model.names.map((modelName) => (
               <div
                 key={modelName}
-                className={`text-neutral-700 dark:text-neutral-50 text-[14px] pl-6 pr-2 py-1 cursor-pointer hover:bg-zinc-50 dark:hover:bg-neutral-800/80 rounded-md flex justify-between items-center ${defaultModel === modelName ? "bg-zinc-100/60 dark:bg-neutral-800/30" : ""}`}
+                className={`text-neutral-700 dark:text-neutral-50 text-[14px] pl-6 pr-2 py-1 cursor-pointer
+                   hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 rounded-md flex justify-between items-center 
+                   ${defaultModel === modelName ? "bg-neutral-200 dark:bg-neutral-800/60" : ""}`}
                 onClick={() => {
                   setDefaultModel(modelName);
                   setOpen(false);

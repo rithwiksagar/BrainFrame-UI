@@ -15,24 +15,25 @@ export function DocsFooter({
   nextTitle,
 }: FooterProps) {
   return (
-    <div className="flex justify-between mt-20">
+    <div className="flex w-78 md:w-132 justify-between mt-20">
       <Link
         href={prevHref}
         className="px-1 md:px-3 border inline-flex justify-center items-center gap-1
-     dark:border-neutral-800 rounded-md dark:text-neutral-500 no-underline
-     border-neutral-300 text-neutral-600/90"
+        rounded-md dark:text-neutral-500 no-underline
+     dark:border-neutral-800/80 border-neutral-300 text-neutral-500 font-extralight text-[14px]"
       >
-        <ArrowLeft className="size-4" />
+        <ArrowLeft className="size-3.5" />
         {prevTitle}
       </Link>
       <Link
         href={nextHref}
         className="px-1 md:px-3 border inline-flex justify-center items-center gap-1
-     dark:border-neutral-800 rounded-md dark:text-neutral-500 no-underline
-     border-neutral-300 text-neutral-600/90"
+        rounded-md dark:text-neutral-500 no-underline
+     dark:border-neutral-800/80
+      border-neutral-300 text-neutral-600 font-extralight text-[14px]"
       >
         {nextTitle}
-        <ArrowRight className="size-4" />
+        <ArrowRight className="size-3.5" />
       </Link>
     </div>
   );
