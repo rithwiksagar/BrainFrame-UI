@@ -13,8 +13,8 @@ export function ClientLayout({ children }: { children: ReactNode }) {
     function handleClickOutside(e: MouseEvent) {
       if (
         sidebarRef.current &&
-        !sidebarRef.current.contains(e.target as Node) &&
         topbarRef.current &&
+        !sidebarRef.current.contains(e.target as Node) &&
         !topbarRef.current.contains(e.target as Node)
       ) {
         setOpen(false);

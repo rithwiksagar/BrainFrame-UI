@@ -98,7 +98,8 @@ export const Sidebar = ({ sidebarRef, setOpen, open }: sidebarProps) => {
             <Link
               href={item.href}
               key={item.title}
-              className="text-neutral-900 flex flex-col font-medium py-1 pl-2 cursor-pointer text-[15px] dark:text-neutral-50/90 hover:bg-neutral-200/30 rounded-sm dark:hover:bg-neutral-800/60"
+              className="text-neutral-900 flex flex-col font-medium py-1 pl-2 cursor-pointer text-[15px] 
+              dark:text-neutral-50/90 hover:bg-neutral-200/30 rounded-sm dark:hover:bg-neutral-800/60"
               onClick={() => {
                 setOpen((open) => !open);
               }}

@@ -1,5 +1,6 @@
 "use client";
 import PreviewPage from "@/components/previewpage";
+import { cn } from "@/libs/utils";
 import {
   Copy,
   MoveUpRight,
@@ -24,6 +25,7 @@ type PromptInputTypes = {
   onSubmit: () => void;
   isLoading: boolean;
   children: React.ReactNode;
+  className?: string
 };
 const promptInputContext = createContext<promptInputContextType | null>(null);
 
@@ -40,22 +42,21 @@ function PromptInput({
   onSubmit,
   isLoading,
   children,
+  className
 }: PromptInputTypes) {
   return (
     <promptInputContext.Provider
       value={{ value, setValue, onSubmit, isLoading }}
     >
-      <div className="w-78 md:w-120">
-        <div className="border border-neutral-300 dark:border-neutral-800 rounded-2xl">
+      <div className={cn("w-78 md:w-120 border border-neutral-300 dark:border-neutral-800 rounded-3xl",className)}>
           {children}
-        </div>
       </div>
     </promptInputContext.Provider>
   );
 }
 
 function PromptInputTextArea({ placeholder }: { placeholder: string }) {
-  const { value, setValue, onSubmit } = usePromptInput();
+  const { value, setValue, onSubmit,isLoading } = usePromptInput();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   function handleChange(e: { target: { value: string } }) {
     const textarea = textareaRef.current!;
@@ -71,6 +72,7 @@ function PromptInputTextArea({ placeholder }: { placeholder: string }) {
       onKeyDown={(e) => {
         if (e.key === "Enter" && !e.shiftKey) {
           e.preventDefault();
+          if(!value.trim() || isLoading ) return;
           onSubmit();
         }
       }}
