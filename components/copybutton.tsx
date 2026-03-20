@@ -4,21 +4,23 @@ import { CircleCheck, Copy } from "lucide-react";
 import { easeOut, motion } from "motion/react";
 import { useState } from "react";
 
-export function CopyButton() {
+export function CopyButton({content}: {content: string}) {
   const [copied, setCopied] = useState(false);
   return (
     <motion.button
       whileTap={{
-        scale: 0.98,
+        scale: 0.9,
         opacity: 0,
+        filter: "blur(4px)"
       }}
       transition={{
         duration: 0.2,
         ease: easeOut,
       }}
       onClick={async () => {
-        await navigator.clipboard.writeText("npx brainframe init");
+        await navigator.clipboard.writeText(content);
         setCopied(true);
+        setTimeout(()=>{setCopied(false)},5000)
       }}
     >
       {!copied && (
