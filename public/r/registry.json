@@ -7,9 +7,7 @@
         "name": "prompt-input",
         "description": "A composable prompt input component with controlled state, and customizable actions.",
         "type":"registry:component",
-        "registryDependencies":[
-            "lucide-react"
-        ],
+        "dependencies": ["lucide-react"],
         "files":[
             {
                 "path": "registry/new-york/prompt-input/PromptInput.tsx",
