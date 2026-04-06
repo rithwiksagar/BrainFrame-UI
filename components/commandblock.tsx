@@ -11,19 +11,19 @@ interface CommandBlockItem {
 const CommandBlockItems: CommandBlockItem[] = [
   {
     title: "pnpm",
-    cmd: "pnpm shadcn@latest brainframe/prompt-input",
+    cmd: "pnpm dlx shadcn@latest add ",
   },
   {
     title: "npm",
-    cmd: "npm shadcn@latest brainframe/prompt-input",
+    cmd: "npx shadcn@latest add https://brain-frame-ui.vercel.app/r/prompt-input.json",
   },
   {
     title: "yarn",
-    cmd: "yarn shadcn@latest brainframe/prompt-input",
+    cmd: "yarn dlx shadcn@latest add ",
   },
   {
     title: "bun",
-    cmd: "bun shadcn@latest brainframe/prompt-input",
+    cmd: "bunx --bun shadcn@latest add ",
   },
 ];
 export default function CommandBlock() {
