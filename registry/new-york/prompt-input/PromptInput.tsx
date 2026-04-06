@@ -1,16 +1,11 @@
 "use client";
-import PreviewPage from "@/components/previewpage";
 import { cn } from "@/libs/utils";
 import {
-  Copy,
-  MoveUpRight,
-  Paperclip,
   Plus,
-  Send,
   SendHorizontal,
   Square,
 } from "lucide-react";
-import { createContext, ReactNode, useContext, useRef, useState } from "react";
+import { createContext, useContext, useRef } from "react";
 
 type promptInputContextType = {
   value: string;
@@ -74,6 +69,7 @@ function PromptInputTextArea({ placeholder }: { placeholder: string }) {
           e.preventDefault();
           if(!value.trim() || isLoading ) return;
           onSubmit();
+          
         }
       }}
       placeholder={placeholder}
@@ -94,7 +90,7 @@ function PromptInputActions({ children }: { children: React.ReactNode }) {
 
 function PromptInputAttachments() {
   return (
-    <Plus className="size-4 md:size-5 dark:text-neutral-400 cursor-pointer" />
+    <Plus className="size-5 md:size-6.5 dark:text-neutral-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800 p-1 rounded-lg" />
   );
 }
 

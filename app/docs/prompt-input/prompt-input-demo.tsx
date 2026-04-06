@@ -5,7 +5,7 @@ import {
   PromptInputAttachments,
   PromptInputButton,
   PromptInputTextArea,
-} from "@/components/ai/PromptInput";
+} from "@/registry/new-york/prompt-input/PromptInput";
 
 import PreviewPage from "@/components/previewpage";
 import { useState } from "react";
@@ -16,9 +16,8 @@ export default function PromptInputDemo() {
 
   function handleSubmit() {
     if (!value.trim() || isLoading) return;
-
     setIsLoading(true);
-
+    
     setTimeout(() => {
       setIsLoading(false);
       setValue("");
@@ -33,6 +32,7 @@ export default function PromptInputDemo() {
           setValue={setValue}
           onSubmit={handleSubmit}
           isLoading={isLoading}
+          className="bg-white/90 dark:bg-neutral-950"
         >
           <PromptInputTextArea placeholder="Ask me anything..." />
 

@@ -9,7 +9,7 @@ import {
   PromptInputAttachments,
   PromptInputButton,
   PromptInputTextArea,
-} from "@/components/ai/PromptInput";
+} from "@/registry/new-york/prompt-input/PromptInput";
 export default function DisplayFrame() {
   const [preview, setPreview] = useState(true);
   const [value, setValue] = useState("");
@@ -71,6 +71,7 @@ export default function DisplayFrame() {
             setValue={setValue}
             onSubmit={handlesubmit}
             isLoading={isLoading}
+            className="bg-white/90 dark:bg-neutral-900"
           >
             <PromptInputTextArea placeholder="Ask me anything..." />
             <PromptInputActions>
