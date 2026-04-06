@@ -7,7 +7,7 @@
         "name": "prompt-input",
         "description": "A composable prompt input component with controlled state, and customizable actions.",
         "type":"registry:component",
-        "registryDependencies":[
+        "dependencies":[
             "lucide-react"
         ],
         "files":[
