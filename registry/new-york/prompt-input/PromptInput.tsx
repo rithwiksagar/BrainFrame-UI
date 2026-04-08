@@ -56,7 +56,7 @@ function PromptInputTextArea({ placeholder }: { placeholder: string }) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   function handleChange(e: { target: { value: string } }) {
     const textarea = textareaRef.current!;
-    textarea.style.height = "auto";
+    textarea.style.height = "0";
     textarea.style.height = textarea.scrollHeight + "px";
     setValue(e.target.value);
   }
@@ -71,7 +71,7 @@ function PromptInputTextArea({ placeholder }: { placeholder: string }) {
           if (!value.trim() || isLoading) return;
           const textarea = textareaRef.current!;
           setValue("");
-          textarea.style.height = "auto";
+          textarea.style.height = "40px";
           onSubmit();
         }
       }}
