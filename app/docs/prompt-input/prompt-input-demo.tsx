@@ -9,7 +9,9 @@ import {
 
 import PreviewPage from "@/components/previewpage";
 import { useState } from "react";
+import CommandBlock from "@/components/commandblock";
 
+const CommandLink: string = "https://brain-frame-ui.vercel.app/r/prompt-input.json";
 export default function PromptInputDemo() {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,14 +19,13 @@ export default function PromptInputDemo() {
   function handleSubmit() {
     if (!value.trim() || isLoading) return;
     setIsLoading(true);
-    
     setTimeout(() => {
       setIsLoading(false);
-      setValue("");
     }, 2000);
   }
 
   return (
+    <>
     <PreviewPage>
       <div className="flex flex-col justify-end items-center">
         <PromptInput
@@ -32,7 +33,7 @@ export default function PromptInputDemo() {
           setValue={setValue}
           onSubmit={handleSubmit}
           isLoading={isLoading}
-          className="bg-white/90 dark:bg-neutral-950"
+
         >
           <PromptInputTextArea placeholder="Ask me anything..." />
 
@@ -43,5 +44,7 @@ export default function PromptInputDemo() {
         </PromptInput>
       </div>
     </PreviewPage>
+    <CommandBlock CommandLink={CommandLink}/>
+    </>
   );
 }

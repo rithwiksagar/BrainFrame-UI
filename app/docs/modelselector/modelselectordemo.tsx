@@ -6,6 +6,7 @@ import {
   ModelSelector,
   ModelTrigger,
 } from "@/components/ai/ModelSelector";
+import CommandBlock from "@/components/commandblock";
 import PreviewPage from "@/components/previewpage";
 import { useState } from "react";
 
@@ -52,9 +53,11 @@ const models: modelsType[] = [
     names: ["Mistral Large", "Mistral Small"],
   },
 ];
+const CommandLink: string = "https://brain-frame-ui.vercel.app/r/model-selector.json"
 export default function ModelSelectorDemo() {
   const [defaultModel, setDefaultModel] = useState("GPT-4o");
   return (
+    <>
     <PreviewPage>
       <ModelSelector
         models={models}
@@ -68,5 +71,8 @@ export default function ModelSelectorDemo() {
         </ModelContent>
       </ModelSelector>
     </PreviewPage>
+    <h6 className="mt-6 mb-2 text-xl ml-1">Installation</h6>
+    <CommandBlock CommandLink={CommandLink}/>
+  </>
   );
 }
