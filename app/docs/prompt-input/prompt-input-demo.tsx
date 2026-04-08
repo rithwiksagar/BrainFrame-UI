@@ -44,6 +44,7 @@ export default function PromptInputDemo() {
         </PromptInput>
       </div>
     </PreviewPage>
+    <h6 className="mt-6 mb-2 text-lg ml-1">Installation</h6>
     <CommandBlock CommandLink={CommandLink}/>
     </>
   );
