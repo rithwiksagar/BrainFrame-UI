@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
+import { CopyButton } from "./copybutton";
 
 export default function CodeBlockClient({ code }: { code: string }) {
   const [html, setHtml] = useState("");
@@ -45,9 +46,9 @@ export default function CodeBlockClient({ code }: { code: string }) {
   }, [code, isDark]);
 
   return (
-    <div className="h-96 w-fit md:w-fit ml-16 mr-2 md:h-110 overflow-scroll [scrollbar-width:none]">
+    <div className="w-fit ml-4 overflow-scroll [scrollbar-width:none]">
       <div
-        className="text-sm [&_pre]:bg-transparent [&_pre]:p-0 [&_code]:bg-transparent [&_span]:bg-transparent"
+        className="text-md [&_pre]:bg-transparent [&_pre]:p-0 [&_code]:bg-transparent [&_span]:bg-transparent"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>

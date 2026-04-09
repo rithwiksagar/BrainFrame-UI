@@ -12,6 +12,7 @@ import { useState } from "react";
 import CommandBlock from "@/components/commandblock";
 import CodeBlockClient from "@/components/codeblock";
 import { usePreviewContext } from "@/hooks/usePreviewContext";
+import { CopyButton } from "@/components/copybutton";
 
 const CommandLink: string = "https://brain-frame-ui.vercel.app/r/prompt-input.json";
 
@@ -19,8 +20,34 @@ function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: an
   const { preview } = usePreviewContext();
 
   return (
-    <div className="flex flex-col justify-end items-center">
-      { preview ? <PromptInput
+    <div className="">
+      { preview ? <div className="flex flex-col justify-end items-center md:h-108 h-94"><PromptInput
+        value={value}
+        setValue={setValue}
+        onSubmit={() => {
+          if (!value.trim() || isLoading) return;
+          setIsLoading(true);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 2000);
+        }}
+        isLoading={isLoading}
+      >
+        <PromptInputTextArea placeholder="Ask me anything..." />
+        <PromptInputActions>
+          <PromptInputAttachments />
+          <PromptInputButton />
+        </PromptInputActions>
+      </PromptInput></div>
+      : <div className="">
+        <CodeBlockClient code={`"use client";
+import { PromptInput, PromptInputActions, PromptInputAttachments, PromptInputButton,
+PromptInputTextArea} from "@/components/ai/PromptInput";
+export default function PromptInputExample() {
+  return (
+  const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+<PromptInput
         value={value}
         setValue={setValue}
         onSubmit={() => {
@@ -38,23 +65,6 @@ function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: an
           <PromptInputButton />
         </PromptInputActions>
       </PromptInput>
-      : <div className="ml-60 md:ml-0"><CodeBlockClient code={`"use client";
-import { PromptInput, PromptInputActions, PromptInputAttachments, PromptInputButton,
-PromptInputTextArea} from "@/components/ai/PromptInput";
-export default function PromptInputExample() {
-  return (
-    <PromptInput
-      value={value}
-      setValue={setValue}
-      onSubmit={handlesubmit}
-      isLoading={isLoading}
-    >
-      <PromptInputTextArea placeholder="Ask me" />
-      <PromptInputActions>
-        <PromptInputAttachments />
-        <PromptInputButton />
-      </PromptInputActions>
-    </PromptInput>
   );
 }`}/>
 </div>}
