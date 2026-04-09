@@ -8,7 +8,9 @@ import {
 } from "@/components/ai/ModelSelector";
 import CommandBlock from "@/components/commandblock";
 import PreviewPage from "@/components/previewpage";
-import { useState } from "react";
+import { usePreviewContext } from "@/hooks/usePreviewContext";
+
+import { ReactNode, useContext, useState } from "react";
 
 type modelsType = {
   chef: string;
@@ -53,13 +55,13 @@ const models: modelsType[] = [
     names: ["Mistral Large", "Mistral Small"],
   },
 ];
-const CommandLink: string = "https://brain-frame-ui.vercel.app/r/model-selector.json"
-export default function ModelSelectorDemo() {
-  const [defaultModel, setDefaultModel] = useState("GPT-4o");
+const CommandLink: string = "https://brain-frame-ui.vercel.app/r/model-selector.json";
+
+function ModelSelectorDemoContent({ defaultModel, setDefaultModel }: any) {
+  const { preview } = usePreviewContext();
   return (
     <>
-    <PreviewPage>
-      <ModelSelector
+      {preview ? <ModelSelector
         models={models}
         defaultModel={defaultModel}
         setDefaultModel={setDefaultModel}
@@ -70,9 +72,20 @@ export default function ModelSelectorDemo() {
           <ModelItems />
         </ModelContent>
       </ModelSelector>
-    </PreviewPage>
-    <h6 className="mt-6 mb-2 text-xl ml-1">Installation</h6>
-    <CommandBlock CommandLink={CommandLink}/>
-  </>
+        : "hi"}
+    </>
+  );
+}
+
+export default function ModelSelectorDemo() {
+  const [defaultModel, setDefaultModel] = useState("GPT-4o");
+  return (
+    <>
+      <PreviewPage>
+        <ModelSelectorDemoContent defaultModel={defaultModel} setDefaultModel={setDefaultModel} />
+      </PreviewPage>
+      <h6 className="mt-6 mb-2 text-xl ml-1">Installation</h6>
+      <CommandBlock CommandLink={CommandLink} />
+    </>
   );
 }
