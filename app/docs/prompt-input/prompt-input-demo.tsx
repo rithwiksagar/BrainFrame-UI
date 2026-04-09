@@ -15,32 +15,7 @@ import { usePreviewContext } from "@/hooks/usePreviewContext";
 import { CopyButton } from "@/components/copybutton";
 
 const CommandLink: string = "https://brain-frame-ui.vercel.app/r/prompt-input.json";
-
-function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: any) {
-  const { preview } = usePreviewContext();
-
-  return (
-    <div className="">
-      { preview ? <div className="flex flex-col justify-end items-center md:h-108 h-94"><PromptInput
-        value={value}
-        setValue={setValue}
-        onSubmit={() => {
-          if (!value.trim() || isLoading) return;
-          setIsLoading(true);
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 2000);
-        }}
-        isLoading={isLoading}
-      >
-        <PromptInputTextArea placeholder="Ask me anything..." />
-        <PromptInputActions>
-          <PromptInputAttachments />
-          <PromptInputButton />
-        </PromptInputActions>
-      </PromptInput></div>
-      : <div className="">
-        <CodeBlockClient code={`"use client";
+export const UsageCode = `"use client";
 import { PromptInput, PromptInputActions, PromptInputAttachments, PromptInputButton,
 PromptInputTextArea} from "@/components/ai/PromptInput";
 export default function PromptInputExample() {
@@ -66,7 +41,33 @@ export default function PromptInputExample() {
         </PromptInputActions>
       </PromptInput>
   );
-}`}/>
+}`
+
+function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: any) {
+  const { preview } = usePreviewContext();
+
+  return (
+    <div className="">
+      { preview ? <div className=" flex flex-col justify-end items-center md:h-108 h-94"><PromptInput
+        value={value}
+        setValue={setValue}
+        onSubmit={() => {
+          if (!value.trim() || isLoading) return;
+          setIsLoading(true);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 2000);
+        }}
+        isLoading={isLoading}
+      >
+        <PromptInputTextArea placeholder="Ask me anything..." />
+        <PromptInputActions>
+          <PromptInputAttachments />
+          <PromptInputButton />
+        </PromptInputActions>
+      </PromptInput></div>
+      : <div className="">
+        <CodeBlockClient code={UsageCode}/>
 </div>}
     </div>
   );

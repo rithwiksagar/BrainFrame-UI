@@ -10,6 +10,7 @@ import {
   PromptInputButton,
   PromptInputTextArea,
 } from "@/registry/new-york/prompt-input/PromptInput";
+import { UsageCode } from "@/app/docs/prompt-input/prompt-input-demo";
 export default function DisplayFrame() {
   const [preview, setPreview] = useState(true);
   const [value, setValue] = useState("");
@@ -83,28 +84,8 @@ export default function DisplayFrame() {
       )}
       {!preview && (
         <div className="overflow-scroll [scrollbar-width:none]">
-
           <CodeBlock
-            code={`"use client";
-import { PromptInput, PromptInputActions, PromptInputAttachments, PromptInputButton,
-PromptInputTextArea} from "@/components/ai/PromptInput";
-export default function PromptInputExample() {
-  return (
-    <PromptInput
-      value={value}
-      setValue={setValue}
-      onSubmit={handlesubmit}
-      isLoading={isLoading}
-    >
-      <PromptInputTextArea placeholder="Ask me" />
-      <PromptInputActions>
-        <PromptInputAttachments />
-        <PromptInputButton />
-      </PromptInputActions>
-    </PromptInput>
-  );
-}
-          `}
+            code={UsageCode}
           />
         </div>
       )}

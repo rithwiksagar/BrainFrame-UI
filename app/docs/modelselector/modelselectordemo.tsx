@@ -61,6 +61,7 @@ function ModelSelectorDemoContent({ defaultModel, setDefaultModel }: any) {
   const { preview } = usePreviewContext();
   return (
     <>
+    <div className="flex justify-center items-center md:h-108 h-94">
       {preview ? <ModelSelector
         models={models}
         defaultModel={defaultModel}
@@ -73,6 +74,7 @@ function ModelSelectorDemoContent({ defaultModel, setDefaultModel }: any) {
         </ModelContent>
       </ModelSelector>
         : "hi"}
+    </div>
     </>
   );
 }
