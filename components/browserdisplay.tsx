@@ -82,7 +82,7 @@ export default function DisplayFrame() {
         </div>
       )}
       {!preview && (
-        <div>
+        <div className="mt-10 overflow-scroll [scrollbar-width:none]">
           <CodeBlock
             code={`"use client";
 import { PromptInput, PromptInputActions, PromptInputAttachments, PromptInputButton,

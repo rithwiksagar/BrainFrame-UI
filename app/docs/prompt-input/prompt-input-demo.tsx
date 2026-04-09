@@ -38,7 +38,26 @@ function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: an
           <PromptInputButton />
         </PromptInputActions>
       </PromptInput>
-      : <CodeBlockClient code="use client "/>}
+      : <div className="ml-60 md:ml-0"><CodeBlockClient code={`"use client";
+import { PromptInput, PromptInputActions, PromptInputAttachments, PromptInputButton,
+PromptInputTextArea} from "@/components/ai/PromptInput";
+export default function PromptInputExample() {
+  return (
+    <PromptInput
+      value={value}
+      setValue={setValue}
+      onSubmit={handlesubmit}
+      isLoading={isLoading}
+    >
+      <PromptInputTextArea placeholder="Ask me" />
+      <PromptInputActions>
+        <PromptInputAttachments />
+        <PromptInputButton />
+      </PromptInputActions>
+    </PromptInput>
+  );
+}`}/>
+</div>}
     </div>
   );
 }
