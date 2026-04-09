@@ -38,7 +38,7 @@ function PreviewPageContent({ children }: { children: ReactNode }) {
       <div
         className="h-96 w-80 md:w-132 md:h-110 pb-1 md:pb-2 border dark:border-neutral-800/80
            border-neutral-300
-           rounded-xl flex justify-center"
+           rounded-xl flex justify-center overflow-scroll [scrollbar-width:none]"
       >
         {children}
       </div>
