@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/libs/utils";
+import { cn } from "@/lib/utils";
 import { Plus, SendHorizontal, Square } from "lucide-react";
 import { createContext, useContext, useRef, useState } from "react";
 

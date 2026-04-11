@@ -10,7 +10,7 @@ import {
   PromptInputButton,
   PromptInputTextArea,
 } from "@/registry/new-york/prompt-input/PromptInput";
-import { UsageCode } from "@/app/docs/prompt-input/prompt-input-demo";
+import { PromptInputCode } from "@/constants";
 export default function DisplayFrame() {
   const [preview, setPreview] = useState(true);
   const [value, setValue] = useState("");
@@ -85,7 +85,7 @@ export default function DisplayFrame() {
       {!preview && (
         <div className="overflow-scroll [scrollbar-width:none]">
           <CodeBlock
-            code={UsageCode}
+            code={PromptInputCode}
           />
         </div>
       )}

@@ -22,7 +22,7 @@ export const sidebarItems: sidebaritems[] = [
     items: [
       { title: "Home", href: "/" },
       { title: "Introduction", href: "/docs/introduction" },
-      { title: "Installation", href: "/docs/installation" },
+      { title: "Quick Start", href: "/docs/quick-start" },
     ],
   },
   {

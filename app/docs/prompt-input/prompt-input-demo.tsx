@@ -13,35 +13,10 @@ import CommandBlock from "@/components/commandblock";
 import CodeBlockClient from "@/components/codeblock";
 import { usePreviewContext } from "@/hooks/usePreviewContext";
 import { CopyButton } from "@/components/copybutton";
+import { PromptInputCode } from "@/constants";
 
 const CommandLink: string = "https://brain-frame-ui.vercel.app/r/prompt-input.json";
-export const UsageCode = `"use client";
-import { PromptInput, PromptInputActions, PromptInputAttachments, PromptInputButton,
-PromptInputTextArea} from "@/components/ai/PromptInput";
-export default function PromptInputExample() {
-  return (
-  const [value, setValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-<PromptInput
-        value={value}
-        setValue={setValue}
-        onSubmit={() => {
-          if (!value.trim() || isLoading) return;
-          setIsLoading(true);
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 2000);
-        }}
-        isLoading={isLoading}
-      >
-        <PromptInputTextArea placeholder="Ask me anything..." />
-        <PromptInputActions>
-          <PromptInputAttachments />
-          <PromptInputButton />
-        </PromptInputActions>
-      </PromptInput>
-  );
-}`
+
 
 function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: any) {
   const { preview } = usePreviewContext();
@@ -67,7 +42,7 @@ function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: an
         </PromptInputActions>
       </PromptInput></div>
       : <div className="">
-        <CodeBlockClient code={UsageCode}/>
+        <CodeBlockClient code={PromptInputCode}/>
 </div>}
     </div>
   );
