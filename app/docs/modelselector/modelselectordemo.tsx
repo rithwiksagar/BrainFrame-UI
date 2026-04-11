@@ -61,8 +61,7 @@ const CommandLink: string = "https://brain-frame-ui.vercel.app/r/model-selector.
 function ModelSelectorDemoContent({ defaultModel, setDefaultModel }: any) {
   const { preview } = usePreviewContext();
   return (
-    <>
-    <div className="flex justify-center items-center md:h-200 h-94">
+    <div className="flex justify-center items-center md:h-100 h-94">
       {preview ? <ModelSelector
         models={models}
         defaultModel={defaultModel}
@@ -74,9 +73,8 @@ function ModelSelectorDemoContent({ defaultModel, setDefaultModel }: any) {
           <ModelItems />
         </ModelContent>
       </ModelSelector>
-        : <CodeBlockClient code={ModelSelectorCode}/>}
+        : ""}
     </div>
-    </>
   );
 }
 
