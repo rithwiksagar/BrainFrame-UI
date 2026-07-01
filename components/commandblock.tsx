@@ -59,7 +59,7 @@ export default function CommandBlock({CommandLink}: {CommandLink: string}) {
     <CopyButton content={currentCmd}/>
       </div>
       <div className="flex-1 p-4 text-neutral-600 dark:text-neutral-400 max-w-screen whitespace-nowrap 
-      overflow-x-scroll [scrollbar-width:thin] md:[scrollbar-width:none]">
+      overflow-x-scroll [scrollbar-width:thin] md:[scrollbar-width:none] []]">
         <span className="select-none pr-2">$</span>{currentCmd}
       </div>
     </div>

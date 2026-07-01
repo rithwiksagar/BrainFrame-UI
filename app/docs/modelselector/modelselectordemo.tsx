@@ -57,7 +57,7 @@ const models: modelsType[] = [
     names: ["Mistral Large", "Mistral Small"],
   },
 ];
-const CommandLink: string = "https://brain-frame-ui.vercel.app/r/model-selector.json";
+const CommandLink: string = "https://brainframeui.tech/r/model-selector.json";
 function ModelSelectorDemoContent({ defaultModel, setDefaultModel }: any) {
   const { preview } = usePreviewContext();
   return (

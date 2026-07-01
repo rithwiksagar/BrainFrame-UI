@@ -15,7 +15,7 @@ import { usePreviewContext } from "@/hooks/usePreviewContext";
 import { CopyButton } from "@/components/copybutton";
 import { PromptInputCode } from "@/constants";
 
-const CommandLink: string = "https://brain-frame-ui.vercel.app/r/prompt-input.json";
+const CommandLink: string = "https://brainframeui.tech/r/prompt-input.json";
 
 
 function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: any) {

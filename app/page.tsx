@@ -48,7 +48,7 @@ export default function Home() {
         duration: 0.5,
         ease: easeOut,
       }}
-      className="mt-54 lg:mx-6 flex-1"
+      className="mt-47 lg:mx-6 flex-1"
     >
       <h1 className="text-3xl lg:text-4xl">
         Build AI Interfaces faster with{" "}
