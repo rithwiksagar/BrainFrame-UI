@@ -58,24 +58,31 @@ const models: modelsType[] = [
   },
 ];
 const CommandLink: string = "https://brainframeui.tech/r/model-selector.json";
-function ModelSelectorDemoContent({ defaultModel, setDefaultModel }: any) {
+function ModelSelectorDemoContent({
+  defaultModel,
+  setDefaultModel,
+}: any) {
   const { preview } = usePreviewContext();
-  return (
-    <div className="flex justify-center items-center md:h-100 h-94">
-      {preview ? <ModelSelector
-        models={models}
-        defaultModel={defaultModel}
-        setDefaultModel={setDefaultModel}
-      >
-        <ModelTrigger />
-        <ModelContent>
-          <ModelInput />
-          <ModelItems />
-        </ModelContent>
-      </ModelSelector>
-        : ""}
-    </div>
-  );
+
+  if (preview) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <ModelSelector
+          models={models}
+          defaultModel={defaultModel}
+          setDefaultModel={setDefaultModel}
+        >
+          <ModelTrigger />
+          <ModelContent>
+            <ModelInput />
+            <ModelItems />
+          </ModelContent>
+        </ModelSelector>
+      </div>
+    );
+  }
+
+  return <CodeBlockClient code={ModelSelectorCode.trimStart()} />;
 }
 
 export default function ModelSelectorDemo() {

@@ -1,37 +1,54 @@
-"use client"
+"use client";
+
 import { useEffect, useState } from "react";
-import { CopyButton } from "./copybutton";
+
+let shikiInstance: any = null;
 
 export default function CodeBlockClient({ code }: { code: string }) {
   const [html, setHtml] = useState("");
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains("dark");
-    setIsDark(isDarkMode);
+    const updateTheme = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
 
-    const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains("dark");
-      setIsDark(isDark);
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
     });
 
-    observer.observe(document.documentElement, { attributes: true });
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    import("shiki").then(async (shiki) => {
-      const result = await shiki.codeToHtml(code, {
+    async function highlight() {
+      if (!shikiInstance) {
+        const { createHighlighter } = await import("shiki");
+
+        shikiInstance = await createHighlighter({
+          themes: ["github-dark", "github-light"],
+          langs: ["tsx"],
+        });
+      }
+
+      const html = shikiInstance.codeToHtml(code.trimStart(), {
         lang: "tsx",
         theme: isDark ? "github-dark" : "github-light",
         transformers: [
           {
-            pre(node) {
+            pre(node: any) {
               node.properties.style = "";
               node.properties.className = "";
             },
-            span(node) {
-              if (node.properties.style && typeof node.properties.style === 'string') {
+            span(node: any) {
+              if (
+                typeof node.properties.style === "string"
+              ) {
                 node.properties.style = node.properties.style
                   .replace(/background-color:[^;]+;?/g, "")
                   .trim();
@@ -41,16 +58,28 @@ export default function CodeBlockClient({ code }: { code: string }) {
         ],
       });
 
-      setHtml(result);
-    });
+      setHtml(html);
+    }
+
+    highlight();
   }, [code, isDark]);
 
   return (
-    <div className="w-fit ml-4 overflow-scroll [scrollbar-width:none]">
+    <div className="w-full px-4">
       <div
-        className="text-md [&_pre]:bg-transparent [&_pre]:p-0 [&_code]:bg-transparent [&_span]:bg-transparent"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+  className="
+    text-sm
+    [&_pre]:!m-0
+    [&_pre]:!mt-0
+    [&_pre]:!pt-4
+    [&_pre]:bg-transparent
+    [&_pre]:overflow-visible
+    [&_pre]:whitespace-pre
+    [&_code]:bg-transparent
+    [&_span]:bg-transparent
+  "
+  dangerouslySetInnerHTML={{ __html: html }}
+/>
     </div>
   );
 }

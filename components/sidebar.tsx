@@ -26,50 +26,31 @@ export const sidebarItems: sidebaritems[] = [
     ],
   },
   {
-    title: "AI primitives",
+    title: "AI Primitives",
     id: "2",
     items: [
       { title: "Model Selector", href: "/docs/modelselector" },
       { title: "Prompt Input", href: "/docs/prompt-input" },
-      { title: "Message", href: "/docs/message" },
+      { title: "Message Bubble", href: "/docs/message" },
       { title: "Prompt Suggestion", href: "/docs/prompt-suggestion" },
-      { title: "Chain of Thought", href: "/docs/chain-of-thought" },
-      { title: "Feedback Bar", href: "/docs/feedback-bar" },
+      { title: "Shimmering Text", href: "/docs/shimmering-text" },
+      { title: "With Attachments", href: "/docs/attachments" },
+      { title: "Streaming Output", href: "/docs/streaming-output"}
     ],
   },
   {
-    title: "Content",
+    title: "Special Components",
     id: "3",
     items: [
-      { title: "Markdown", href: "/docs/markdown" },
-      { title: "Code Block", href: "/docs/code-block" },
-      { title: "Image", href: "/docs/image" },
+      { title: "Error Message", href: "/docs/error-message" },
+      { title: "Gooey AI Input", href: "/docs/gooey-input" },
+      { title: "Expandable Input", href: "/docs/expandable-input" },
       { title: "File Upload", href: "/docs/file-upload" },
-      { title: "Loader", href: "/docs/loader" },
+      { title: "Citations tooltip", href: "/docs/citation" },
     ],
   },
-  {
-    title: "Content",
-    id: "4",
-    items: [
-      { title: "Markdown", href: "/docs/markdown" },
-      { title: "Code Block", href: "/docs/code-block" },
-      { title: "Image", href: "/docs/image" },
-      { title: "File Upload", href: "/docs/file-upload" },
-      { title: "Loader", href: "/docs/loader" },
-    ],
-  },
-  {
-    title: "Content",
-    id: "5",
-    items: [
-      { title: "Markdown", href: "/docs/markdown" },
-      { title: "Code Block", href: "/docs/code-block" },
-      { title: "Image", href: "/docs/image" },
-      { title: "File Upload", href: "/docs/file-upload" },
-      { title: "Loader", href: "/docs/loader" },
-    ],
-  },
+  
+  
 ];
 
 interface sidebarProps {

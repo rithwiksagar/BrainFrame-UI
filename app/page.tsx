@@ -52,7 +52,7 @@ export default function Home() {
     >
       <h1 className="text-3xl lg:text-4xl">
         Build AI Interfaces faster with{" "}
-        <span className="font-medium  tracking-wide">BrainFrame</span>
+        <span className="font-medium tracking-wide">BrainFrame</span>
       </h1>
       <h4 className="text-lg md:text-xl lg:text-2xl mt-2 text-neutral-500">
         Composable UI components built for AI applications.

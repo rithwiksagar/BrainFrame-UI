@@ -72,6 +72,7 @@ const models: modelsType[] = [
     names: ["Mistral Large", "Mistral Small"],
   },
 ];
+
 export default function ModelSelectorExample(){
     const [defaultModel, setDefaultModel] = useState("GPT-4o");
     return (
@@ -86,5 +87,5 @@ export default function ModelSelectorExample(){
           <ModelItems />
         </ModelContent>
       </ModelSelector>
-)
+ )
 }`;
