@@ -12,11 +12,11 @@ export default function ComponentPreviewCard({
 }: ComponentPreviewCardProps) {
   return (
     <div className="w-84 md:w-158 h-180 md:h-200 bg-neutral-200 rounded-2xl p-2 grid grid-rows-2 gap-4 min-h-0 dark:bg-neutral-800 -mx-2">
-      <div className="bg-background rounded-xl flex items-center justify-center dark:bg-neutral-900/80">
+      <div className="bg-background rounded-xl flex items-center justify-center dark:bg-neutral-900">
         {component}
       </div>
 
-      <div className="bg-background rounded-xl overflow-auto min-h-0 dark:bg-neutral-900/80">
+      <div className="bg-background rounded-xl overflow-auto min-h-0 dark:bg-neutral-900">
         <CodeBlock name={code} />
       </div>
     </div>

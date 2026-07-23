@@ -6,8 +6,6 @@ import {
   ModelSelector,
   ModelTrigger,
 } from "@/components/ai/ModelSelector";
-import CodeBlock from "@/components/codeblock";
-import CodeBlockClient from "@/components/codeblock";
 import CommandBlock from "@/components/commandblock";
 import ComponentPreviewCard from "@/components/previewpage";
 
@@ -86,7 +84,7 @@ export default function ModelSelectorDemo() {
             setDefaultModel={setDefaultModel}
           />
         }
-        code= "modelselector"
+        code= "modelSelector"
       />
       <h6 className="mt-6 mb-2 text-xl ml-1">Installation</h6>
       <CommandBlock CommandLink={CommandLink} />

@@ -32,7 +32,7 @@ export default function CommandBlock({CommandLink}: {CommandLink: string}) {
   const [currentCmd, setCurrentCmd] = useState(`pnpm dlx shadcn@latest add ${CommandLink}`)
   return (
     <div
-      className="h-26 w-80 md:w-158 pb-1 md:pb-2 bg-neutral-200/40 border border-neutral-200
+      className="h-26 w-80 md:w-156 pb-1 md:pb-2 bg-neutral-200/40 border border-neutral-200
       dark:border-neutral-800 dark:bg-neutral-800/50 rounded-xl"
     ><div className="flex justify-between pt-2 px-4 ">
       <div className="flex">
