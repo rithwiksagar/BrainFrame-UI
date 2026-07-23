@@ -86,7 +86,7 @@ export default function ModelSelectorDemo() {
         }
         code= "modelSelectorExample"
       />
-      <Installation CLILink={CommandLink} code="" />
+      <Installation CLILink={CommandLink} code="modelSelector" path="components/ui/modelSelector.tsx"/>
     </>
   );
 }

@@ -63,7 +63,7 @@ export default function PromptInputDemo() {
         }
         code="promptInputExample"
       />
-    <Installation CLILink={CommandLink} code=""/>
+    <Installation CLILink={CommandLink} code="promptInput" path="components/ui/promptInput.tsx"/>
     </>
   );
 }

@@ -59,7 +59,7 @@ export default function CodeBlock({
   return (
     <div className="relative h-full w-full min-h-0 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
       {data && (
-        <div className="absolute right-4 top-4 z-10">
+        <div className="sticky top-4 ml-auto w-fit z-10 px-4">
           <CopyButton content={data.code} />
         </div>
       )}

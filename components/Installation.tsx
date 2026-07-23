@@ -7,8 +7,9 @@ import { useId, useState } from "react";
 import CodeBlock from "./codeblock";
 
 type InstallationProps = {
-  CLILink: String;
-  code: String;
+  CLILink: string;
+  path: string,
+  code: string;
 };
 
 interface CommandBlockItem {
@@ -16,7 +17,7 @@ interface CommandBlockItem {
   cmd: string;
 }
 
-export default function Installation({ CLILink, code }: InstallationProps) {
+export default function Installation({ CLILink, path, code }: InstallationProps) {
   const [isDefault, setIsDefault] = useState(true);
   return (
     <>
@@ -52,7 +53,7 @@ export default function Installation({ CLILink, code }: InstallationProps) {
         </div>
       </div>
       <div className="h-fit w-80 md:w-136 mt-10">
-        {isDefault ? <CommandBlock CLILink={CLILink} /> : <ManualSection />}
+        {isDefault ? <CommandBlock CLILink={CLILink} /> : <ManualSection path={path} code={code}/>}
       </div>
     </>
   );
@@ -123,7 +124,7 @@ function CommandBlock({ CLILink }: { CLILink: String }) {
   );
 }
 
-function ManualSection() {
+function ManualSection({path, code}: {path: string, code: string}) {
   return (
     <div>
       <div>
@@ -154,10 +155,10 @@ function ManualSection() {
         <h6 className="text-md font-semibold mb-2">Step 3: Copy the code</h6>
         <div className="w-156 h-100 bg-neutral-200 rounded-2xl dark:bg-neutral-800">
           <div className="p-1 px-4 text-neutral-600 dark:text-neutral-400 tracking-wide">
-            components/ui/promptInput.tsx
+            {path}
           </div>
           <div className="mx-2 bg-white rounded-xl h-88 dark:bg-neutral-900">
-            <CodeBlock name="promptInput" />
+            <CodeBlock name={code} />
           </div>
         </div>
       </div>
