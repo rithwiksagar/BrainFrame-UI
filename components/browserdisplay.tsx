@@ -22,7 +22,7 @@ export default function DisplayFrame() {
     }, 5000);
   }
   return (
-    <div className="flex flex-col w-[min(100vw-2rem,25rem)] md:w-210 h-140 dark:bg-neutral-900 bg-white rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
+    <div className="flex flex-col w-[min(100vw-2rem,25rem)] md:w-210 h-140 dark:bg-neutral-900/80 bg-white rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
       <Toaster position="top-center" className="top-[40%]! !-translate-y-1/2" />
       <div className="border-b border-neutral-200 dark:border-neutral-800">
         <div className=" flex justify-between items-center my-2 mx-6">

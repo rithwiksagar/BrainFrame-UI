@@ -74,7 +74,7 @@ export default function Home() {
       <div
         className="h-130 lg:h-150 w-full md:max-w-screen border
        border-neutral-300 dark:border-neutral-800 mt-36 
-       rounded-xl bg-neutral-200/50 dark:bg-neutral-900/40
+       rounded-xl bg-neutral-200/50 dark:bg-neutral-800/70
        flex justify-center items-center"
       >
         <DisplayFrame />
