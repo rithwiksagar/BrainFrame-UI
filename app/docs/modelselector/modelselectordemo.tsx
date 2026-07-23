@@ -6,11 +6,10 @@ import {
   ModelSelector,
   ModelTrigger,
 } from "@/components/ai/ModelSelector";
+import CodeBlock from "@/components/codeblock";
 import CodeBlockClient from "@/components/codeblock";
 import CommandBlock from "@/components/commandblock";
-import PreviewPage from "@/components/previewpage";
-import { ModelSelectorCode } from "@/constants";
-import { usePreviewContext } from "@/hooks/usePreviewContext";
+import ComponentPreviewCard from "@/components/previewpage";
 
 import { ReactNode, useContext, useState } from "react";
 
@@ -58,40 +57,37 @@ const models: modelsType[] = [
   },
 ];
 const CommandLink: string = "https://brainframeui.tech/r/model-selector.json";
-function ModelSelectorDemoContent({
-  defaultModel,
-  setDefaultModel,
-}: any) {
-  const { preview } = usePreviewContext();
-
-  if (preview) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <ModelSelector
-          models={models}
-          defaultModel={defaultModel}
-          setDefaultModel={setDefaultModel}
-        >
-          <ModelTrigger />
-          <ModelContent>
-            <ModelInput />
-            <ModelItems />
-          </ModelContent>
-        </ModelSelector>
-      </div>
-    );
-  }
-
-  return <CodeBlockClient code={ModelSelectorCode.trimStart()} />;
+function ModelSelectorDemoContent({ defaultModel, setDefaultModel }: any) {
+  return (
+    <div className="flex justify-center items-center h-full">
+      <ModelSelector
+        models={models}
+        defaultModel={defaultModel}
+        setDefaultModel={setDefaultModel}
+      >
+        <ModelTrigger />
+        <ModelContent>
+          <ModelInput />
+          <ModelItems />
+        </ModelContent>
+      </ModelSelector>
+    </div>
+  );
 }
 
 export default function ModelSelectorDemo() {
   const [defaultModel, setDefaultModel] = useState("GPT-4o");
   return (
     <>
-      <PreviewPage>
-        <ModelSelectorDemoContent defaultModel={defaultModel} setDefaultModel={setDefaultModel} />
-      </PreviewPage>
+      <ComponentPreviewCard
+        component={
+          <ModelSelectorDemoContent
+            defaultModel={defaultModel}
+            setDefaultModel={setDefaultModel}
+          />
+        }
+        code= "modelselector"
+      />
       <h6 className="mt-6 mb-2 text-xl ml-1">Installation</h6>
       <CommandBlock CommandLink={CommandLink} />
     </>

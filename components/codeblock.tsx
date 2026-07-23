@@ -1,85 +1,88 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CopyButton } from "./copybutton";
 
-let shikiInstance: any = null;
+type HighlightedCode = {
+  code: string;
+  dark: string;
+  light: string;
+};
 
-export default function CodeBlockClient({ code }: { code: string }) {
+export default function CodeBlock({
+  name,
+}: {
+  name: string;
+}) {
+  const [data, setData] = useState<HighlightedCode | null>(null);
   const [html, setHtml] = useState("");
-  const [isDark, setIsDark] = useState(false);
+
+  
 
   useEffect(() => {
-    const updateTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
+    let observer: MutationObserver;
 
-    updateTheme();
+    async function load() {
+      const res = await fetch(`/generated/${name}.json`);
+      const json: HighlightedCode = await res.json();
 
-    const observer = new MutationObserver(updateTheme);
+      setData(json);
 
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+      const updateTheme = () => {
+        const isDark =
+          document.documentElement.classList.contains("dark");
 
-    return () => observer.disconnect();
-  }, []);
+        setHtml(isDark ? json.dark : json.light);
+      };
 
-  useEffect(() => {
-    async function highlight() {
-      if (!shikiInstance) {
-        const { createHighlighter } = await import("shiki");
+      updateTheme();
 
-        shikiInstance = await createHighlighter({
-          themes: ["github-dark", "github-light"],
-          langs: ["tsx"],
-        });
-      }
+      observer = new MutationObserver(updateTheme);
 
-      const html = shikiInstance.codeToHtml(code.trimStart(), {
-        lang: "tsx",
-        theme: isDark ? "github-dark" : "github-light",
-        transformers: [
-          {
-            pre(node: any) {
-              node.properties.style = "";
-              node.properties.className = "";
-            },
-            span(node: any) {
-              if (
-                typeof node.properties.style === "string"
-              ) {
-                node.properties.style = node.properties.style
-                  .replace(/background-color:[^;]+;?/g, "")
-                  .trim();
-              }
-            },
-          },
-        ],
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
       });
-
-      setHtml(html);
     }
 
-    highlight();
-  }, [code, isDark]);
+    load();
+
+    return () => observer?.disconnect();
+  }, [name]);
+
+  const copy = async () => {
+    if (!data) return;
+
+    await navigator.clipboard.writeText(data.code);
+  };
 
   return (
-    <div className="w-full px-4">
+    <div className="relative h-full w-full min-h-0 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      {data && (
+        <div className="absolute right-4 top-4 z-10">
+          <CopyButton content={data.code} />
+        </div>
+      )}
+
       <div
-  className="
-    text-sm
-    [&_pre]:!m-0
-    [&_pre]:!mt-0
-    [&_pre]:!pt-4
-    [&_pre]:bg-transparent
-    [&_pre]:overflow-visible
-    [&_pre]:whitespace-pre
-    [&_code]:bg-transparent
-    [&_span]:bg-transparent
-  "
-  dangerouslySetInnerHTML={{ __html: html }}
-/>
+        className="
+          h-full
+          w-full
+          min-h-0
+          overflow-visible
+          px-4
+
+          [&_pre]:m-0!
+          [&_pre]:h-full!
+          [&_pre]:overflow-visible!
+          [&_pre]:bg-transparent!
+
+          [&_code]:!bg-transparent
+          [&_span]:!bg-transparent
+        "
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
+
 }

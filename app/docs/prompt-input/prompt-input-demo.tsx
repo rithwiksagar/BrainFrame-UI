@@ -7,44 +7,45 @@ import {
   PromptInputTextArea,
 } from "@/registry/new-york/prompt-input/PromptInput";
 
-import PreviewPage from "@/components/previewpage";
 import { useState } from "react";
 import CommandBlock from "@/components/commandblock";
 import CodeBlockClient from "@/components/codeblock";
-import { usePreviewContext } from "@/hooks/usePreviewContext";
 import { CopyButton } from "@/components/copybutton";
-import { PromptInputCode } from "@/constants";
+import CodeBlock from "@/components/codeblock";
+import ComponentPreviewCard from "@/components/previewpage";
 
 const CommandLink: string = "https://brainframeui.tech/r/prompt-input.json";
 
+function PromptInputDemoContent({
+  value,
+  setValue,
+  isLoading,
+  setIsLoading,
+}: any) {
 
-function PromptInputDemoContent({ value, setValue, isLoading, setIsLoading }: any) {
-  const { preview } = usePreviewContext();
 
   return (
     <div className="">
-      { preview ? <div className=" flex flex-col justify-end items-center md:h-108 h-94"><PromptInput
-        value={value}
-        setValue={setValue}
-        onSubmit={() => {
-          if (!value.trim() || isLoading) return;
-          setIsLoading(true);
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 2000);
-        }}
-        isLoading={isLoading}
-      >
-        <PromptInputTextArea placeholder="Ask me anything..." />
-        <PromptInputActions>
-          <PromptInputAttachments />
-          <PromptInputButton />
-        </PromptInputActions>
-      </PromptInput></div>
-      : <div className="">
-        <CodeBlockClient code={PromptInputCode}/>
-</div>}
-    </div>
+
+          <PromptInput
+            value={value}
+            setValue={setValue}
+            onSubmit={() => {
+              if (!value.trim() || isLoading) return;
+              setIsLoading(true);
+              setTimeout(() => {
+                setIsLoading(false);
+              }, 2000);
+            }}
+            isLoading={isLoading}
+          >
+            <PromptInputTextArea placeholder="Ask me anything..." />
+            <PromptInputActions>
+              <PromptInputAttachments />
+              <PromptInputButton />
+            </PromptInputActions>
+          </PromptInput>
+        </div>      
   );
 }
 
@@ -54,11 +55,19 @@ export default function PromptInputDemo() {
 
   return (
     <>
-    <PreviewPage>
-      <PromptInputDemoContent value={value} setValue={setValue} isLoading={isLoading} setIsLoading={setIsLoading} />
-    </PreviewPage>
-    <h6 className="mt-6 mb-2 text-lg ml-1">Installation</h6>
-    <CommandBlock CommandLink={CommandLink}/>
+      <ComponentPreviewCard
+        component={
+          <PromptInputDemoContent
+            value={value}
+            setValue={setValue}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+          />
+        }
+        code="promptInput"
+      />
+      <h6 className="mt-6 mb-2 text-lg ml-1">Installation</h6>
+      <CommandBlock CommandLink={CommandLink} />
     </>
   );
 }

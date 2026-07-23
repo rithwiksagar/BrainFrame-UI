@@ -1,34 +1,3 @@
-export const PromptInputCode = `"use client";
-import { PromptInput, PromptInputActions,PromptInputAttachments,
-PromptInputButton, PromptInputTextArea}from 
-"@/components/ui/PromptInput";
-import { useState } from "react";
-
-export default function PromptInputExample() {
-  const [value, setValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  return (
-          <PromptInput
-              value={value}
-              setValue={setValue}
-              onSubmit={() => {
-                if (!value.trim() || isLoading) return;
-                setIsLoading(true);
-                setTimeout(() => {
-                setIsLoading(false);
-              }, 2000);
-            }}
-        isLoading={isLoading}>
-        <PromptInputTextArea placeholder="Ask me anything..." />
-        <PromptInputActions>
-          <PromptInputAttachments />
-          <PromptInputButton />
-        </PromptInputActions>
-      </PromptInput>
-  );
-}`;
-
-export const ModelSelectorCode = `
 type modelsType = {
   chef: string;
   id: string;
@@ -88,4 +57,4 @@ export default function ModelSelectorExample(){
         </ModelContent>
       </ModelSelector>
  )
-}`;
+}

@@ -15,7 +15,7 @@ export function DocsFooter({
   nextTitle,
 }: FooterProps) {
   return (
-    <div className="flex w-78 md:w-132 justify-between mt-20">
+    <div className="flex w-78 md:w-156 justify-between mt-20">
       <Link
         href={prevHref}
         className="px-3 border inline-flex justify-center items-center gap-1
