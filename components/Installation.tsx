@@ -21,7 +21,7 @@ export default function Installation({ CLILink, path, code }: InstallationProps)
   const [isDefault, setIsDefault] = useState(true);
   return (
     <>
-      <h6 className="mt-10 mb-2 text-xl ml-1 font-semibold">Installation</h6>
+      <h6 className="mt-10 mb-2 text-[20px] ml-1 font-semibold">Installation</h6>
       <div className="flex gap-4 text-md text-neutral-700 dark:text-neutral-400">
         <div
           onClick={() => {
@@ -145,7 +145,7 @@ function ManualSection({path, code}: {path: string, code: string}) {
           <div className="p-1 px-4 text-neutral-600 dark:text-neutral-400 tracking-wide">
             lib/utils.ts
           </div>
-          <div className="mx-2 bg-white rounded-xl h-48 dark:bg-neutral-900">
+          <div className="mx-2 bg-white rounded-xl h-48 dark:bg-neutral-900 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
             <CodeBlock name="clsx" />
           </div>
         </div>
@@ -157,7 +157,7 @@ function ManualSection({path, code}: {path: string, code: string}) {
           <div className="p-1 px-4 text-neutral-600 dark:text-neutral-400 tracking-wide">
             {path}
           </div>
-          <div className="mx-2 bg-white rounded-xl h-88 dark:bg-neutral-900">
+          <div className="mx-2 bg-white rounded-xl h-88 dark:bg-neutral-900 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
             <CodeBlock name={code} />
           </div>
         </div>
