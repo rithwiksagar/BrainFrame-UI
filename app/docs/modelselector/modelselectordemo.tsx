@@ -6,7 +6,7 @@ import {
   ModelSelector,
   ModelTrigger,
 } from "@/components/ai/ModelSelector";
-import CommandBlock from "@/components/commandblock";
+import Installation from "@/components/Installation";
 import ComponentPreviewCard from "@/components/previewpage";
 
 import { ReactNode, useContext, useState } from "react";
@@ -84,10 +84,9 @@ export default function ModelSelectorDemo() {
             setDefaultModel={setDefaultModel}
           />
         }
-        code= "modelSelector"
+        code= "modelSelectorExample"
       />
-      <h6 className="mt-6 mb-2 text-xl ml-1">Installation</h6>
-      <CommandBlock CommandLink={CommandLink} />
+      <Installation CLILink={CommandLink} code="" />
     </>
   );
 }

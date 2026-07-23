@@ -8,11 +8,8 @@ import {
 } from "@/registry/new-york/prompt-input/PromptInput";
 
 import { useState } from "react";
-import CommandBlock from "@/components/commandblock";
-import CodeBlockClient from "@/components/codeblock";
-import { CopyButton } from "@/components/copybutton";
-import CodeBlock from "@/components/codeblock";
 import ComponentPreviewCard from "@/components/previewpage";
+import Installation from "@/components/Installation";
 
 const CommandLink: string = "https://brainframeui.tech/r/prompt-input.json";
 
@@ -64,10 +61,9 @@ export default function PromptInputDemo() {
             setIsLoading={setIsLoading}
           />
         }
-        code="promptInput"
+        code="promptInputExample"
       />
-      <h6 className="mt-6 mb-2 text-lg ml-1">Installation</h6>
-      <CommandBlock CommandLink={CommandLink} />
+    <Installation CLILink={CommandLink} code=""/>
     </>
   );
 }

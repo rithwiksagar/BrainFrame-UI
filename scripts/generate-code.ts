@@ -3,7 +3,7 @@ import path from "path";
 import { createHighlighter } from "shiki";
 
 async function generate() {
-  const examplesDir = path.join(process.cwd(), "examples");
+  const examplesDir = path.join(process.cwd(), "code");
   const outputDir = path.join(process.cwd(), "public", "generated");
 
   await fs.mkdir(outputDir, { recursive: true });

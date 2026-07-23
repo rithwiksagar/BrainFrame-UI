@@ -4,8 +4,9 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import ManualInstallation from "../../../components/mdx/ManualInstallation.mdx"
 import CLIInstallation from "../../../components/mdx/CLIInstallation.mdx"
-import { DocsFooter } from "@/components/docsfooter";
-export default function Installation() {
+
+
+export default function InstallationSteps() {
   const [isDefault, setIsDefault] = useState(true);
   return (
     <div>
