@@ -57,13 +57,14 @@ export default function CodeBlock({
   };
 
   return (
-    <div className="relative h-full w-full min-h-0 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-      {data && (
-        <div className="sticky top-4 ml-auto w-fit z-10 px-4">
-          <CopyButton content={data.code} />
-        </div>
-      )}
+  <div className="relative h-full w-full min-h-0">
+    {data && (
+      <div className="absolute top-4 right-4 z-20">
+        <CopyButton content={data.code} />
+      </div>
+    )}
 
+    <div className="h-full overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
       <div
         className="
           h-full
@@ -71,6 +72,7 @@ export default function CodeBlock({
           min-h-0
           overflow-visible
           px-4
+          pt-12
 
           [&_pre]:m-0!
           [&_pre]:h-full!
@@ -83,6 +85,8 @@ export default function CodeBlock({
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>
-  );
+  </div>
+);
+
 
 }

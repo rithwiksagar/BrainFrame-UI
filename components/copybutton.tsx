@@ -4,14 +4,14 @@ import { CircleCheck, Copy } from "lucide-react";
 import { easeOut, motion } from "motion/react";
 import { useState } from "react";
 
-export function CopyButton({content}: {content: string}) {
+export function CopyButton({ content }: { content: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <motion.button
       whileTap={{
         scale: 0.9,
         opacity: 0,
-        filter: "blur(4px)"
+        filter: "blur(4px)",
       }}
       transition={{
         duration: 0.2,
@@ -20,7 +20,9 @@ export function CopyButton({content}: {content: string}) {
       onClick={async () => {
         await navigator.clipboard.writeText(content);
         setCopied(true);
-        setTimeout(()=>{setCopied(false)},5000)
+        setTimeout(() => {
+          setCopied(false);
+        }, 5000);
       }}
     >
       {!copied && (

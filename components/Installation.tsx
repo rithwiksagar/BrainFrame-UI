@@ -131,7 +131,7 @@ function ManualSection({path, code}: {path: string, code: string}) {
         <h6 className="text-md font-semibold mb-2">
           Step 1: Install Dependencies
         </h6>
-        <div className="not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md flex items-center justify-between w-156">
+        <div className="not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md flex items-center justify-between md:w-156 space-x-2">
           <pre className="overflow-x-auto text-sm tracking-wide">
             <code>npm install motion clsx tailwind-merge lucide-react</code>
           </pre>
@@ -141,7 +141,7 @@ function ManualSection({path, code}: {path: string, code: string}) {
 
       <div className="mt-10">
         <h6 className="text-md font-semibold mb-2">Step 2: Add Utils File</h6>
-        <div className="w-156 h-60 bg-neutral-200 rounded-2xl dark:bg-neutral-800">
+        <div className="md:w-156 h-60 bg-neutral-200 rounded-2xl dark:bg-neutral-800">
           <div className="p-1 px-4 text-neutral-600 dark:text-neutral-400 tracking-wide">
             lib/utils.ts
           </div>
@@ -153,7 +153,7 @@ function ManualSection({path, code}: {path: string, code: string}) {
 
       <div className="mt-10">
         <h6 className="text-md font-semibold mb-2">Step 3: Copy the code</h6>
-        <div className="w-156 h-100 bg-neutral-200 rounded-2xl dark:bg-neutral-800">
+        <div className="md:w-156 h-100 bg-neutral-200 rounded-2xl dark:bg-neutral-800">
           <div className="p-1 px-4 text-neutral-600 dark:text-neutral-400 tracking-wide">
             {path}
           </div>
