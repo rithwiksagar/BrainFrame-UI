@@ -26,12 +26,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className="font-helvetica antialiased
-       selection:bg-neutral-800 dark:selection:bg-white
-        selection:text-white dark:selection:text-black "
-      >
+    <html
+  lang="en"
+  suppressHydrationWarning
+  className={`${geistSans.variable} ${geistMono.variable}`}
+>
+  <body
+    className="font-helvetica antialiased
+      selection:bg-neutral-800 dark:selection:bg-white
+      selection:text-white dark:selection:text-black"
+  >
         <ThemeProvider attribute="class" defaultTheme="system">
           <ClientLayout>{children}</ClientLayout>
         </ThemeProvider>

@@ -46,6 +46,7 @@ const promptInputTextAreaProps = [
   {
     prop: "placeholder",
     type: "string",
+    default: "Ask me Anything...",
     description: "Placeholder text displayed when the input is empty.",
   },
 ];

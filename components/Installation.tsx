@@ -1,14 +1,13 @@
 "use client";
 
-import { spring } from "motion";
 import { motion } from "motion/react";
 import { CopyButton } from "./copybutton";
-import { useId, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CodeBlock from "./codeblock";
 
 type InstallationProps = {
   CLILink: string;
-  path: string,
+  path: string;
   code: string;
 };
 
@@ -17,99 +16,105 @@ interface CommandBlockItem {
   cmd: string;
 }
 
+type UnderlineRect = { left: number; width: number };
+
 export default function Installation({ CLILink, path, code }: InstallationProps) {
   const [isDefault, setIsDefault] = useState(true);
+
+  const cliRef = useRef<HTMLDivElement>(null);
+  const manualRef = useRef<HTMLDivElement>(null);
+  const [underline, setUnderline] = useState<UnderlineRect | null>(null);
+
+  useEffect(() => {
+    const el = isDefault ? cliRef.current : manualRef.current;
+    if (el) {
+      setUnderline({ left: el.offsetLeft, width: el.offsetWidth });
+    }
+  }, [isDefault]);
+
   return (
     <>
       <h6 className="mt-10 mb-2 text-[20px] ml-1 font-semibold">Installation</h6>
-      <div className="flex gap-4 text-md text-neutral-700 dark:text-neutral-400">
+      <div className="flex gap-4 text-md text-neutral-700 dark:text-neutral-400 relative">
         <div
-          onClick={() => {
-            setIsDefault(true);
-          }}
-          className={`cursor-pointer px-1 relative`}
+          ref={cliRef}
+          onClick={() => setIsDefault(true)}
+          className="cursor-pointer px-1"
         >
-          CLI{" "}
-          {isDefault && (
-            <motion.div
-              layoutId="underline"
-              className="absolute left-0 right-0 -bottom-1 h-[2px] bg-neutral-600 dark:bg-neutral-300"
-            ></motion.div>
-          )}
+          CLI
         </div>
         <div
-          onClick={() => {
-            setIsDefault(false);
-          }}
-          className={`cursor-pointer px-1 relative`}
+          ref={manualRef}
+          onClick={() => setIsDefault(false)}
+          className="cursor-pointer px-1"
         >
-          Manual{" "}
-          {!isDefault && (
-            <motion.div
-              layoutId="underline"
-              className="absolute left-0 right-0 -bottom-1 h-[2px] bg-black dark:bg-white"
-            ></motion.div>
-          )}
+          Manual
         </div>
+
+        {underline && (
+          <motion.div
+            className="absolute -bottom-1 h-[2px] bg-neutral-600 dark:bg-neutral-300"
+            initial={false}
+            animate={{ left: underline.left, width: underline.width }}
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          />
+        )}
       </div>
       <div className="h-fit w-80 md:w-136 mt-10">
-        {isDefault ? <CommandBlock CLILink={CLILink} /> : <ManualSection path={path} code={code}/>}
+        {isDefault ? <CommandBlock CLILink={CLILink} /> : <ManualSection path={path} code={code} />}
       </div>
     </>
   );
 }
 
-function CommandBlock({ CLILink }: { CLILink: String }) {
-  const cmdId = useId();
+function CommandBlock({ CLILink }: { CLILink: string }) {
   const CommandBlockItems: CommandBlockItem[] = [
-    {
-      title: "pnpm",
-      cmd: `pnpm dlx shadcn@latest add ${CLILink}`,
-    },
-    {
-      title: "npm",
-      cmd: `npx shadcn@latest add ${CLILink}`,
-    },
-    {
-      title: "yarn",
-      cmd: `yarn dlx shadcn@latest add ${CLILink}`,
-    },
-    {
-      title: "bun",
-      cmd: `bunx --bun shadcn@latest add ${CLILink}`,
-    },
+    { title: "pnpm", cmd: `pnpm dlx shadcn@latest add ${CLILink}` },
+    { title: "npm", cmd: `npx shadcn@latest add ${CLILink}` },
+    { title: "yarn", cmd: `yarn dlx shadcn@latest add ${CLILink}` },
+    { title: "bun", cmd: `bunx --bun shadcn@latest add ${CLILink}` },
   ];
-  const [currentCmd, setCurrentCmd] = useState(
-    `pnpm dlx shadcn@latest add ${CLILink}`,
-  );
+
+  const [currentCmd, setCurrentCmd] = useState(CommandBlockItems[0].cmd);
+  const itemRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const [underline, setUnderline] = useState<UnderlineRect | null>(null);
+
+  useEffect(() => {
+    const activeTitle = CommandBlockItems.find((i) => i.cmd === currentCmd)?.title;
+    const el = activeTitle ? itemRefs.current[activeTitle] : null;
+    if (el) {
+      setUnderline({ left: el.offsetLeft, width: el.offsetWidth });
+    }
+  }, [currentCmd]);
+
   return (
     <div
       className="h-26 w-80 md:w-156 pb-1 md:pb-2 bg-neutral-200/40 border border-neutral-200
       dark:border-neutral-800 dark:bg-neutral-800/50 rounded-xl"
     >
       <div className="flex justify-between pt-2 px-4 ">
-        <div className="flex">
+        <div className="flex relative">
           {CommandBlockItems.map((item) => (
             <button
               key={item.title}
+              ref={(el) => {
+                itemRefs.current[item.title] = el;
+              }}
               onClick={() => setCurrentCmd(item.cmd)}
-              className="relative px-2 cursor-pointer "
+              className="px-2 cursor-pointer"
             >
               {item.title}
-
-              {currentCmd === item.cmd && (
-                <motion.div
-                  layoutId={`${cmdId}`}
-                  transition={{
-                    type: spring,
-                    stiffness: 500,
-                    damping: 30,
-                  }}
-                  className="absolute left-0 -bottom-1 w-full h-0.5 bg-black dark:bg-white"
-                ></motion.div>
-              )}
             </button>
           ))}
+
+          {underline && (
+            <motion.div
+              className="absolute -bottom-1 h-0.5 bg-black dark:bg-white"
+              initial={false}
+              animate={{ left: underline.left, width: underline.width }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
+          )}
         </div>
         <CopyButton content={currentCmd} />
       </div>
@@ -124,7 +129,7 @@ function CommandBlock({ CLILink }: { CLILink: String }) {
   );
 }
 
-function ManualSection({path, code}: {path: string, code: string}) {
+function ManualSection({ path, code }: { path: string; code: string }) {
   return (
     <div>
       <div>
