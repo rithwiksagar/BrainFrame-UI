@@ -105,6 +105,7 @@ export default function PromptInputDemo() {
       />
       <h6 className="mt-14 text-[20px] font-semibold">API Reference</h6>
       <p className="mb-4 mt-0">Reference for all public props available on this component.</p>
+
       <PropsTable
         title="PromptInput Props"
         data={promptInputProps}
@@ -113,6 +114,7 @@ export default function PromptInputDemo() {
         title="promptInputTextArea Props"
         data={promptInputTextAreaProps}
       />
+
     </>
   );
 }
