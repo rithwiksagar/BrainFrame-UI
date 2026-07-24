@@ -22,9 +22,9 @@ export default function PropsTable({
         {title}
       </h6>
 
-        <div className="overflow-x-auto">
+       <div className="overflow-x-auto">
         <div className="inline-block rounded-xl border border-neutral-300 dark:border-neutral-700">
-          <table className="min-w-175 border-collapse text-left">
+          <table className="max-w-156 border-collapse text-left">
             <thead className="border-b bg-muted/40">
               <tr>
                 <th className="px-4 py-3 text-sm font-semibold">Prop</th>
