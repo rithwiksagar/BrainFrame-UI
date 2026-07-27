@@ -2,7 +2,7 @@
 
 import Installation from "@/components/Installation";
 import ComponentPreviewCard from "@/components/previewpage";
-import { GooeyAI, GooeyAIButton, GooeyAIDialog, GooeyAITextArea } from "@/registry/new-york/gooey-AI/GooeyAI";
+import { GooeyAI, GooeyAIButton, GooeyAIDialog, GooeyAITextArea } from "@/registry/new-york/gooey-ai/GooeyAI";
 
 import { useState } from "react";
 

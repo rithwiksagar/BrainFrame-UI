@@ -1,19 +1,36 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "Brainframe Shadcn Registry",
-  "homepage": "https://brain-frame-ui.vercel.app",
+  "name": "Brainframe UI Registry",
+  "homepage": "https://brainframeui.tech",
   "items": [
     {
-        "name": "prompt-input",
-        "description": "A composable prompt input component with controlled state, and customizable actions.",
-        "type":"registry:component",
-        "dependencies": ["lucide-react"],
-        "files":[
-            {
-                "path": "registry/new-york/prompt-input/PromptInput.tsx",
-                "type": "registry:ui"
-            }
-        ]
+      "name": "prompt-input",
+      "description": "A composable prompt input component with controlled state and customizable actions.",
+      "type": "registry:component",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/prompt-input/PromptInput.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "gooey-ai",
+      "description": "A gooey AI prompt component with an expandable dialog, controlled textarea, and customizable trigger.",
+      "type": "registry:component",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/gooey-ai/GooeyAI.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
