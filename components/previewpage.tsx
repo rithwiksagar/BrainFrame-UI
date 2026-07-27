@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 interface ComponentPreviewCardProps {
   component: ReactNode;
   code: string;
-  classname: string
+  classname?: string
 }
 
 export default function ComponentPreviewCard({
