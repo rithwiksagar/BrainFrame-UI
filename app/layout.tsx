@@ -33,7 +33,7 @@ export default function RootLayout({
 >
   <body
     className="font-helvetica antialiased
-      selection:bg-neutral-800 dark:selection:bg-white
+      selection:bg-neutral-700 dark:selection:bg-white
       selection:text-white dark:selection:text-black"
   >
         <ThemeProvider attribute="class" defaultTheme="system">

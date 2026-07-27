@@ -88,16 +88,12 @@ export default function PromptInputDemo() {
   return (
     <>
       <ComponentPreviewCard
-        component={
-          <PromptInputDemoContent
-            value={value}
-            setValue={setValue}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-          />
-        }
-        code="promptInputExample"
-      />
+        component={<PromptInputDemoContent
+          value={value}
+          setValue={setValue}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading} />}
+        code="promptInputExample" classname={""}      />
       <Installation
         CLILink={CommandLink}
         code="promptInput"

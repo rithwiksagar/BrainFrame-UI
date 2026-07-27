@@ -1,18 +1,21 @@
 import { ReactNode } from "react";
 import CodeBlock from "./codeblock";
+import { cn } from "@/lib/utils";
 
 interface ComponentPreviewCardProps {
   component: ReactNode;
   code: string;
+  classname: string
 }
 
 export default function ComponentPreviewCard({
   component,
   code,
+  classname
 }: ComponentPreviewCardProps) {
   return (
     <div className="w-84 md:w-158 h-180 md:h-200 bg-neutral-200 rounded-2xl p-2 grid grid-rows-2 gap-4 min-h-0 dark:bg-neutral-800 -mx-2">
-      <div className="bg-background rounded-xl flex items-center justify-center dark:bg-neutral-900 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+      <div className={cn("bg-background rounded-xl flex items-center justify-center dark:bg-neutral-900 shadow-[0_3px_10px_rgb(0,0,0,0.2)]", classname)}>
         {component}
       </div>
 
