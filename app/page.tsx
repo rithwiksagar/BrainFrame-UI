@@ -1,6 +1,6 @@
 "use client";
 
-import DisplayFrame from "@/components/browserdisplay";
+import DisplayFrame from "@/components/BrowserDisplay";
 import { ArrowUpRight } from "lucide-react";
 import { easeOut, motion } from "motion/react";
 import Link from "next/link";

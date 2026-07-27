@@ -7,7 +7,7 @@ import {
   ModelTrigger,
 } from "@/components/ai/ModelSelector";
 import Installation from "@/components/Installation";
-import ComponentPreviewCard from "@/components/previewpage";
+import ComponentPreviewCard from "@/components/ComponentPreviewCard";
 
 import { ReactNode, useContext, useState } from "react";
 
@@ -84,9 +84,9 @@ export default function ModelSelectorDemo() {
             setDefaultModel={setDefaultModel}
           />
         }
-        code= "modelSelectorExample"
+        code= "ModelSelectorUsage"
       />
-      <Installation CLILink={CommandLink} code="modelSelector" path="components/ui/modelSelector.tsx"/>
+      <Installation CLILink={CommandLink} code="ModelSelector" path="components/ui/modelSelector.tsx"/>
     </>
   );
 }

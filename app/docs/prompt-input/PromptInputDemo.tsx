@@ -8,9 +8,9 @@ import {
 } from "@/registry/new-york/prompt-input/PromptInput";
 
 import { useState } from "react";
-import ComponentPreviewCard from "@/components/previewpage";
+import ComponentPreviewCard from "@/components/ComponentPreviewCard";
 import Installation from "@/components/Installation";
-import PropsTable from "@/components/propstable";
+import PropsTable from "@/components/PropsTable";
 
 const CommandLink: string = "https://brainframeui.tech/r/prompt-input.json";
 const promptInputProps = [
@@ -93,10 +93,10 @@ export default function PromptInputDemo() {
           setValue={setValue}
           isLoading={isLoading}
           setIsLoading={setIsLoading} />}
-        code="promptInputExample" classname={""}      />
+        code="promptInputUsage" classname={""}      />
       <Installation
         CLILink={CommandLink}
-        code="promptInput"
+        code="PromptInput"
         path="components/ui/promptInput.tsx"
       />
       <h6 className="mt-14 text-[20px] font-semibold">API Reference</h6>

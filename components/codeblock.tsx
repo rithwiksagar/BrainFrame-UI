@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CopyButton } from "./copybutton";
+import { CopyButton } from "./CopyButton";
 
 type HighlightedCode = {
   code: string;
@@ -72,7 +72,7 @@ export default function CodeBlock({
           min-h-0
           overflow-visible
           px-4
-          pt-12
+          py-2
 
           [&_pre]:m-0!
           [&_pre]:h-full!

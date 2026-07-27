@@ -1,0 +1,33 @@
+"use client";
+import { GooeyAI, 
+GooeyAIButton,
+GooeyAIDialog, 
+GooeyAITextArea } from "@/registry/new-york/gooey-AI/GooeyAI";
+
+import { useState } from "react";
+
+function GooeyAIExample() {
+  const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  return (
+    <GooeyAI
+      value={value}
+      setValue={setValue}
+      isLoading={isLoading}
+      onSubmit={() => {
+        if (!value.trim() || isLoading) return;
+
+        setIsLoading(true);
+
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
+      }}
+    >
+      <GooeyAIButton />
+      <GooeyAIDialog >
+        <GooeyAITextArea placeholder="Ask me anything..." />
+      </GooeyAIDialog>
+    </GooeyAI>
+  );
+}

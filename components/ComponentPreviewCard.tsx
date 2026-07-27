@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import CodeBlock from "./codeblock";
+import CodeBlock from "./CodeBlock";
 import { cn } from "@/lib/utils";
 
 interface ComponentPreviewCardProps {

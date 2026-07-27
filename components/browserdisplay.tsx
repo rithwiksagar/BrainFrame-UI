@@ -2,7 +2,7 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
-import CodeBlock from "./codeblock";
+import CodeBlock from "./CodeBlock";
 import {
   PromptInput,
   PromptInputActions,

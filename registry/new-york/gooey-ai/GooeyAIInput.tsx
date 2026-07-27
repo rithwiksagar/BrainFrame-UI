@@ -106,7 +106,7 @@ export function GooeyAIButton({ className }: { className?: string }) {
     <button
       onClick={() => setIsExpanded(!isExpanded)}
       className={cn(
-        "size-14 flex items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200",
+        "size-14 flex cursor-pointer items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200",
         className,
       )}
     >

@@ -1,8 +1,8 @@
 "use client";
 
 import Installation from "@/components/Installation";
-import ComponentPreviewCard from "@/components/previewpage";
-import { GooeyAI, GooeyAIButton, GooeyAIDialog, GooeyAITextArea } from "@/registry/new-york/gooey-ai/GooeyAI";
+import ComponentPreviewCard from "@/components/ComponentPreviewCard";
+import { GooeyAI, GooeyAIButton, GooeyAIDialog, GooeyAITextArea } from "@/registry/new-york/gooey-ai/GooeyAIInput";
 
 import { useState } from "react";
 
@@ -44,7 +44,7 @@ export default function GooeyAIDemo() {
       <ComponentPreviewCard
         classname="items-end justify-start p-4"
         component={<GooeyAIExample />}
-        code="gooeyAIInput"
+        code="GooeyAIInputUsage"
       />
 
       <Installation
