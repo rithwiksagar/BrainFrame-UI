@@ -17,14 +17,14 @@ type GooeyAIContextType = {
   setValue: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
   onSubmit: () => void;
-
   isExpanded: boolean;
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-
   rootRef: React.RefObject<HTMLDivElement | null>;
+  side: "left" | "right";
 };
 
 const GooeyAIContext = createContext<GooeyAIContextType | null>(null);
+
 function useGooeyAI() {
   const context = useContext(GooeyAIContext);
 
@@ -41,6 +41,7 @@ type GooeyAIProps = {
   setValue: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
   onSubmit: () => void;
+  side: "left" | "right";
 };
 
 export function GooeyAI({
@@ -49,6 +50,7 @@ export function GooeyAI({
   setValue,
   isLoading,
   onSubmit,
+  side,
 }: GooeyAIProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -78,6 +80,7 @@ export function GooeyAI({
         isExpanded,
         setIsExpanded,
         rootRef,
+        side,
       }}
     >
       <div
@@ -99,18 +102,24 @@ export function GooeyAI({
   );
 }
 
-export function GooeyAIButton({ className }: { className?: string }) {
+export function GooeyAIButton({
+  className,
+  buttonPlaceholder,
+}: {
+  className?: string;
+  buttonPlaceholder: any;
+}) {
   const { isExpanded, setIsExpanded } = useGooeyAI();
 
   return (
     <button
       onClick={() => setIsExpanded(!isExpanded)}
       className={cn(
-        "size-14 flex cursor-pointer items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200",
-        className,
+        "size-14 flex cursor-pointer items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-200 text-neutral-200 dark:text-neutral-800",
+        className
       )}
     >
-      AI
+      {buttonPlaceholder}
     </button>
   );
 }
@@ -122,8 +131,8 @@ export function GooeyAIDialog({
   children: ReactNode;
   className?: string;
 }) {
-  const { isExpanded } = useGooeyAI();
-
+  const { isExpanded, side } = useGooeyAI();
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
   const variants = {
     closed: {
       y: -20,
@@ -138,7 +147,7 @@ export function GooeyAIDialog({
     },
     open: {
       y: -62,
-      width: 386,
+      width: isMobile ? 318 : 386,
       height: "auto",
       opacity: 1,
       scale: 1,
@@ -165,11 +174,12 @@ export function GooeyAIDialog({
       animate={isExpanded ? "open" : "closed"}
       variants={variants}
       style={{
-        transformOrigin: "left bottom",
+        transformOrigin: side === "right" ? "right bottom" : "left bottom",
       }}
       className={cn(
-        "absolute -left-1 bottom-0 rounded-3xl bg-neutral-200 dark:bg-neutral-800 p-3 py-4",
+        "absolute bottom-0 rounded-3xl bg-neutral-700 dark:bg-neutral-300 p-3 py-4",
         className,
+        side == "right" ? "-right-1" : "-left-1",
       )}
     >
       {children}
@@ -187,6 +197,17 @@ export function GooeyAITextArea({
   const { value, setValue, isLoading, onSubmit } = useGooeyAI();
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  function handleSubmit() {
+    if (!value.trim() || isLoading) return;
+
+    onSubmit();
+    setValue("");
+
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "40px";
+    }
+  }
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const textarea = textareaRef.current!;
@@ -207,45 +228,35 @@ export function GooeyAITextArea({
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
-
-            if (!value.trim() || isLoading) return;
-
-            onSubmit();
-
-            setValue("");
-
-            textareaRef.current!.style.height = "40px";
+            handleSubmit();
           }
         }}
         className={cn(
-          "w-70 md:w-86 h-10 max-h-40 resize-none overflow-y-auto [scrollbar-width:none] px-2 py-3 focus:outline-none text-black dark:text-neutral-100 placeholder:text-neutral-500 dark:placeholder:text-neutral-500 leading-6 mask-b-from-70% mask-b-to-100%",
+          "w-70 md:w-86 h-12 max-h-40 resize-none overflow-y-auto [scrollbar-width:none] px-2 py-3 focus:outline-none text-neutral-100 dark:text-neutral-800 placeholder:text-neutral-400/80 dark:placeholder:text-neutral-500 leading-6 mask-b-from-70% mask-b-to-100%",
           className,
         )}
       />
 
       <div className="flex items-center justify-between">
-        <button>
-          <PlusIcon className="size-9 rounded-full p-2 text-neutral-600 hover:bg-neutral-300 dark:text-neutral-300 dark:hover:bg-neutral-700" />
-        </button>
-
+        <AddAttachments />
         {isLoading ? (
           <button
             type="button"
             disabled
-            className="size-9 flex items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-200 cursor-not-allowed"
+            className="size-9 flex items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800 cursor-not-allowed"
           >
-            <Square className="size-4 md:size-5 fill-white text-white dark:fill-neutral-800 dark:text-neutral-800" />
+            <Square className="size-4 md:size-5 dark:fill-neutral-200 dark:text-neutral-200 fill-neutral-800 text-neutral-800" />
           </button>
         ) : (
           <button
             type="button"
             disabled={!canSubmit}
-            onClick={onSubmit}
+            onClick={handleSubmit}
             className={cn(
               "size-9 flex items-center justify-center rounded-full transition-colors",
               canSubmit
-                ? "bg-neutral-800 hover:bg-neutral-700 cursor-pointer dark:bg-neutral-200 text-neutral-100 dark:text-neutral-800"
-                : "bg-neutral-300 text-neutral-500 cursor-not-allowed dark:bg-neutral-700 dark:text-neutral-400",
+                ? "dark:bg-neutral-800 hover:bg-neutral-300 cursor-pointer bg-neutral-200 dark:text-neutral-100 text-neutral-800"
+                : "dark:bg-neutral-400 dark:text-neutral-300 cursor-not-allowed bg-neutral-600 text-neutral-400",
             )}
           >
             <ArrowUp className="size-4 md:size-5" />
@@ -256,6 +267,13 @@ export function GooeyAITextArea({
   );
 }
 
+function AddAttachments() {
+  return (
+    <button>
+      <PlusIcon className="cursor-pointer size-9 rounded-full p-2 text-neutral-200 hover:bg-neutral-600 dark:text-neutral-700 dark:hover:bg-neutral-400/30" />
+    </button>
+  );
+}
 function GooeyFilter() {
   return (
     <svg aria-hidden="true">

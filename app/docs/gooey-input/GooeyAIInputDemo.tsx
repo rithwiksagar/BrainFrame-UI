@@ -10,12 +10,13 @@ import { useState } from "react";
 
 const CommandLink = "https://brainframeui.tech/r/gooey-ai.json";
 
+
 function GooeyAIExample() {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   return (
     <GooeyAI
+      side="left"
       value={value}
       setValue={setValue}
       isLoading={isLoading}
@@ -29,8 +30,7 @@ function GooeyAIExample() {
         }, 2000);
       }}
     >
-      <GooeyAIButton />
-
+      <GooeyAIButton buttonPlaceholder={"AI"} />
       <GooeyAIDialog >
         <GooeyAITextArea placeholder="Ask me anything..." />
       </GooeyAIDialog>
@@ -42,7 +42,7 @@ export default function GooeyAIDemo() {
   return (
     <>
       <ComponentPreviewCard
-        classname="items-end justify-start p-4"
+        classname={`items-end p-2 justify-start`}
         component={<GooeyAIExample />}
         code="GooeyAIInputUsage"
       />
