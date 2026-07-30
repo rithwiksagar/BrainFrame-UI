@@ -177,9 +177,9 @@ export function GooeyAIDialog({
         transformOrigin: side === "right" ? "right bottom" : "left bottom",
       }}
       className={cn(
-        "absolute bottom-0 rounded-3xl bg-neutral-700 dark:bg-neutral-300 p-3 py-4",
+        "absolute bottom-0 rounded-3xl bg-neutral-700 dark:bg-neutral-300 p-3 py-4 z-999",
         className,
-        side == "right" ? "-right-1" : "-left-1",
+        side == "right" ? "right-0" : "left-0",
       )}
     >
       {children}
@@ -232,7 +232,7 @@ export function GooeyAITextArea({
           }
         }}
         className={cn(
-          "w-70 md:w-86 h-12 max-h-40 resize-none overflow-y-auto [scrollbar-width:none] px-2 py-3 focus:outline-none text-neutral-100 dark:text-neutral-800 placeholder:text-neutral-400/80 dark:placeholder:text-neutral-500 leading-6 mask-b-from-70% mask-b-to-100%",
+          "w-70 md:w-86 h-12 max-h-40 resize-none overflow-y-auto [scrollbar-width:none] px-2 py-3 focus:outline-none text-neutral-100 dark:text-neutral-800 placeholder:text-neutral-400/80 dark:placeholder:text-neutral-500 leading-6 mask-b-from-70% mask-b-to-100% ",
           className,
         )}
       />
