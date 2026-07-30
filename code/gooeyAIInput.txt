@@ -116,7 +116,7 @@ export function GooeyAIButton({
       onClick={() => setIsExpanded(!isExpanded)}
       className={cn(
         "size-14 flex cursor-pointer items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-200 text-neutral-200 dark:text-neutral-800",
-        className
+        className,
       )}
     >
       {buttonPlaceholder}
@@ -132,7 +132,11 @@ export function GooeyAIDialog({
   className?: string;
 }) {
   const { isExpanded, side } = useGooeyAI();
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+  setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+}, []);
+
   const variants = {
     closed: {
       y: -20,
@@ -179,7 +183,7 @@ export function GooeyAIDialog({
       className={cn(
         "absolute bottom-0 rounded-3xl bg-neutral-700 dark:bg-neutral-300 p-3 py-4",
         className,
-        side == "right" ? "-right-1" : "-left-1",
+        side == "right" ? "right-0" : "left-0",
       )}
     >
       {children}
@@ -232,7 +236,7 @@ export function GooeyAITextArea({
           }
         }}
         className={cn(
-          "w-70 md:w-86 h-12 max-h-40 resize-none overflow-y-auto [scrollbar-width:none] px-2 py-3 focus:outline-none text-neutral-100 dark:text-neutral-800 placeholder:text-neutral-400/80 dark:placeholder:text-neutral-500 leading-6 mask-b-from-70% mask-b-to-100%",
+          "w-70 md:w-86 h-12 max-h-40 resize-none overflow-y-auto [scrollbar-width:none] px-2 py-3 focus:outline-none text-neutral-100 dark:text-neutral-800 placeholder:text-neutral-400/80 dark:placeholder:text-neutral-500 leading-6 mask-b-from-70% mask-b-to-100% ",
           className,
         )}
       />

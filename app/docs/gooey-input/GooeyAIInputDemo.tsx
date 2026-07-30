@@ -6,6 +6,7 @@ import { GooeyAI, GooeyAIButton, GooeyAIDialog, GooeyAITextArea } from "@/regist
 
 import { useState } from "react";
 import PropsTable from "@/components/PropsTable";
+import { MessagesSquare } from "lucide-react";
 
 
 
@@ -98,7 +99,7 @@ function GooeyAIExample() {
       }}
 
     >
-      <GooeyAIButton buttonPlaceholder={"AI"} />
+      <GooeyAIButton buttonPlaceholder={<MessagesSquare className="size-6"/>} />
       <GooeyAIDialog >
         <GooeyAITextArea placeholder="Ask me anything..." />
       </GooeyAIDialog>
