@@ -84,7 +84,7 @@ function GooeyAIExample() {
   const [isLoading, setIsLoading] = useState(false);
   return (
     <GooeyAI
-      side="right"
+      side="left"
       value={value}
       setValue={setValue}
       isLoading={isLoading}
