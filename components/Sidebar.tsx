@@ -1,10 +1,6 @@
 "use client";
 import Link from "next/link";
-import {
-  Dispatch,
-  RefObject,
-  SetStateAction
-} from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
 interface sidebaritems {
   title: string;
   id: string;
@@ -12,7 +8,7 @@ interface sidebaritems {
 }
 export const sidebarItems: sidebaritems[] = [
   {
-    title: "Sections",
+    title: "GETTING STARTED",
     id: "1",
     items: [
       { title: "Home", href: "/" },
@@ -21,7 +17,7 @@ export const sidebarItems: sidebaritems[] = [
     ],
   },
   {
-    title: "Components",
+    title: "COMPONENTS",
     id: "2",
     items: [
       { title: "Gooey AI Input", href: "/docs/gooey-input" },
@@ -31,13 +27,13 @@ export const sidebarItems: sidebaritems[] = [
       { title: "Prompt Suggestion", href: "/docs/prompt-suggestion" },
       { title: "Shimmering Text", href: "/docs/shimmering-text" },
       { title: "With Attachments", href: "/docs/attachments" },
-      { title: "Streaming Output", href: "/docs/streaming-output"},
+      { title: "Streaming Output", href: "/docs/streaming-output" },
       { title: "Error Message", href: "/docs/error-message" },
       { title: "Expandable Input", href: "/docs/expandable-input" },
       { title: "File Upload", href: "/docs/file-upload" },
-      { title: "Citations tooltip", href: "/docs/citation" }
-    ]
-  } 
+      { title: "Citations tooltip", href: "/docs/citation" },
+    ],
+  },
 ];
 
 interface sidebarProps {
@@ -49,25 +45,22 @@ export const Sidebar = ({ sidebarRef, setOpen, open }: sidebarProps) => {
   return (
     <div
       ref={sidebarRef}
-      className={`fixed left-0 top-0 z-999 h-full md:h-160 md:w-64 pt-4 pb-12 border-r
-     border-neutral-700/20 rounded-r-xl mt-13 md:mt-24 md:ml-5
-     backdrop-blur-3xl md:backdrop-blur-none
-     md:mask-[linear-gradient(to_bottom,transparent,black_4%,black_80%,transparent)]
-      dark:border-neutral-100/10 overflow-y-scroll [scrollbar-width:none]
+      className={`fixed left-0 top-[57px] z-999 h-full md:h-full md:w-80 border-r border-neutral-200 pt-5 md:backdrop-blur-none
+      dark:border-neutral-800 overflow-y-scroll [scrollbar-width:none] bg-background
       select-none ${!open ? "w-0" : "w-60 transition-[width] duration-200 ease-out"}`}
     >
       {sidebarItems.map((elements) => (
         <div
           key={elements.id}
-          className="p-3 py-4 text-[16px] font-medium text-neutral-500 dark:text-neutral-400/80 pl-10"
+          className="py-4 text-[13px] font-mono font-medium text-neutral-600 dark:text-neutral-400/80 tracking-wider ml-8"
         >
           {elements.title}
           {elements.items.map((item) => (
             <Link
               href={item.href}
               key={item.title}
-              className="text-neutral-900 flex flex-col font-medium py-1.5 pl-2 cursor-pointer text-[15px] 
-              dark:text-neutral-100 hover:bg-neutral-200/30 rounded-sm dark:hover:bg-neutral-800/60"
+              className="text-neutral-500 flex flex-col font-normal tracking-normal font-sans py-2 cursor-pointer text-[14px] 
+              dark:text-neutral-400 dark:hover:text-white hover:text-black"
               onClick={() => {
                 setOpen((open) => !open);
               }}

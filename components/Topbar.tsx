@@ -13,7 +13,7 @@ export const TopBar = ({ topbarRef, setOpen }: topBarProps) => {
   return (
     <div
       ref={topbarRef}
-      className="fixed left-0 top-0 flex w-full z-50 px-5 md:px-15 py-3 justify-between items-center border-b border-neutral-700/15 backdrop-blur-xs"
+      className="fixed left-0 top-0 flex w-full z-50 px-5 md:px-15 py-3 justify-between items-center border-b border-neutral-200 dark:border-neutral-800 backdrop-blur-xs"
     >
       <div className="">
         <Link

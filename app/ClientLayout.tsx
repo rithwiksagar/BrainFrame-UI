@@ -1,5 +1,6 @@
 "use client";
 
+import Infobar from "@/components/Infobar";
 import { Sidebar } from "@/components/Sidebar";
 import { TopBar } from "@/components/Topbar";
 
@@ -36,7 +37,8 @@ export function ClientLayout({ children }: { children: ReactNode }) {
       <aside>
         <Sidebar sidebarRef={sidebarRef} setOpen={setOpen} open={open} />
       </aside>
-      <div className="mx-4 md:ml-74">{children}</div>
+      <div className="mx-4 md:ml-74">{children}</div>      
+      <Infobar />
     </>
   );
 }
