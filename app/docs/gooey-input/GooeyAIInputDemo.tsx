@@ -2,13 +2,17 @@
 
 import Installation from "@/components/Installation";
 import ComponentPreviewCard from "@/components/ComponentPreviewCard";
-import { GooeyAI, GooeyAIButton, GooeyAIDialog, GooeyAITextArea } from "@/registry/new-york/gooey-ai/GooeyAIInput";
+import {
+  GooeyAI,
+  GooeyAIButton,
+  GooeyAIDialog,
+  GooeyAITextArea,
+} from "@/registry/new-york/gooey-ai/GooeyAIInput";
 
 import { useState } from "react";
 import PropsTable from "@/components/PropsTable";
 import { MessagesSquare } from "lucide-react";
-
-
+import { DocsFooter } from "@/components/DocsFooter";
 
 const CommandLink = "https://brainframeui.tech/r/gooey-ai.json";
 export const gooeyAIProps = [
@@ -22,19 +26,21 @@ export const gooeyAIProps = [
     prop: "setValue",
     type: `SetStateAction<string>`,
     default: "false",
-    description: "State setter function used to update the textarea value"
+    description: "State setter function used to update the textarea value",
   },
   {
     prop: "isLoading",
     type: "boolean",
     default: "false",
-    description: "Disables input and shows the loading state while a request is in progress",
+    description:
+      "Disables input and shows the loading state while a request is in progress",
   },
   {
     prop: "setIsLoading",
     type: "SetStateAction<boolean>",
     default: "false",
-    description : "State setter function used to control the loading state of the component"
+    description:
+      "State setter function used to control the loading state of the component",
   },
   {
     prop: "side",
@@ -46,8 +52,9 @@ export const gooeyAIProps = [
     prop: "onSubmit",
     type: "function",
     default: "Provided by GooeyAI",
-    description: "Triggered when pressing Enter or clicking the send button with valid input.",
-  }
+    description:
+      "Triggered when pressing Enter or clicking the send button with valid input.",
+  },
 ];
 
 export const gooeyAIButtonProps = [
@@ -62,7 +69,7 @@ export const gooeyAIButtonProps = [
     type: "string",
     default: "undefined",
     description: "Additional Tailwind or CSS classes applied to the button.",
-  }
+  },
 ];
 
 export const gooeyAITextAreaProps = [
@@ -77,7 +84,7 @@ export const gooeyAITextAreaProps = [
     type: "string",
     default: "undefined",
     description: "Additional Tailwind or CSS classes applied to the textarea.",
-  }
+  },
 ];
 
 function GooeyAIExample() {
@@ -90,17 +97,17 @@ function GooeyAIExample() {
       setValue={setValue}
       isLoading={isLoading}
       onSubmit={() => {
-
         setIsLoading(true);
 
         setTimeout(() => {
           setIsLoading(false);
         }, 2000);
       }}
-
     >
-      <GooeyAIButton buttonPlaceholder={<MessagesSquare className="size-6"/>} />
-      <GooeyAIDialog >
+      <GooeyAIButton
+        buttonPlaceholder={<MessagesSquare className="size-6" />}
+      />
+      <GooeyAIDialog>
         <GooeyAITextArea placeholder="Ask me anything..." />
       </GooeyAIDialog>
     </GooeyAI>
@@ -122,9 +129,16 @@ export default function GooeyAIDemo() {
         path="components/ui/GooeyAI.tsx"
       />
 
-      <PropsTable title="GooeyAI Props" data={gooeyAIProps}/>
-      <PropsTable title="GooeyAIButton Props" data={gooeyAIButtonProps}/>
-      <PropsTable title="GooeyAITextArea Props" data={gooeyAITextAreaProps}/>
+      <PropsTable title="GooeyAI Props" data={gooeyAIProps} />
+      <PropsTable title="GooeyAIButton Props" data={gooeyAIButtonProps} />
+      <PropsTable title="GooeyAITextArea Props" data={gooeyAITextAreaProps} />
+
+      <DocsFooter
+        prevHref="quick-start"
+        prevTitle="Quick Start"
+        nextHref="Prompt Input"
+        nextTitle="prompt-input"
+      />
     </>
   );
 }
