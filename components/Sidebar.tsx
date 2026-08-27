@@ -1,6 +1,7 @@
 "use client";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Dispatch, RefObject, SetStateAction } from "react";
+import { Dispatch, RefObject, SetStateAction, useState } from "react";
 interface sidebaritems {
   title: string;
   id: string;
@@ -40,7 +41,8 @@ interface sidebarProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
 }
-export const Sidebar = ({ sidebarRef, setOpen, open }: sidebarProps) => {
+export default function Sidebar({ sidebarRef, setOpen, open }: sidebarProps){
+  const [current, setCurrent] = useState("");
   return (
     <div
       ref={sidebarRef}
@@ -58,10 +60,11 @@ export const Sidebar = ({ sidebarRef, setOpen, open }: sidebarProps) => {
             <Link
               href={item.href}
               key={item.title}
-              className="text-neutral-500 flex flex-col font-normal tracking-normal font-sans py-2 cursor-pointer text-[14px] 
-              dark:text-neutral-400 dark:hover:text-white hover:text-black"
+              className={cn(`text-neutral-500 flex flex-col font-normal tracking-normal font-sans py-2 cursor-pointer text-[14px] 
+              dark:text-neutral-400 dark:hover:text-white hover:text-black`, current == item.title ? "text-black dark:text-white": "")}
               onClick={() => {
                 setOpen((open) => !open);
+                setCurrent(item.title)
               }}
             >
               {item.title}

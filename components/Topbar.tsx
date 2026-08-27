@@ -23,9 +23,9 @@ export const TopBar = ({ topbarRef, setOpen }: topBarProps) => {
           BrainFrame.
         </Link>
       </div>
-      <div className="flex gap-14 pr-6">
+      <div className="flex gap-6">
         <Link
-          className="border rounded-sm flex items-center gap-2 px-2 py-1 border-neutral-300 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-semibold text-[13px]"
+          className="border rounded-sm flex items-center gap-2 px-2 py-1 border-neutral-300 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium text-[13px]"
           href="https://github.com/rithwiksagar/Zero2"
         >
           <Github className="size-4" />
