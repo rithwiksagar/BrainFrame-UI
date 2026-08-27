@@ -42,7 +42,6 @@ interface sidebarProps {
   open: boolean;
 }
 export default function Sidebar({ sidebarRef, setOpen, open }: sidebarProps){
-  const [current, setCurrent] = useState("");
   return (
     <div
       ref={sidebarRef}
@@ -61,10 +60,9 @@ export default function Sidebar({ sidebarRef, setOpen, open }: sidebarProps){
               href={item.href}
               key={item.title}
               className={cn(`text-neutral-500 flex flex-col font-normal tracking-normal font-sans py-2 cursor-pointer text-[14px] 
-              dark:text-neutral-400 dark:hover:text-white hover:text-black`, current == item.title ? "text-black dark:text-white": "")}
+              dark:text-neutral-400 dark:hover:text-white hover:text-black`)}
               onClick={() => {
                 setOpen((open) => !open);
-                setCurrent(item.title)
               }}
             >
               {item.title}
