@@ -1,10 +1,9 @@
 import { CopyButton } from "@/components/CopyButton";
 
-
 <div className="space-y-20">
 <div>
 ### Step 1: Create a new Next.js project
-<div className="not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md flex items-center justify-between">
+<div className="w-172 not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md flex items-center justify-between">
   <pre className="overflow-x-auto text-sm h-6 ">
     <code>npx create-next-app@latest my-app cd my-app</code>
   </pre>
@@ -13,13 +12,13 @@ import { CopyButton } from "@/components/CopyButton";
 </div>
 
 <div>
-### Step 2: Install dependencies
-<div className="not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md flex items-center justify-between gap-4">
-  <pre className="overflow-x-auto text-sm h-6">
-    <code>npm install motion clsx tailwind-merge lucide-react</code>
-  </pre>
-  <CopyButton content="npm install motion clsx tailwind-merge lucide-react" />
-</div>
+  ### Step 2: Install dependencies
+  <div className="w-172 not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md flex items-center justify-between gap-4">
+    <pre className="overflow-x-auto text-sm h-6">
+      <code>npm install motion clsx tailwind-merge lucide-react</code>
+    </pre>
+    <CopyButton content="npm install motion clsx tailwind-merge lucide-react" />
+  </div>
 </div>
 
 <div>
@@ -27,7 +26,7 @@ import { CopyButton } from "@/components/CopyButton";
 
 Create a `utils.ts` file inside your `lib/` folder.
 
-<div className="not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md">
+<div className="w-172 not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md">
   <pre className="overflow-x-auto text-sm">
 <code>{`import { clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
@@ -40,7 +39,7 @@ import { twMerge } from "tailwind-merge"
 
 ### Step 3: Start using the component
 
-<div className="not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md">
+<div className="w-172 not-prose bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white/80 p-3 rounded-md">
   <pre className="overflow-x-auto text-sm">
     <code>
     {`import { PromptInput } from "@/components/ui/prompt-input"

@@ -11,7 +11,6 @@ export const sidebarItems: sidebaritems[] = [
     title: "GETTING STARTED",
     id: "1",
     items: [
-      { title: "Home", href: "/" },
       { title: "Introduction", href: "/docs/introduction" },
       { title: "Quick Start", href: "/docs/quick-start" },
     ],
