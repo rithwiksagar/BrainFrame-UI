@@ -25,10 +25,10 @@ const Tools = [
 ];
 export default function Home() {
   return (
-    <main className="min-h-screen w-full bg-foreground text-background">
+    <main className="min-h-screen w-full bg-foreground text-background relative">
       <Navbar />
 
-      <section className="relative px-28 pt-40">
+      <section className="px-28 pt-40">
         <div className="max-w-[560px]">
           <h1 className="text-5xl font-medium font-serif leading-[1.05] tracking-tight max-w-xl">
             Build AI products that don&apos;t look generic
@@ -39,7 +39,6 @@ export default function Home() {
             and zero styling headaches.
           </p>
 
-          {/* CTA buttons */}
           <div className="mt-8 flex items-center gap-4">
             <Link
               href="/docs"
@@ -68,7 +67,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="fixed right-0 top-0 h-screen w-120 rounded-lg bg-white p-2.5">
+        <div className="absolute right-0 top-0 h-screen w-120 rounded-lg bg-white p-2.5">
           <div className="relative h-full w-full overflow-hidden rounded-lg shadow-xl">
             <Image
               src="/image.png"
