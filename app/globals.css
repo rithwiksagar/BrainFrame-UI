@@ -7,37 +7,13 @@
   --foreground: #171717;
 }
 
-@font-face {
-  font-family: "Helvetica";
-  src: url("/fonts/Helvetica.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica";
-  src: url("/fonts/Helvetica-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Helvetica";
-  src: url("/fonts/Helvetica-Oblique.ttf") format("truetype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-helvetica: "HelveticaCustom", sans-serif;
-  --font-helvetica: "Helvetica", sans-serif;
-  
+  --font-sans: var(--font-satoshi), sans-serif;
+  --font-serif: var(--font-fraunces), serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
 
@@ -48,5 +24,4 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Helvetica, sans-serif;
 }
