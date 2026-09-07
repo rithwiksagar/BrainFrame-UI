@@ -7,7 +7,7 @@ import {
   PromptInput,
   PromptInputActions,
   PromptInputAttachments,
-  PromptInputButton,
+  PromptInputSubmit,
   PromptInputTextArea,
 } from "@/registry/new-york/prompt-input/PromptInput";
 export default function DisplayFrame() {
@@ -76,7 +76,7 @@ export default function DisplayFrame() {
             <PromptInputTextArea placeholder="Ask me anything..." />
             <PromptInputActions>
               <PromptInputAttachments />
-              <PromptInputButton />
+              <PromptInputSubmit />
             </PromptInputActions>
           </PromptInput>
         </div>

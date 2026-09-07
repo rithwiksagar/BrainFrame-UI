@@ -4,7 +4,6 @@ import  Sidebar  from "@/components/Sidebar";
 import { TopBar } from "@/components/Topbar";
 
 import { ReactNode, useEffect, useRef, useState } from "react";
-import TOC from "@/components/TOC";
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState<boolean>(false);
@@ -51,7 +50,6 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
       {children}
     </div>  
       </div>      
-      <TOC />
     </>
   );
 }

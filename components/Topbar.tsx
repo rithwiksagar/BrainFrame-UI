@@ -20,7 +20,7 @@ export const TopBar = ({ topbarRef, setOpen }: topBarProps) => {
           href={"/"}
           className="text-md md:text-lg  font-mono tracking-wide"
         >
-          BrainFrame.
+          BrainFrame UI
         </Link>
       </div>
       <div className="flex gap-6">
