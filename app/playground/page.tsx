@@ -1,4 +1,3 @@
-
 "use client";
 import {
   CommandMenu,
@@ -35,16 +34,13 @@ const commands: { title: string; description: string; icon: LucideIcon }[] = [
   },
 ];
 
-
-
-
-export default function Play(){
-
-    return <div className="h-screen flex items-center justify-center bg-neutral-200">
-        <MosaicPromptBarDemo />
+export default function Play() {
+  return (
+    <div className="h-screen flex items-center justify-center bg-neutral-200 dark:bg-neutral-900">
+      <MosaicPromptBarDemo />
     </div>
+  );
 }
-
 
 function MosaicPromptBarDemo() {
   const [value, setValue] = useState("");
@@ -56,7 +52,6 @@ function MosaicPromptBarDemo() {
       setValue("");
     }, 2000);
   };
-  
   return (
     <MosaicPromptBar
       value={value}
@@ -67,7 +62,10 @@ function MosaicPromptBarDemo() {
       <CommandMenu commands={commands} />
 
       <PromptInput className="">
-        <PromptInputTextArea placeholder="How Can I Help You Today?" commands={commands} />
+        <PromptInputTextArea
+          placeholder="How Can I Help You Today?"
+          commands={commands}
+        />
         <PromptInputActions>
           <PromptInputAttachments />
           <PromptInputSubmit />

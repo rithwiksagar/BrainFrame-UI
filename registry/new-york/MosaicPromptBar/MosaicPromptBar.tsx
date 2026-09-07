@@ -75,7 +75,7 @@ function MosaicPromptBar({
     >
       <div
         className={cn(
-          "p-2 rounded-xl border border-white/50 bg-neutral-200/30",
+          "p-2 rounded-3xl border border-white/30 bg-neutral-200/30",
           className,
         )}
       >
@@ -100,21 +100,44 @@ type CommandMenuProps = {
 function CommandMenu({ commands, className }: CommandMenuProps) {
   const { isCommandMenuOpen, selectedIndex, setIsCommandMenuOpen } =
     useMosaicContext();
+  const iconColors = [
+    "text-blue-500",
+    "text-amber-500",
+    "text-emerald-500",
+    "text-rose-500",
+  ];
 
   return (
     isCommandMenuOpen && (
       <div className={cn("flex flex-col mb-2", className)}>
-        {commands.map(({ title, icon: Icon }, index) => (
+        {commands.map(({ title, description, icon: Icon }, index) => (
           <div
             key={index}
             onClick={() => setIsCommandMenuOpen(false)}
             className={cn(
-              "flex items-center gap-2 rounded-md leading-none hover:bg-neutral-300/40 py-2 px-4",
+              "flex items-center gap-2 rounded-lg leading-none hover:bg-neutral-300/40 py-2 px-4",
               index === selectedIndex && "bg-neutral-300/80",
             )}
           >
-            <Icon className={cn("size-4 shrink-0")} />
-            <p className={cn("text-sm font-medium")}>{title}</p>
+            <Icon
+              className={cn(
+                "size-4 shrink-0",
+                iconColors[index % iconColors.length],
+              )}
+            />
+            <div className="flex items-center gap-2">
+              <p className="text-sm font-medium tracking-wide">{title}</p>
+              <p
+                className={cn(
+                  "text-sm font-normal",
+                  index === selectedIndex
+                    ? "text-neutral-600"
+                    : "text-neutral-500",
+                )}
+              >
+                {description}
+              </p>
+            </div>
           </div>
         ))}
       </div>
@@ -139,7 +162,7 @@ function PromptInput({
   return (
     <div
       className={cn(
-        "w-148 flex flex-col justify-between rounded-xl border border-white/30 bg-white p-3 space-y-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
+        "w-148 flex flex-col justify-between rounded-2xl border border-white/30 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800 p-3 space-y-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
         className,
       )}
     >
@@ -213,7 +236,7 @@ function PromptInputTextArea({
       disabled={isLoading}
       placeholder={placeholder}
       className={cn(
-        "block min-h-18 w-full max-h-80 py-1 px-2 bg-transparent outline-noneplaceholder:text-neutral-400 dark:placeholder:text-neutral-700 outline-0 overflow-y-auto resize-none [scrollbar-width:none] leading-6",
+        "block min-h-18 w-full max-h-80 py-1 px-2 bg-transparent outline-noneplaceholder:text-neutral-400 dark:placeholder:text-neutral-500 outline-0 overflow-y-auto resize-none [scrollbar-width:none] leading-6",
         "mask-[linear-gradient(to_bottom,transparent,black_4%,black_98%,transparent)]",
         className,
       )}
@@ -249,7 +272,7 @@ function PromptInputAttachments({ className }: ActionProps) {
       <button
         type="button"
         aria-label="Add attachment"
-        className="rounded-full bg-white p-2 shadow-xs border border-neutral-200 hover:backdrop-blur-2xl"
+        className="rounded-full bg-white dark:bg-neutral-800 p-2 shadow-xs border border-neutral-200 dark:border-neutral-600 hover:backdrop-blur-2xl"
       >
         <PlusIcon className="size-5" />
       </button>
@@ -264,7 +287,7 @@ function PromptInputSubmit({ className }: ActionProps) {
   return isLoading ? (
     <div
       className={cn(
-        "bg-linear-to-r from-neutral-600 to-neutral-800 size-7 md:size-10 rounded-full flex justify-center items-center",
+        "bg-linear-to-r from-neutral-600 to-neutral-800 dark:from-neutral-100 dark:to-neutral-300 size-7 md:size-10 rounded-full flex justify-center items-center",
         className,
       )}
     >
