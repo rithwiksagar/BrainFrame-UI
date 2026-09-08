@@ -9,29 +9,33 @@ import {
   PromptInputSubmit,
   PromptInputTextArea,
 } from "@/registry/new-york/MosaicPromptBar/MosaicPromptBar";
-import { FileText, Lightbulb, PenLine, Image } from "lucide-react";
+import { FileText, Lightbulb, PenLine, ImageIcon } from "lucide-react";
 import { useState } from "react";
 
 const commands = [
   {
     title: "Write",
     description: "Draft or refine your content",
-    icon: <PenLine className="size-4 shrink-0 text-blue-500" />,
+    icon: PenLine,
+    color: "text-blue-500",
   },
   {
     title: "Analyze",
     description: "Explore ideas and find insights",
-    icon: <Lightbulb className="size-4 shrink-0 text-amber-500" />,
+    icon: Lightbulb,
+    color: "text-amber-500",
   },
   {
     title: "Summarize",
     description: "Turn long text into key points",
-    icon: <FileText className="size-4 shrink-0 text-emerald-500" />,
+    icon: FileText,
+    color: "text-emerald-500",
   },
   {
-    title: "Create image",
+    title: "Create Image",
     description: "Generate an image from a prompt",
-    icon: <Image className="size-4 shrink-0 text-rose-500" />,
+    icon: ImageIcon,
+    color: "text-red-500",
   },
 ];
 

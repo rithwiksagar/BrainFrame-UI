@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, PlusIcon, Square } from "lucide-react";
+import { ArrowUp, PlusIcon, Square, type LucideIcon } from "lucide-react";
 import {
   createContext,
   Children,
@@ -113,7 +113,8 @@ function MosaicPromptBar({
 type Command = {
   title: string;
   description: string;
-  icon: ReactNode;
+  icon: LucideIcon;
+  color: string;
 };
 
 type CommandMenuProps = {
@@ -145,10 +146,12 @@ function CommandItem({
   title,
   description,
   icon,
+  color,
   index = 0,
   className,
 }: CommandItemProps) {
   const { selectedIndex, setIsCommandMenuOpen } = useMosaicContext();
+  const Icon = icon;
 
   return (
     <motion.div
@@ -165,9 +168,9 @@ function CommandItem({
         className,
       )}
     >
-      {icon}
+      {Icon && <Icon className={cn("size-4 shrink-0", color)} />}
       <div className="flex items-center gap-2">
-        <p className="text-sm font-medium tracking-wide text-neutral-800">
+        <p className={cn("text-sm font-medium tracking-wide")}>
           {title}
         </p>
         <p
@@ -369,7 +372,7 @@ function PromptInputActions({ children, className }: PromptInputActionsProps) {
 
   return (
     <div className={cn("flex items-center justify-between pt-2", className)}>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center">
         {attachments}
         <SelectedCommand />
       </div>
@@ -386,10 +389,12 @@ function SelectedCommand() {
 
   if (!command) return null;
 
+  const Icon = command.icon;
+
   return (
-    <div className="flex items-center gap-2 rounded-lg leading-none py-2 px-4">
-      {command.icon}
-      <p className="text-sm font-medium tracking-wide text-neutral-800">
+    <div className="flex items-center gap-1.5 rounded-lg leading-none py-2 px-3">
+      <Icon className={cn("size-4 shrink-0", command.color)} />
+      <p className={cn("text-[15px] font-medium tracking-wide", command.color)}>
         {command.title}
       </p>
     </div>
