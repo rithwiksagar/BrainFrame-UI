@@ -41,6 +41,8 @@ type MosaicPromptBarContextType = {
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
   filteredCommands: Command[];
+  selectedCommand: string | null;
+  setSelectedCommand: Dispatch<SetStateAction<string | null>>;
 };
 
 const MosaicPromptBarContext = createContext<MosaicPromptBarContextType | null>(
@@ -67,6 +69,7 @@ function MosaicPromptBar({
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [slashIndex, setSlashIndex] = useState<number>(-1);
   const [query, setQuery] = useState("");
+  const [selectedCommand, setSelectedCommand] = useState<string | null>(null);
   const filteredCommands = commands.filter((command) =>
     command.title.toLocaleLowerCase().includes(query.toLowerCase()),
   );
@@ -91,6 +94,8 @@ function MosaicPromptBar({
         query,
         setQuery,
         filteredCommands,
+        selectedCommand,
+        setSelectedCommand,
       }}
     >
       <div
@@ -240,9 +245,11 @@ function PromptInputTextArea({
     setIsCommandMenuOpen,
     selectedIndex,
     setSelectedIndex,
+    slashIndex,
     setSlashIndex,
     setQuery,
     filteredCommands,
+    setSelectedCommand,
   } = useMosaicContext();
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -270,8 +277,12 @@ function PromptInputTextArea({
       event.preventDefault();
       const selectedCommand = filteredCommands[selectedIndex];
       if (!selectedCommand) return;
-      setValue((prev) => prev + selectedCommand.title);
-      setQuery(selectedCommand.title);
+      setValue((prev) =>
+        slashIndex === -1 ? prev : prev.slice(0, slashIndex),
+      );
+      setSelectedCommand(selectedCommand.title);
+      setQuery("");
+      setSlashIndex(-1);
       setIsCommandMenuOpen(false);
       return;
     }
@@ -358,8 +369,29 @@ function PromptInputActions({ children, className }: PromptInputActionsProps) {
 
   return (
     <div className={cn("flex items-center justify-between pt-2", className)}>
-      <div className="flex items-center">{attachments}</div>
+      <div className="flex items-center gap-1">
+        {attachments}
+        <SelectedCommand />
+      </div>
       <div className="flex items-center">{submit}</div>
+    </div>
+  );
+}
+
+function SelectedCommand() {
+  const { selectedCommand, filteredCommands } = useMosaicContext();
+  const command = filteredCommands.find(
+    ({ title }) => title === selectedCommand,
+  );
+
+  if (!command) return null;
+
+  return (
+    <div className="flex items-center gap-2 rounded-lg leading-none py-2 px-4">
+      {command.icon}
+      <p className="text-sm font-medium tracking-wide text-neutral-800">
+        {command.title}
+      </p>
     </div>
   );
 }
@@ -412,4 +444,5 @@ export {
   PromptInputAttachments,
   PromptInputSubmit,
   PromptInputTextArea,
+  SelectedCommand,
 };
