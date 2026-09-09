@@ -78,7 +78,7 @@ function MosaicPromptBarDemo() {
 
       <PromptInput className="">
         <PromptInputTextArea
-          placeholder="What are we building today?"
+          placeholder="Type / to get started"
         />
         <PromptInputActions>
           <PromptInputAttachments />

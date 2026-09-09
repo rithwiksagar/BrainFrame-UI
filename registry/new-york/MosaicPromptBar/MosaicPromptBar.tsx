@@ -71,7 +71,7 @@ function MosaicPromptBar({
   const [query, setQuery] = useState("");
   const [selectedCommand, setSelectedCommand] = useState<string | null>(null);
   const filteredCommands = commands.filter((command) =>
-    command.title.toLocaleLowerCase().includes(query.toLowerCase()),
+    command.title.replace(/\s/g,"").toLocaleLowerCase().includes(query.toLowerCase()),
   );
 
   useEffect(() => {
@@ -150,7 +150,15 @@ function CommandItem({
   index = 0,
   className,
 }: CommandItemProps) {
-  const { selectedIndex, setIsCommandMenuOpen } = useMosaicContext();
+  const {
+    selectedIndex,
+    setValue,
+    slashIndex,
+    setSlashIndex,
+    setQuery,
+    setIsCommandMenuOpen,
+    setSelectedCommand,
+  } = useMosaicContext();
   const Icon = icon;
 
   return (
@@ -161,9 +169,17 @@ function CommandItem({
         duration: 0.2,
         delay: index * 0.03,
       }}
-      onClick={() => setIsCommandMenuOpen(false)}
+      onClick={() => {
+        if (title) setSelectedCommand(title);
+        setValue((prev) =>
+          slashIndex === -1 ? prev : prev.slice(0, slashIndex),
+        );
+        setQuery("");
+        setSlashIndex(-1);
+        setIsCommandMenuOpen(false);
+      }}
       className={cn(
-        "flex items-center gap-2 rounded-lg leading-none py-2 px-4 cursor-pointer",
+        "flex items-center gap-2 rounded-lg leading-none py-2 px-4 cursor-pointer hover:bg-neutral-100/60",
         index === selectedIndex && "bg-neutral-100/60",
         className,
       )}
@@ -343,6 +359,7 @@ function PromptInputTextArea({
     setSlashIndex(index);
     const query = newValue.slice(index + 1);
     setQuery(query);
+    console.log(query);
   };
   return (
     <textarea
