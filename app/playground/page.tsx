@@ -59,9 +59,9 @@ function MosaicPromptBarDemo() {
   const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = () => {
     setIsLoading(true);
+    setValue("");
     setTimeout(() => {
       setIsLoading(false);
-      setValue("");
     }, 2000);
   };
   return (

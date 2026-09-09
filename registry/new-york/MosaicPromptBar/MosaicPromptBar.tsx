@@ -40,6 +40,7 @@ type MosaicPromptBarContextType = {
   setSlashIndex: Dispatch<SetStateAction<number>>;
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
+  commands: Command[];
   filteredCommands: Command[];
   selectedCommand: string | null;
   setSelectedCommand: Dispatch<SetStateAction<string | null>>;
@@ -71,12 +72,19 @@ function MosaicPromptBar({
   const [query, setQuery] = useState("");
   const [selectedCommand, setSelectedCommand] = useState<string | null>(null);
   const filteredCommands = commands.filter((command) =>
-    command.title.replace(/\s/g,"").toLocaleLowerCase().includes(query.toLowerCase()),
+    command.title
+      .replace(/\s/g, "")
+      .toLocaleLowerCase()
+      .includes(query.toLowerCase()),
   );
 
   useEffect(() => {
     setSelectedIndex(0);
   }, [query]);
+
+  useEffect(() => {
+    if (filteredCommands.length === 0) setIsCommandMenuOpen(false);
+  }, [filteredCommands.length]);
 
   return (
     <MosaicPromptBarContext.Provider
@@ -93,6 +101,7 @@ function MosaicPromptBar({
         setSlashIndex,
         query,
         setQuery,
+        commands,
         filteredCommands,
         selectedCommand,
         setSelectedCommand,
@@ -179,16 +188,14 @@ function CommandItem({
         setIsCommandMenuOpen(false);
       }}
       className={cn(
-        "flex items-center gap-2 rounded-lg leading-none py-2 px-4 cursor-pointer hover:bg-neutral-100/60",
+        "flex items-center gap-2 rounded-lg leading-none py-2 px-4 cursor-pointer hover:bg-neutral-100/60 select-none",
         index === selectedIndex && "bg-neutral-100/60",
         className,
       )}
     >
       {Icon && <Icon className={cn("size-4 shrink-0", color)} />}
       <div className="flex items-center gap-2">
-        <p className={cn("text-sm font-medium tracking-wide")}>
-          {title}
-        </p>
+        <p className={cn("text-sm font-medium tracking-wide")}>{title}</p>
         <p
           className={cn(
             "text-sm font-normal",
@@ -201,8 +208,6 @@ function CommandItem({
     </motion.div>
   );
 }
-
-
 
 // Groups the textarea and action controls into one prompt surface.
 function PromptInput({
@@ -349,7 +354,10 @@ function PromptInputTextArea({
     textarea.style.height = textarea.scrollHeight + "px";
     const newValue = e.target.value;
     setValue(newValue);
-    const index = newValue.lastIndexOf("/");
+    const index =
+      slashIndex !== -1 && newValue[slashIndex] === "/"
+        ? slashIndex
+        : newValue.lastIndexOf("/");
     if (index === -1) {
       setQuery("");
       setIsCommandMenuOpen(false);
@@ -359,7 +367,6 @@ function PromptInputTextArea({
     setSlashIndex(index);
     const query = newValue.slice(index + 1);
     setQuery(query);
-    console.log(query);
   };
   return (
     <textarea
@@ -399,10 +406,8 @@ function PromptInputActions({ children, className }: PromptInputActionsProps) {
 }
 
 function SelectedCommand() {
-  const { selectedCommand, filteredCommands } = useMosaicContext();
-  const command = filteredCommands.find(
-    ({ title }) => title === selectedCommand,
-  );
+  const { selectedCommand, commands } = useMosaicContext();
+  const command = commands.find(({ title }) => title === selectedCommand);
 
   if (!command) return null;
 
@@ -411,7 +416,7 @@ function SelectedCommand() {
   return (
     <div className="flex items-center gap-1.5 rounded-lg leading-none py-2 px-3">
       <Icon className={cn("size-4 shrink-0", command.color)} />
-      <p className={cn("text-[15px] font-medium tracking-wide", command.color)}>
+      <p className={cn("text-[15px] font-medium tracking-wide select-none", command.color)}>
         {command.title}
       </p>
     </div>
