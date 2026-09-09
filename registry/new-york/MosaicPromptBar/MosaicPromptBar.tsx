@@ -17,33 +17,36 @@ import {
 import { cn } from "@/lib/utils";
 import { motion, spring } from "motion/react";
 
+export type PromptPayload = {
+  prompt: string;
+  tool: string | null;
+};
+
 type MosaicPromptBarProps = {
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  payload: PromptPayload;
+  setPayload: Dispatch<SetStateAction<PromptPayload>>;
   isLoading: boolean;
-  onSubmit: () => void;
-  commands: Command[];
+  onSubmit: (payload: PromptPayload) => void;
+  tools: Tool[];
   children?: ReactNode;
   className?: string;
 };
 
 type MosaicPromptBarContextType = {
-  value: MosaicPromptBarProps["value"];
-  setValue: MosaicPromptBarProps["setValue"];
+  payload: MosaicPromptBarProps["payload"];
+  setPayload: MosaicPromptBarProps["setPayload"];
   onSubmit: MosaicPromptBarProps["onSubmit"];
   isLoading: MosaicPromptBarProps["isLoading"];
-  isCommandMenuOpen: boolean;
-  setIsCommandMenuOpen: Dispatch<SetStateAction<boolean>>;
+  isToolMenuOpen: boolean;
+  setIsToolMenuOpen: Dispatch<SetStateAction<boolean>>;
   selectedIndex: number;
   setSelectedIndex: Dispatch<SetStateAction<number>>;
   slashIndex: number;
   setSlashIndex: Dispatch<SetStateAction<number>>;
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
-  commands: Command[];
-  filteredCommands: Command[];
-  selectedCommand: string | null;
-  setSelectedCommand: Dispatch<SetStateAction<string | null>>;
+  tools: Tool[];
+  filteredTools: Tool[];
 };
 
 const MosaicPromptBarContext = createContext<MosaicPromptBarContextType | null>(
@@ -58,21 +61,20 @@ const useMosaicContext = () => {
 
 // Provides shared prompt state and the outer prompt bar layout.
 function MosaicPromptBar({
-  value,
-  setValue,
+  payload,
+  setPayload,
   isLoading,
   onSubmit,
-  commands,
+  tools,
   children,
   className,
 }: MosaicPromptBarProps) {
-  const [isCommandMenuOpen, setIsCommandMenuOpen] = useState<boolean>(false);
+  const [isToolMenuOpen, setIsToolMenuOpen] = useState<boolean>(false);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [slashIndex, setSlashIndex] = useState<number>(-1);
   const [query, setQuery] = useState("");
-  const [selectedCommand, setSelectedCommand] = useState<string | null>(null);
-  const filteredCommands = commands.filter((command) =>
-    command.title
+  const filteredTools = tools.filter((tool) =>
+    tool.title
       .replace(/\s/g, "")
       .toLocaleLowerCase()
       .includes(query.toLowerCase()),
@@ -85,22 +87,20 @@ function MosaicPromptBar({
   return (
     <MosaicPromptBarContext.Provider
       value={{
-        value,
-        setValue,
+        payload,
+        setPayload,
         isLoading,
         onSubmit,
-        isCommandMenuOpen,
-        setIsCommandMenuOpen,
+        isToolMenuOpen,
+        setIsToolMenuOpen,
         selectedIndex,
         setSelectedIndex,
         slashIndex,
         setSlashIndex,
         query,
         setQuery,
-        commands,
-        filteredCommands,
-        selectedCommand,
-        setSelectedCommand,
+        tools,
+        filteredTools,
       }}
     >
       <div
@@ -115,54 +115,55 @@ function MosaicPromptBar({
   );
 }
 
-type Command = {
+export type Tool = {
+  id: string;
   title: string;
   description: string;
   icon: LucideIcon;
   color: string;
 };
 
-type CommandMenuProps = {
-  children: ReactElement<CommandItemProps>;
+type ToolMenuProps = {
+  children: ReactElement<ToolItemProps>;
   className?: string;
 };
 
-// Shows the keyboard-navigable command choices opened from the prompt textarea.
-function CommandMenu({ children, className }: CommandMenuProps) {
-  const { isCommandMenuOpen, filteredCommands } = useMosaicContext();
+// Shows the keyboard-navigable tool choices opened from the prompt textarea.
+function ToolMenu({ children, className }: ToolMenuProps) {
+  const { isToolMenuOpen, filteredTools } = useMosaicContext();
   return (
-    isCommandMenuOpen &&
-    filteredCommands.length > 0 && (
+    isToolMenuOpen &&
+    filteredTools.length > 0 && (
       <motion.div className={cn("flex flex-col mb-2", className)}>
-        {filteredCommands.map((command, index) =>
-          cloneElement(children, { ...command, index, key: command.title }),
+        {filteredTools.map((tool, index) =>
+          cloneElement(children, { ...tool, index, key: tool.id }),
         )}
       </motion.div>
     )
   );
 }
 
-type CommandItemProps = Partial<Command> & {
+type ToolItemProps = Partial<Tool> & {
   index?: number;
   className?: string;
 };
 
-function CommandItem({
+function ToolItem({
+  id,
   title,
   description,
   icon,
   color,
   index = 0,
   className,
-}: CommandItemProps) {
+}: ToolItemProps) {
   const {
     selectedIndex,
-    setValue,
+    setPayload,
     slashIndex,
     setSlashIndex,
     setQuery,
-    setIsCommandMenuOpen,
-    setSelectedCommand,
+    setIsToolMenuOpen,
   } = useMosaicContext();
   const Icon = icon;
 
@@ -175,13 +176,13 @@ function CommandItem({
         delay: index * 0.03,
       }}
       onClick={() => {
-        if (title) setSelectedCommand(title);
-        setValue((prev) =>
-          slashIndex === -1 ? prev : prev.slice(0, slashIndex),
-        );
+        setPayload((prev) => ({
+          prompt: slashIndex === -1 ? prev.prompt : prev.prompt.slice(0, slashIndex),
+          tool: id ?? null,
+        }));
         setQuery("");
         setSlashIndex(-1);
-        setIsCommandMenuOpen(false);
+        setIsToolMenuOpen(false);
       }}
       className={cn(
         "flex items-center gap-2 rounded-lg leading-none py-2 px-4 cursor-pointer hover:bg-neutral-100/60 select-none",
@@ -213,14 +214,14 @@ function PromptInput({
   children: ReactNode;
   className?: string;
 }) {
-  const { setIsCommandMenuOpen } = useMosaicContext();
+  const { setIsToolMenuOpen } = useMosaicContext();
   useEffect(() => {
     function handleOutSideClick(e: MouseEvent) {
       if (
         promptInputRef.current &&
         !promptInputRef.current.contains(e.target as Node)
       ) {
-        setIsCommandMenuOpen(false);
+        setIsToolMenuOpen(false);
       }
     }
 
@@ -245,7 +246,7 @@ function PromptInput({
   );
 }
 
-// Captures prompt text and handles command navigation and submission keys.
+// Captures prompt text and handles tool navigation and submission keys.
 
 type PromptInputTextAreaProps = {
   placeholder: string;
@@ -257,20 +258,19 @@ function PromptInputTextArea({
   className,
 }: PromptInputTextAreaProps) {
   const {
-    value,
-    setValue,
+    payload,
+    setPayload,
     onSubmit,
     isLoading,
-    isCommandMenuOpen,
-    setIsCommandMenuOpen,
+    isToolMenuOpen,
+    setIsToolMenuOpen,
     selectedIndex,
     setSelectedIndex,
     slashIndex,
     setSlashIndex,
     setQuery,
-    commands,
-    filteredCommands,
-    setSelectedCommand,
+    tools,
+    filteredTools,
   } = useMosaicContext();
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -288,49 +288,49 @@ function PromptInputTextArea({
       if (isAtWordBoundary) {
         setSlashIndex(cursorPosition);
         setQuery("");
-        setIsCommandMenuOpen(true);
+        setIsToolMenuOpen(true);
       }
 
       return;
     }
-    if (isCommandMenuOpen && event.key === "ArrowDown") {
+    if (isToolMenuOpen && event.key === "ArrowDown") {
       event.preventDefault();
       setSelectedIndex((prev) =>
-        prev < filteredCommands.length - 1 ? prev + 1 : 0,
+        prev < filteredTools.length - 1 ? prev + 1 : 0,
       );
       return;
     }
-    if (isCommandMenuOpen && event.key === "ArrowUp") {
+    if (isToolMenuOpen && event.key === "ArrowUp") {
       event.preventDefault();
       setSelectedIndex((prev) =>
-        prev > 0 ? prev - 1 : filteredCommands.length - 1,
+        prev > 0 ? prev - 1 : filteredTools.length - 1,
       );
       return;
     }
-    if (isCommandMenuOpen && event.key === "Enter") {
+    if (isToolMenuOpen && event.key === "Enter") {
       event.preventDefault();
-      const selectedCommand = filteredCommands[selectedIndex];
-      if (!selectedCommand) return;
-      setValue((prev) =>
-        slashIndex === -1 ? prev : prev.slice(0, slashIndex),
-      );
-      setSelectedCommand(selectedCommand.title);
+      const selectedTool = filteredTools[selectedIndex];
+      if (!selectedTool) return;
+      setPayload((prev) => ({
+        prompt: slashIndex === -1 ? prev.prompt : prev.prompt.slice(0, slashIndex),
+        tool: selectedTool.id,
+      }));
       setQuery("");
       setSlashIndex(-1);
-      setIsCommandMenuOpen(false);
+      setIsToolMenuOpen(false);
       return;
     }
     if (event.key === "Escape") {
-      setIsCommandMenuOpen(false);
+      setIsToolMenuOpen(false);
       return;
     }
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-      if (!value.trim() || isLoading) return;
+      if (!payload.prompt.trim() || isLoading) return;
       const textarea = textareaRef.current!;
-      setValue("");
+      onSubmit(payload);
+      setPayload({ prompt: "", tool: null });
       textarea.style.height = "40px";
-      onSubmit();
       return;
     }
   };
@@ -353,7 +353,7 @@ function PromptInputTextArea({
         if (isAtWordBoundary) {
           setSlashIndex(cursorPosition);
           setQuery("");
-          setIsCommandMenuOpen(true);
+          setIsToolMenuOpen(true);
         }
 
         return;
@@ -379,9 +379,9 @@ function PromptInputTextArea({
 
     const newValue = e.target.value;
     const cursorPosition = e.target.selectionStart;
-    setValue(newValue);
+    setPayload((prev) => ({ ...prev, prompt: newValue }));
 
-    // No active command trigger
+    // No active tool trigger
     if (slashIndex === -1) {
       return;
     }
@@ -390,7 +390,7 @@ function PromptInputTextArea({
     // failed query's anchor was last moved to) — cancel the trigger.
     if (cursorPosition <= slashIndex) {
       setQuery("");
-      setIsCommandMenuOpen(false);
+      setIsToolMenuOpen(false);
       setSlashIndex(-1);
       return;
     }
@@ -398,17 +398,17 @@ function PromptInputTextArea({
     // Everything between the anchor and the cursor is the current query.
     const currentQuery = newValue.slice(slashIndex + 1, cursorPosition);
 
-    // A space ends the command word entirely. Fully deactivate — a "/"
+    // A space ends the tool word entirely. Fully deactivate — a "/"
     // typed after this space is a fresh word boundary and can retrigger.
     if (/\s/.test(currentQuery)) {
       setQuery("");
-      setIsCommandMenuOpen(false);
+      setIsToolMenuOpen(false);
       setSlashIndex(-1);
       return;
     }
 
-    const hasMatch = commands.some((command) =>
-      command.title
+    const hasMatch = tools.some((tool) =>
+      tool.title
         .replace(/\s/g, "")
         .toLocaleLowerCase()
         .includes(currentQuery.toLowerCase()),
@@ -420,18 +420,18 @@ function PromptInputTextArea({
       // pressing "/" again. Move the anchor to "now" so the stray
       // non-matching text is left behind as plain text, not tracked as query.
       setQuery("");
-      setIsCommandMenuOpen(true);
+      setIsToolMenuOpen(true);
       setSlashIndex(cursorPosition - 1);
       return;
     }
 
     setQuery(currentQuery);
-    setIsCommandMenuOpen(true);
+    setIsToolMenuOpen(true);
   };
 
   return (
     <textarea
-      value={value}
+      value={payload.prompt}
       ref={textareaRef}
       onChange={handleChange}
       onKeyDown={handleKeyPress}
@@ -459,21 +459,21 @@ function PromptInputActions({ children, className }: PromptInputActionsProps) {
     <div className={cn("flex items-center justify-between pt-2", className)}>
       <div className="flex items-center">
         {attachments}
-        <SelectedCommand />
+        <SelectedTool />
       </div>
       <div className="flex items-center">{submit}</div>
     </div>
   );
 }
 
-function SelectedCommand() {
-  const { selectedCommand, commands } = useMosaicContext();
+function SelectedTool() {
+  const { payload, tools } = useMosaicContext();
 
-  const command = commands.find(({ title }) => title === selectedCommand);
+  const tool = tools.find(({ id }) => id === payload.tool);
 
-  if (!command) return null;
+  if (!tool) return null;
 
-  const Icon = command.icon;
+  const Icon = tool.icon;
 
   return (
     <motion.div
@@ -485,23 +485,23 @@ function SelectedCommand() {
         "group flex items-center gap-1.5 rounded-full",
         "py-2 px-3 leading-none transition-colors duration-200",
         "hover:bg-red-100 cursor-pointer",
-        command.color,
+        tool.color,
       )}
     >
       <Icon
         className={cn(
           "size-4 shrink-0 transition-colors duration-200 group-hover:text-red-600",
-          command.color,
+          tool.color,
         )}
       />
 
       <p
         className={cn(
           "text-[15px] font-medium tracking-wide select-none transition-colors duration-200 group-hover:text-red-600",
-          command.color,
+          tool.color,
         )}
       >
-        {command.title}
+        {tool.title}
       </p>
     </motion.div>
   );
@@ -528,7 +528,13 @@ function PromptInputAttachments({ className }: ActionProps) {
 
 // Submits the prompt or displays the loading state while submission is active.
 function PromptInputSubmit({ className }: ActionProps) {
-  const { isLoading, onSubmit, value } = useMosaicContext();
+  const { isLoading, onSubmit, payload, setPayload } = useMosaicContext();
+
+  const handleSubmit = () => {
+    if (!payload.prompt.trim() || isLoading) return;
+    onSubmit(payload);
+    setPayload({ prompt: "", tool: null });
+  };
 
   return isLoading ? (
     <div
@@ -540,20 +546,20 @@ function PromptInputSubmit({ className }: ActionProps) {
       <Square className="size-4 md:size-5 fill-white cursor-pointer text-white" />
     </div>
   ) : (
-    <button type="button" onClick={onSubmit} disabled={!value.trim()}>
+    <button type="button" onClick={handleSubmit} disabled={!payload.prompt.trim()}>
       <ArrowUp className="size-7 md:size-10 rounded-full bg-linear-to-r from-neutral-600 to-neutral-800 dark:from-neutral-100 dark:to-neutral-200 p-2 cursor-pointer text-white dark:text-black" />
     </button>
   );
 }
 
 export {
-  CommandMenu,
-  CommandItem,
+  ToolMenu,
+  ToolItem,
   MosaicPromptBar,
   PromptInput,
   PromptInputActions,
   PromptInputAttachments,
   PromptInputSubmit,
   PromptInputTextArea,
-  SelectedCommand,
+  SelectedTool,
 };

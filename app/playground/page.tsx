@@ -1,7 +1,8 @@
 "use client";
 import {
-  CommandMenu,
-  CommandItem,
+  PromptPayload,
+  ToolMenu,
+  ToolItem,
   MosaicPromptBar,
   PromptInput,
   PromptInputAttachments,
@@ -12,26 +13,30 @@ import {
 import { FileText, Lightbulb, PenLine, ImageIcon } from "lucide-react";
 import { useState } from "react";
 
-const commands = [
+const tools = [
   {
+    id: "write",
     title: "Write",
     description: "Draft or refine your content",
     icon: PenLine,
     color: "text-blue-500",
   },
   {
+    id: "analyze",
     title: "Analyze",
     description: "Explore ideas and find insights",
     icon: Lightbulb,
     color: "text-amber-500",
   },
   {
+    id: "summarize",
     title: "Summarize",
     description: "Turn long text into key points",
     icon: FileText,
     color: "text-emerald-500",
   },
   {
+    id: "create_image",
     title: "Create Image",
     description: "Generate an image from a prompt",
     icon: ImageIcon,
@@ -55,31 +60,32 @@ export default function Play() {
 }
 
 function MosaicPromptBarDemo() {
-  const [value, setValue] = useState("");
+  const [payload, setPayload] = useState<PromptPayload>({
+    prompt: "",
+    tool: null,
+  });
   const [isLoading, setIsLoading] = useState(false);
-  const handleSubmit = () => {
+  const handleSubmit = (submittedPayload: PromptPayload) => {
+    console.log(submittedPayload);
     setIsLoading(true);
-    setValue("");
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   };
   return (
     <MosaicPromptBar
-      value={value}
-      setValue={setValue}
+      payload={payload}
+      setPayload={setPayload}
       isLoading={isLoading}
       onSubmit={handleSubmit}
-      commands={commands}
+      tools={tools}
     >
-      <CommandMenu>
-        <CommandItem />
-      </CommandMenu>
+      <ToolMenu>
+        <ToolItem />
+      </ToolMenu>
 
       <PromptInput className="">
-        <PromptInputTextArea
-          placeholder="Type / to get started"
-        />
+        <PromptInputTextArea placeholder="Type / to get started" />
         <PromptInputActions>
           <PromptInputAttachments />
           <PromptInputSubmit />
