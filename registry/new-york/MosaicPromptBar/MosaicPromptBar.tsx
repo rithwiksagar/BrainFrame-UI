@@ -82,10 +82,6 @@ function MosaicPromptBar({
     setSelectedIndex(0);
   }, [query]);
 
-  useEffect(() => {
-    if (filteredCommands.length === 0) setIsCommandMenuOpen(false);
-  }, [filteredCommands.length]);
-
   return (
     <MosaicPromptBarContext.Provider
       value={{
@@ -272,6 +268,7 @@ function PromptInputTextArea({
     slashIndex,
     setSlashIndex,
     setQuery,
+    commands,
     filteredCommands,
     setSelectedCommand,
   } = useMosaicContext();
@@ -280,7 +277,20 @@ function PromptInputTextArea({
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "/") {
-      setIsCommandMenuOpen(true);
+      const cursorPosition = event.currentTarget.selectionStart;
+      const charBeforeCursor = event.currentTarget.value[cursorPosition - 1];
+      const isAtWordBoundary =
+        cursorPosition === 0 || /\s/.test(charBeforeCursor ?? "");
+
+      // Only (re)trigger on a "/" that starts a fresh word. This is what
+      // stops "////" from repeatedly reopening the menu (exception #2),
+      // and what lets a "/" typed after a space reopen it (last bullet).
+      if (isAtWordBoundary) {
+        setSlashIndex(cursorPosition);
+        setQuery("");
+        setIsCommandMenuOpen(true);
+      }
+
       return;
     }
     if (isCommandMenuOpen && event.key === "ArrowDown") {
@@ -332,8 +342,20 @@ function PromptInputTextArea({
       }
 
       if (e.key === "/") {
-        textareaRef.current?.focus();
-        setIsCommandMenuOpen(true);
+        const textarea = textareaRef.current;
+        textarea?.focus();
+
+        const cursorPosition = textarea?.selectionStart ?? 0;
+        const charBeforeCursor = textarea?.value[cursorPosition - 1];
+        const isAtWordBoundary =
+          cursorPosition === 0 || /\s/.test(charBeforeCursor ?? "");
+
+        if (isAtWordBoundary) {
+          setSlashIndex(cursorPosition);
+          setQuery("");
+          setIsCommandMenuOpen(true);
+        }
+
         return;
       }
 
@@ -341,6 +363,7 @@ function PromptInputTextArea({
         textareaRef.current?.focus();
       }
     }
+
     window.addEventListener("keydown", handleKeyChange);
 
     return () => {
@@ -348,26 +371,64 @@ function PromptInputTextArea({
     };
   }, []);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = textareaRef.current!;
+
     textarea.style.height = "0";
     textarea.style.height = textarea.scrollHeight + "px";
+
     const newValue = e.target.value;
+    const cursorPosition = e.target.selectionStart;
     setValue(newValue);
-    const index =
-      slashIndex !== -1 && newValue[slashIndex] === "/"
-        ? slashIndex
-        : newValue.lastIndexOf("/");
-    if (index === -1) {
-      setQuery("");
-      setIsCommandMenuOpen(false);
+
+    // No active command trigger
+    if (slashIndex === -1) {
       return;
     }
 
-    setSlashIndex(index);
-    const query = newValue.slice(index + 1);
-    setQuery(query);
+    // Cursor is at/before the anchor point (the "/" itself, or wherever a
+    // failed query's anchor was last moved to) — cancel the trigger.
+    if (cursorPosition <= slashIndex) {
+      setQuery("");
+      setIsCommandMenuOpen(false);
+      setSlashIndex(-1);
+      return;
+    }
+
+    // Everything between the anchor and the cursor is the current query.
+    const currentQuery = newValue.slice(slashIndex + 1, cursorPosition);
+
+    // A space ends the command word entirely. Fully deactivate — a "/"
+    // typed after this space is a fresh word boundary and can retrigger.
+    if (/\s/.test(currentQuery)) {
+      setQuery("");
+      setIsCommandMenuOpen(false);
+      setSlashIndex(-1);
+      return;
+    }
+
+    const hasMatch = commands.some((command) =>
+      command.title
+        .replace(/\s/g, "")
+        .toLocaleLowerCase()
+        .includes(currentQuery.toLowerCase()),
+    );
+
+    if (currentQuery.length > 0 && !hasMatch) {
+      // Exception #1: nothing matches — erase the query but keep the "/"
+      // trigger alive (menu stays open) so the user can keep typing without
+      // pressing "/" again. Move the anchor to "now" so the stray
+      // non-matching text is left behind as plain text, not tracked as query.
+      setQuery("");
+      setIsCommandMenuOpen(true);
+      setSlashIndex(cursorPosition - 1);
+      return;
+    }
+
+    setQuery(currentQuery);
+    setIsCommandMenuOpen(true);
   };
+
   return (
     <textarea
       value={value}
@@ -407,6 +468,7 @@ function PromptInputActions({ children, className }: PromptInputActionsProps) {
 
 function SelectedCommand() {
   const { selectedCommand, commands } = useMosaicContext();
+
   const command = commands.find(({ title }) => title === selectedCommand);
 
   if (!command) return null;
@@ -414,12 +476,34 @@ function SelectedCommand() {
   const Icon = command.icon;
 
   return (
-    <div className="flex items-center gap-1.5 rounded-lg leading-none py-2 px-3">
-      <Icon className={cn("size-4 shrink-0", command.color)} />
-      <p className={cn("text-[15px] font-medium tracking-wide select-none", command.color)}>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      exit={{ opacity: 0, scale: 0.85, filter: "blur(4px)" }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className={cn(
+        "group flex items-center gap-1.5 rounded-full",
+        "py-2 px-3 leading-none transition-colors duration-200",
+        "hover:bg-red-100 cursor-pointer",
+        command.color,
+      )}
+    >
+      <Icon
+        className={cn(
+          "size-4 shrink-0 transition-colors duration-200 group-hover:text-red-600",
+          command.color,
+        )}
+      />
+
+      <p
+        className={cn(
+          "text-[15px] font-medium tracking-wide select-none transition-colors duration-200 group-hover:text-red-600",
+          command.color,
+        )}
+      >
         {command.title}
       </p>
-    </div>
+    </motion.div>
   );
 }
 
