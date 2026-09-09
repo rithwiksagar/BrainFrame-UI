@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowUp, PlusIcon, Square, type LucideIcon } from "lucide-react";
+import {
+  ArrowUp,
+  PlusIcon,
+  Square,
+  Trash2,
+  type LucideIcon,
+} from "lucide-react";
 import {
   createContext,
   Children,
@@ -467,7 +473,7 @@ function PromptInputActions({ children, className }: PromptInputActionsProps) {
 }
 
 function SelectedTool() {
-  const { payload, tools } = useMosaicContext();
+  const { payload, setPayload, setIsToolMenuOpen, tools } = useMosaicContext();
 
   const tool = tools.find(({ id }) => id === payload.tool);
 
@@ -481,6 +487,10 @@ function SelectedTool() {
       animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
       exit={{ opacity: 0, scale: 0.85, filter: "blur(4px)" }}
       transition={{ duration: 0.2, ease: "easeOut" }}
+      onClick={() => {
+        setPayload((prev) => ({ ...prev, tool: null }));
+        setIsToolMenuOpen(false);
+      }}
       className={cn(
         "group flex items-center gap-1.5 rounded-full",
         "py-2 px-3 leading-none transition-colors duration-200",
@@ -490,9 +500,13 @@ function SelectedTool() {
     >
       <Icon
         className={cn(
-          "size-4 shrink-0 transition-colors duration-200 group-hover:text-red-600",
+          "size-4 shrink-0 transition-colors duration-200 group-hover:hidden",
           tool.color,
         )}
+      />
+      <Trash2
+        aria-hidden="true"
+        className="hidden size-4 shrink-0 text-red-600 group-hover:block"
       />
 
       <p
