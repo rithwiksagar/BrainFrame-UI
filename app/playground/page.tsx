@@ -1,96 +1,16 @@
-"use client";
-import {
-  PromptPayload,
-  ToolMenu,
-  ToolItem,
-  MosaicPromptBar,
-  PromptInput,
-  PromptInputAttachments,
-  PromptInputActions,
-  PromptInputSubmit,
-  PromptInputTextArea,
-} from "@/registry/new-york/MosaicPromptBar/MosaicPromptBar";
-import { FileText, Lightbulb, PenLine, ImageIcon } from "lucide-react";
-import { useState } from "react";
+import { MosaicTextActions } from "@/registry/new-york/MosaicTextActions/MosaicTextActions";
 
-const tools = [
-  {
-    id: "write",
-    title: "Write",
-    description: "Draft or refine your content",
-    icon: PenLine,
-    color: "text-blue-500",
-  },
-  {
-    id: "analyze",
-    title: "Analyze",
-    description: "Explore ideas and find insights",
-    icon: Lightbulb,
-    color: "text-amber-500",
-  },
-  {
-    id: "summarize",
-    title: "Summarize",
-    description: "Turn long text into key points",
-    icon: FileText,
-    color: "text-emerald-500",
-  },
-  {
-    id: "create_image",
-    title: "Create Image",
-    description: "Generate an image from a prompt",
-    icon: ImageIcon,
-    color: "text-red-500",
-  },
-];
+const DummyMessage = `Somewhere, right now, a person is looking at the same moon you are, even though you may never meet. They might be celebrating something, worrying about tomorrow, listening to music, or simply staring out a window.It’s strange how enormous the world is, yet tiny moments can connect people without either of them knowing. A song, a smell after rain, an old photograph, or even the moon can become a quiet reminder that everyone is carrying a story you’ll probably never hear.And maybe that’s what makes ordinary life so interesting: there are billions of stories happening simultaneously, most of them completely invisible to us.And maybe that’s what makes ordinary life so interesting: there are billions of stories happening simultaneously, most of them completely invisible to us.
+`;
 
-export default function Play() {
+export default function Play(){
   return (
-    <div
-      className="h-screen flex items-center justify-center  min-h-screen
-    bg-cover
-    bg-center
-    bg-no-repeat
-    animate-[moveBg_15s_ease-in-out_infinite_alternate]"
-      style={{ backgroundImage: "url('/image.png')" }}
-    >
-      <MosaicPromptBarDemo />
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="max-w-3xl relative text-justify text-xl whitespace-pre-wrap mask-[linear-gradient(to_bottom,black_0%,black_5%,transparent_100%)]">
+        <MosaicTextActions>
+          {DummyMessage}
+        </MosaicTextActions>
+      </div>
     </div>
-  );
-}
-
-function MosaicPromptBarDemo() {
-  const [payload, setPayload] = useState<PromptPayload>({
-    prompt: "",
-    tool: null,
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const handleSubmit = (submittedPayload: PromptPayload) => {
-    console.log(submittedPayload);
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  };
-  return (
-    <MosaicPromptBar
-      payload={payload}
-      setPayload={setPayload}
-      isLoading={isLoading}
-      onSubmit={handleSubmit}
-      tools={tools}
-    >
-      <ToolMenu>
-        <ToolItem />
-      </ToolMenu>
-
-      <PromptInput className="">
-        <PromptInputTextArea placeholder="Type / to get started" />
-        <PromptInputActions>
-          <PromptInputAttachments />
-          <PromptInputSubmit />
-        </PromptInputActions>
-      </PromptInput>
-    </MosaicPromptBar>
-  );
+  )
 }
