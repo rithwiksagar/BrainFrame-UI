@@ -22,8 +22,8 @@ export default function RootLayout({
     >
       <body
         className="font-sans font-medium
-      selection:bg-neutral-700 dark:selection:bg-white
-      selection:text-white dark:selection:text-black"
+      selection:bg-sky-100
+      selection:text-sky-500"
       >
         <ThemeProvider attribute="class" defaultTheme="system">
           {children}

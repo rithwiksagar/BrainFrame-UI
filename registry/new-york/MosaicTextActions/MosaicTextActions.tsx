@@ -1,8 +1,16 @@
 "use client";
-import { motion } from "motion/react";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
-function MosaicTextActions({ children }: { children?: String }) {
+function MosaicTextActions({
+  children,
+  className,
+  actions
+}: {
+  children: String;
+  className?: string;
+  actions: {label: string, onClick: (text: string)=> void}[]
+}) {
   const [selectedText, setSelectedText] = useState("");
   const [coordinates, setCoordinates] = useState({ top: 0, left: 0 });
   const [showActions, setShowActions] = useState(false);
@@ -54,40 +62,41 @@ function MosaicTextActions({ children }: { children?: String }) {
   return (
     <div ref={textRef}>
       {children}
-
       {showActions && selectedText && (
         <div
-          className="fixed z-50 flex items-center overflow-hidden rounded-lg border-neutral-200/80 bg-white text-sm font-medium text-neutral-700 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur dark:border-neutral-700/80 dark:bg-neutral-900/95 dark:text-neutral-200"
+          className={cn(
+            "fixed z-50 flex items-center overflow-hidden rounded-lg border-neutral-200/80 bg-white text-sm font-medium text-neutral-700 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur dark:border-neutral-700/80 dark:bg-neutral-900/95 dark:text-neutral-200",
+            className,
+          )}
           style={{ top: coordinates.top, left: coordinates.left }}
         >
-          <button
-            type="button"
-            className="select-none rounded-l-md px-3 py-2.5 transition-colors hover:bg-neutral-100 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white cursor-pointer"
-            onClick={() => {
-              console.log("Ask AI:", selectedText);
-              setShowActions(false);
-            }}
-          >
-            Add to chat
-          </button>
-          <span
-            className="h-10 w-px bg-neutral-200 dark:bg-neutral-700"
-            aria-hidden="true"
-          />
-          <button
-            type="button"
-            className="select-none rounded-r-md px-3 py-2.5 transition-colors hover:bg-neutral-100 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white cursor-pointer"
-            onClick={() => {
-              console.log("Ask AI:", selectedText);
-              setShowActions(false);
-            }}
-          >
-            Ask AI
-          </button>
+          {actions.map((action, index) => (
+            <div key={action.label} className="flex items-center">
+              <button
+                type="button"
+                className={cn(
+                  "select-none px-3 py-2.5 transition-colors hover:bg-neutral-100 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white cursor-pointer",
+                  index === 0 && "rounded-l-md",
+                  index === actions.length - 1 && "rounded-r-md",
+                )}
+                onClick={() => {
+                  action.onClick(selectedText);
+                  setShowActions(false);
+                }}
+              >
+                {action.label}
+              </button>
+              {index < actions.length - 1 && (
+                <span
+                  className="h-10 w-px bg-neutral-200 dark:bg-neutral-700"
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>
   );
 }
-
 export { MosaicTextActions };
