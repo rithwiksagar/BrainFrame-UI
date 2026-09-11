@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ArrowUp,
   PlusIcon,
@@ -21,7 +20,7 @@ import {
   useEffect,
 } from "react";
 import { cn } from "@/lib/utils";
-import { motion, spring } from "motion/react";
+import { motion } from "motion/react";
 
 export type PromptPayload = {
   prompt: string;
@@ -65,7 +64,7 @@ const useMosaicContext = () => {
   return context;
 };
 
-// Provides shared prompt state and the outer prompt bar layout.
+// Main PromptBar that Provides shared prompt state and the outer prompt bar layout.
 function MosaicPromptBar({
   payload,
   setPayload,
