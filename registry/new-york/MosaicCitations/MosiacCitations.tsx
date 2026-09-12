@@ -57,7 +57,8 @@ function Source() {
           onClick={() => setActiveIndex(index)}
         >
           <motion.div
-            whileHover={{ y: -8, transition: { duration: 0.1 } }}
+            whileHover={{ y: -8 }}
+            transition= {{ duration: 0.1 }}
             initial={{
               x: index === 0 ? 8 : 0,
               rotateZ: 30,
@@ -69,8 +70,8 @@ function Source() {
               rotateZ: 0,
               opacity: 1,
               filter: "blur(0px)",
+              transition: { duration: 0.35, delay: index * 0.1, ease: easeOut }
             }}
-            transition={{ duration: 0.35, delay: index * 0.1, ease: easeOut }}
             style={{ zIndex: index }}
             className={cn(
               "size-8 rounded-full border-background border-3 cursor-pointer font-semibold bg-neutral-800 text-white",
