@@ -33,6 +33,13 @@ const sources: SourceData[] = [
     url: "https://developer.mozilla.org",
     favicon: "https://developer.mozilla.org/favicon.ico",
   },
+  {
+    title: "MDN Web",
+    description:
+      "Web platform documentation covering HTML, CSS, JavaScript, browser APIs, and other core web technologies.",
+    url: "https://developer.mozilla.org",
+    favicon: "https://developer.mozilla.org/favicon.ico",
+  },
 ];
 
 export default function Play() {

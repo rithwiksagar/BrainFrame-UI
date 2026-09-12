@@ -1,12 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpenText,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpenText } from "lucide-react";
 import { AnimatePresence, easeOut, motion, scale, spring } from "motion/react";
 import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
@@ -28,12 +22,12 @@ type MosaicCitationsContextValue = {
   activeIndex: number;
   setActiveIndex: (index: number) => void;
 };
+
 const MosaicCitationsContext =
   createContext<MosaicCitationsContextValue | null>(null);
 
 function useMosaicContext() {
   const context = useContext(MosaicCitationsContext);
-
   if (!context) {
     throw new Error("useMosaicContext must be used inside MosiacCitations");
   }
@@ -97,11 +91,11 @@ function Source() {
 
   return (
     <div className="relative">
-      <div className="flex items-center gap-2 font-medium text-neutral-600 pb-2 px-1 dark:text-neutral-400">
+      <motion.div className="flex items-center gap-2 font-medium text-neutral-600 pb-2 px-1 dark:text-neutral-400">
         <BookOpenText className="size-4 mt-0.5" /> Sources
-      </div>
+      </motion.div>
       <div ref={Ref} className="flex items-center">
-        {sources.map((source, index) => (
+        {sources.slice(0, 4).map((source, index) => (
           <button
             key={source.title}
             type="button"
@@ -122,7 +116,7 @@ function Source() {
                 filter: "blur(0px)",
                 transition: {
                   duration: 0.3,
-                  delay: index * 0.25,
+                  delay: (index + 1) * 0.25,
                   ease: easeOut,
                 },
               }}
@@ -135,6 +129,13 @@ function Source() {
             </motion.div>
           </button>
         ))}
+        {sources.length > 4 && (
+          <motion.span 
+          initial={{opacity:0, y:10,filter:"blur(2px)"}}
+          animate={{opacity:1, y:0,filter:"blur(0px)"}}
+          transition={{duration:0.15, ease:easeOut, delay: 5 * 0.25}}
+          className="px-1.5 font-mono">+{sources.length - 4}</motion.span>
+        )}
 
         <AnimatePresence>
           {activeSource && (
