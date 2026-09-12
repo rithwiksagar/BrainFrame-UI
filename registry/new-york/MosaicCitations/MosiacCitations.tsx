@@ -55,10 +55,16 @@ function MosiacCitations({ sources, children }: MosiacCitationsProps) {
 function Source() {
   const { sources, setActiveIndex, activeIndex } = useMosaicContext();
   const activeSource = sources[activeIndex];
+  const [direction, setDirection] = useState<-1 | 1>(-1);
 
-  const goToPrevious = () =>
+  const goToPrevious = () => {
+    setDirection(-1);
     setActiveIndex((activeIndex - 1 + sources.length) % sources.length);
-  const goToNext = () => setActiveIndex((activeIndex + 1) % sources.length);
+  };
+  const goToNext = () => {
+    setDirection(1);
+    setActiveIndex((activeIndex + 1) % sources.length);
+  };
   const Ref = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
@@ -74,6 +80,20 @@ function Source() {
       window.removeEventListener("pointerdown", handleOutsideClick);
     };
   }, []);
+
+  const previewVariants = {
+    initial: (direction: number) => {
+      return {
+        x: direction === -1 ? -10 : 10,
+        opacity: 0,
+        filter: "blur(1px)",
+      };
+    },
+    animate: { x: 0, opacity: 1, filter: "blur(0px)" },
+    exit: (direction: number) => {
+      return { x: direction === 1 ? -10 : 10, opacity: 0, filter: "blur(1px)" };
+    },
+  };
 
   return (
     <div className="relative">
@@ -119,7 +139,6 @@ function Source() {
         <AnimatePresence>
           {activeSource && (
             <motion.div
-              layoutId="preview"
               transition={{ duration: 0.1 }}
               initial={{ opacity: 0, scale: 0.98, filter: "blur(2px)" }}
               animate={{
@@ -161,25 +180,36 @@ function Source() {
                 </div>
               </div>
 
-              <div className="cursor-pointer">
-                <div className="px-2 pt-2 flex items-center">
-                  <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full">
-                    <img
-                      src={activeSource.favicon}
-                      alt=""
-                      className="size-4 object-contain"
-                    />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block truncate text-[14px] font-medium text-neutral-800 dark:text-neutral-100">
-                      {activeSource.title}
+              <AnimatePresence mode="wait" custom={direction} initial={false}>
+                <motion.div
+                  key={activeSource.title}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.2, ease: easeOut }}
+                  variants={previewVariants}
+                  custom={direction}
+                  className="cursor-pointer"
+                >
+                  <div className="px-2 pt-2 flex items-center">
+                    <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full">
+                      <img
+                        src={activeSource.favicon}
+                        alt=""
+                        className="size-4 object-contain"
+                      />
                     </span>
-                  </span>
-                </div>
-                <p className="px-4 pt-1 pb-3 text-[14px] font-normal text-neutral-400 dark:text-neutral-500 ">
-                  {activeSource.description}
-                </p>
-              </div>
+                    <span className="min-w-0">
+                      <span className="block truncate text-[14px] font-medium text-neutral-800 dark:text-neutral-100">
+                        {activeSource.title}
+                      </span>
+                    </span>
+                  </div>
+                  <p className="px-4 pt-1 pb-3 text-[14px] font-normal text-neutral-400 dark:text-neutral-500 ">
+                    {activeSource.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>
