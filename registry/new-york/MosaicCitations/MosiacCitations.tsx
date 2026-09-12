@@ -129,6 +129,7 @@ function Source() {
             </motion.div>
           </button>
         ))}
+
         {sources.length > 4 && (
           <motion.span 
           initial={{opacity:0, y:10,filter:"blur(2px)"}}
@@ -187,7 +188,7 @@ function Source() {
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  transition={{ duration: 0.2, ease: easeOut }}
+                  transition={{ duration: 0.15, ease: easeOut }}
                   variants={previewVariants}
                   custom={direction}
                   className="cursor-pointer"
