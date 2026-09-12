@@ -22,7 +22,7 @@ const sources: SourceData[] = [
   {
     title: "TypeScript Handbook",
     description:
-      "A comprehensive guide to TypeScript covering types, interfaces, generics, functions, and advanced type patterns.",
+      "A comprehensive guide to TypeScript covering types, interfaces, generics, functions, and advanced type patterns.generics, functions, and advanced",
     url: "https://www.typescriptlang.org/docs/",
     favicon: "https://www.typescriptlang.org/favicon-32x32.png",
   },
