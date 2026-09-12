@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
+import { easeOut, motion, spring } from "motion/react";
 import type { ReactNode } from "react";
 import { createContext, useContext, useState } from "react";
 
@@ -57,8 +57,20 @@ function Source() {
           onClick={() => setActiveIndex(index)}
         >
           <motion.div
-            whileHover={{ y: -8 }}
-            initial={{ x: -index * 20 }}
+            whileHover={{ y: -8, transition: { duration: 0.1 } }}
+            initial={{
+              x: index === 0 ? 8 : 0,
+              rotateZ: 30,
+              opacity: 0,
+              filter: "blur(1px)",
+            }}
+            animate={{
+              x: -index * 20,
+              rotateZ: 0,
+              opacity: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{ duration: 0.35, delay: index * 0.1, ease: easeOut }}
             style={{ zIndex: index }}
             className={cn(
               "size-8 rounded-full border-background border-3 cursor-pointer font-semibold bg-neutral-800 text-white",
