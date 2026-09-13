@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ArrowUp, AudioWaveform, Square } from "lucide-react";
-import { AnimatePresence, easeInOut, motion, Transition } from "motion/react";
+import { ArrowUp, AudioWaveform, PlusIcon, Square } from "lucide-react";
+import { AnimatePresence, motion, Transition } from "motion/react";
 import {
   Children,
   createContext,
@@ -30,8 +30,6 @@ type MosaicAskAIContextValue = Omit<MosaicAskAIProps, "children"> & {
   textareaRef: React.RefObject<HTMLTextAreaElement | null>;
 };
 
-const transition: Transition<any> = { duration: 0.25, ease: [0.22, 1, 0.36, 1] };
-
 const MosaicAskAIContext = createContext<MosaicAskAIContextValue | null>(null);
 
 function useMosaicAskAI() {
@@ -44,7 +42,9 @@ function useMosaicAskAI() {
   return context;
 }
 
-function MosaicAskAI({
+const transition: Transition<any> = { duration: 0.3, ease: [0.22, 1, 0.36, 1] };
+
+function MosaicAskAI002({
   value,
   setValue,
   isLoading,
@@ -101,12 +101,12 @@ function MosaicAskAI({
         <motion.div
           layout
           transition={{
-            layout: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+            layout: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
           }}
-          style={{ width: isExpanded ? 500 : "auto" }}
+          style={{ width: isExpanded ? 400 : "auto" }}
           className={cn(
-            "bg-neutral-100 dark:bg-neutral-800 dark:text-white font-medium pl-4 pr-3 py-2.5 shadow-[0_2px_4px_rgba(0,0,0,0.06),0_8px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_4px_rgba(0,0,0,0.2),0_8px_20px_rgba(0,0,0,0.25)]",
-            multiLine ? "rounded-2xl" : "rounded-full",
+            "bg-neutral-100 dark:bg-neutral-800 dark:text-white font-medium shadow-[0_2px_4px_rgba(0,0,0,0.06),0_8px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_4px_rgba(0,0,0,0.2),0_8px_20px_rgba(0,0,0,0.25)]",
+            multiLine ? "rounded-2xl" : "rounded-3xl",
           )}
         >
           {isExpanded
@@ -118,32 +118,29 @@ function MosaicAskAI({
   );
 }
 
-function AskAIButton({ className }: { className?: string }) {
+function AskAIButton002({ className }: { className?: string }) {
   const { setIsExpanded } = useMosaicAskAI();
 
   return (
     <button
       type="button"
       className={cn(
-        "flex items-center justify-between text-lg gap-2 cursor-pointer",
+        "flex items-center justify-between text-lg gap-2 cursor-pointer pl-4 pr-3 py-2.5",
         className,
       )}
       onClick={() => setIsExpanded(true)}
     >
-      <motion.span
-        layoutId="ask-ai"
-        transition={transition}
-      >
+      <motion.span layoutId="ask-ai" transition={transition}>
         Ask AI
       </motion.span>
       <motion.span layoutId="ask-ai-button" transition={transition}>
-      <AudioWaveform className="size-7 bg-sky-500 p-1 rounded-full text-neutral-100" />
+        <AudioWaveform className="size-7 bg-pink-400 p-1 rounded-full text-neutral-100" />
       </motion.span>
     </button>
   );
 }
 
-function AskAiPromptBar({
+function AskAiPromptBar002({
   children,
   className,
 }: {
@@ -154,15 +151,13 @@ function AskAiPromptBar({
   return (
     <AnimatePresence mode="popLayout">
       {isExpanded && (
-        <div className={cn("flex items-center", className)}>
-          {children}
-        </div>
+        <div className={cn(" space-y-4 p-4", className)}>{children}</div>
       )}
     </AnimatePresence>
   );
 }
 
-function AskAITextarea({ className }: { className?: string }) {
+function AskAITextarea002({ className }: { className?: string }) {
   const { value, setValue, textareaRef, setMultiLine, onSubmit } =
     useMosaicAskAI();
 
@@ -188,7 +183,7 @@ function AskAITextarea({ className }: { className?: string }) {
           }
         }}
         className={cn(
-          "w-110 h-8 max-h-64 py-1.5 px-3 resize-none outline-none dark:text-neutral-100 overflow-y-scroll [scrollbar-width:none] mask-[linear-gradient(to_bottom,transparent,black_4%,black_98%,transparent)]",
+          "w-full h-8 max-h-64 py-1 px-2 resize-none outline-none dark:text-neutral-100 overflow-y-scroll [scrollbar-width:none] mask-[linear-gradient(to_bottom,transparent,black_4%,black_98%,transparent)]",
           className,
         )}
       />
@@ -196,7 +191,7 @@ function AskAITextarea({ className }: { className?: string }) {
         <motion.span
           layoutId="ask-ai"
           transition={transition}
-          className="absolute text-neutral-500 left-3 top-1.5"
+          className="absolute text-neutral-500 left-2 top-1 select-none pointer-events-none"
         >
           Ask AI
         </motion.span>
@@ -205,7 +200,30 @@ function AskAITextarea({ className }: { className?: string }) {
   );
 }
 
-function AskAISubmit({ className }: { className?: string }) {
+function AskAIActions002({ children, className }: { children: React.ReactNode, className?: string }) {
+  return (
+    <div className={cn("flex items-center justify-between", className)}>
+      {children}
+    </div>
+  );
+}
+
+function AskAIAttachments002({ className }: { className?: string }) {
+  return (
+    <button
+      type="button"
+      aria-label="Add attachment"
+      className={cn(
+        "rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 p-1 text-neutral-600 cursor-pointer dark:text-neutral-300",
+        className,
+      )}
+    >
+      <PlusIcon className="size-5" />
+    </button>
+  );
+}
+
+function AskAISubmit002({ className }: { className?: string }) {
   const { isLoading, onSubmit, value } = useMosaicAskAI();
 
   const handleSubmit = () => {
@@ -213,19 +231,34 @@ function AskAISubmit({ className }: { className?: string }) {
     onSubmit();
   };
 
-  return <motion.button
-          type="button"
-          layoutId="ask-ai-button"
-          transition={transition}
-          onClick={handleSubmit}
-          className={cn("bg-sky-500 rounded-full", className)}
-        >
-          {isLoading ? (
-            <Square className="size-4 md:size-8 fill-white cursor-pointer text-white p-2" />
-          ) : (
-            <ArrowUp className="size-7 md:size-8 cursor-pointer p-1.5 text-white" />
-          )}
-        </motion.button>
+  return (
+    <motion.button
+      type="button"
+      layoutId="ask-ai-button"
+      transition={transition}
+      onClick={handleSubmit}
+      className={cn("bg-pink-400 rounded-full", className)}
+    >
+      {isLoading ? (
+        <Square className="size-4 md:size-8 fill-white cursor-pointer text-white p-2" />
+      ) : (
+        <ArrowUp className="size-7 md:size-8 cursor-pointer p-1.5 text-white" />
+      )}
+    </motion.button>
+  );
 }
 
-export { AskAIButton, AskAITextarea, AskAiPromptBar, AskAISubmit, MosaicAskAI };
+
+
+function AIIcon(){
+  return 
+}
+export {
+  AskAIButton002,
+  AskAITextarea002,
+  AskAiPromptBar002,
+  AskAIActions002,
+  AskAISubmit002,
+  AskAIAttachments002,
+  MosaicAskAI002,
+};

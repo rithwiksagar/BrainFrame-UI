@@ -1,12 +1,14 @@
 "use client";
 
 import {
-  AskAIButton,
-  AskAITextarea,
-  AskAiPromptBar,
-  AskAISubmit,
-  MosaicAskAI,
-} from "@/registry/new-york/MosaicAskAI/MosaicAskAI";
+  AskAIButton002,
+  AskAiPromptBar002,
+  AskAIActions002,
+  AskAITextarea002,
+  MosaicAskAI002,
+  AskAIAttachments002,
+  AskAISubmit002,
+} from "@/registry/new-york/MosaicAskAI002/MosaicAskAI002";
 import { useState } from "react";
 
 export default function Play() {
@@ -14,25 +16,28 @@ export default function Play() {
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit = () => {
     setIsLoading(true);
-    setValue("")
+    setValue("");
     setTimeout(() => setIsLoading(false), 2000);
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <MosaicAskAI
+      <MosaicAskAI002
         value={value}
         setValue={setValue}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
         onSubmit={onSubmit}
       >
-        <AskAIButton />
-        <AskAiPromptBar>
-          <AskAITextarea />
-          <AskAISubmit />
-        </AskAiPromptBar>
-      </MosaicAskAI>
+        <AskAIButton002 />
+        <AskAiPromptBar002>
+          <AskAITextarea002 />
+          <AskAIActions002>
+            <AskAIAttachments002 />
+            <AskAISubmit002 />
+          </AskAIActions002>
+        </AskAiPromptBar002>
+      </MosaicAskAI002>
     </div>
   );
 }
