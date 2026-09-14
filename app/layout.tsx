@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { fraunces, jetbrainsMono, satoshi } from "./fonts";
+import { Inter } from "next/font/google";
+
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "BrainFrame | AI interfaces",
@@ -18,7 +24,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${satoshi.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}
+      className={`${inter.variable}`}
     >
       <body
         className="font-sans font-medium

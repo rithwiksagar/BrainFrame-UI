@@ -1,7 +1,7 @@
 "use client";
 
-import  Sidebar  from "@/components/Sidebar";
-import { TopBar } from "@/components/Topbar";
+import  Sidebar  from "@/components/site/Sidebar";
+import { TopBar } from "@/components/site/Topbar";
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 

@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import { CopyButton } from "@/components/CopyButton";
+import { CopyButton } from "@/components/site/CopyButton";
 import { useEffect, useRef, useState } from "react";
-import CodeBlock from "@/components/CodeBlock";
+import CodeBlock from "./CodeBlock";
 
 type InstallationProps = {
   CLILink: string;

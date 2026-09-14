@@ -7,21 +7,19 @@
   --foreground: #171717;
 }
 
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-satoshi), sans-serif;
-  --font-serif: var(--font-fraunces), serif;
-  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-sans: var(--font-inter);
+   --color-muted: oklch(96% 0.004 84.559);
 }
 
-
 .dark {
-    --background: #171717;
-    --foreground: #f7f7f7;
+  --background: #171717;
+  --foreground: #f7f7f7;
 }
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-inter);
 }
