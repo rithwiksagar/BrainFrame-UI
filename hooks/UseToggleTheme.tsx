@@ -19,11 +19,11 @@ export default function UseToggleTheme() {
       className="cursor-pointer flex items-center">
         {resolvedTheme === "dark" ? (
           <>
-            <Moon className="size-4 text-white/90" />
+            <Moon className="size-4 text-neutral-400 hover:text-neutral-100" />
           </>
         ) : (
           <>
-            <Sun className="size-4 bg text-neutral-900" />
+            <Sun className="size-4 bg text-neutral-700 hover:text-neutral-900" />
           </>
         )}
     </button>

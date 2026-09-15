@@ -41,7 +41,7 @@ function Hero() {
       <div className="mt-32 flex items-center gap-1">
         <motion.div
           whileHover={{ width: 340, transition: { type: spring, bounce: 0.5 } }}
-          className="flex items-center gap-1 text-sm w-76 justify-center rounded-2xl bg-muted px-4 py-3 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-300"
+          className="flex items-center gap-1 text-sm w-76 justify-center rounded-2xl bg-muted px-4 py-3 text-neutral-500 dark:bg-neutral-900 dark:text-neutral-300"
         >
           <span>npx create-brainframe-ui@latest</span>
           <CopyButton content="" />

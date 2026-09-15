@@ -4,7 +4,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 :root {
   --background: #f7f7f7;
-  --foreground: #171717;
+  --foreground: #000000;
 }
 
 @theme inline {
@@ -15,7 +15,7 @@
 }
 
 .dark {
-  --background: #171717;
+  --background: #000000;
   --foreground: #f7f7f7;
 }
 body {

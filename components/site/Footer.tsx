@@ -55,13 +55,13 @@ export default function Footer() {
               href=""
               className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             >
-              <FaGithub className="size-4"/>
+              <FaGithub className="size-4" />
             </Link>
             <Link
               href=""
               className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
             >
-              <RiTwitterXFill className="size-4"/>
+              <RiTwitterXFill className="size-4" />
             </Link>
             <span>
               <UseToggleTheme />
@@ -105,5 +105,3 @@ function FooterColumn({
     </div>
   );
 }
-
-
