@@ -1,4 +1,6 @@
 "use client";
+import BottomCTA from "@/components/site/BottomCta";
+import ComponentsGrid from "@/components/site/componentsGrid";
 import { CopyButton } from "@/components/site/CopyButton";
 import NavBar from "@/components/site/NavBar";
 import { motion, spring } from "motion/react";
@@ -8,13 +10,15 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center">
       <NavBar />
       <Hero />
+      <ComponentsGrid />
+      <BottomCTA />
     </div>
   );
 }
 
 function Hero() {
   return (
-    <div className="mt-44 flex flex-col min-h-screen items-center px-6">
+    <div className="mt-60 flex flex-col items-center px-6">
       <div className="flex flex-col items-center justify-center gap-8 text-center">
         <div className="flex max-w-3xl flex-col items-center text-center">
           <h1 className="text-6xl font-medium leading-tight tracking-tighter text-neutral-800">
