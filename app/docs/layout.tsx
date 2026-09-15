@@ -1,7 +1,6 @@
 "use client";
 
 import  Sidebar  from "@/components/site/Sidebar";
-import { TopBar } from "@/components/site/Topbar";
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 
@@ -30,9 +29,6 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
   }, [open, setOpen]);
   return (
     <>
-      <nav>
-        <TopBar topbarRef={topbarRef} setOpen={setOpen} />
-      </nav>
       <aside>
         <Sidebar sidebarRef={sidebarRef} setOpen={setOpen} open={open} />
       </aside>
