@@ -31,7 +31,7 @@ const linkClassName =
 
 export default function Footer() {
   return (
-    <footer className="w-full text-neutral-900 dark:text-neutral-100 md:px-10">
+    <footer className="w-full text-neutral-900 dark:text-neutral-100 px-4 md:px-10">
       <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between md:gap-24">
         <div className="flex max-w-xs flex-col items-start gap-4">
           <Link href="/" className="flex items-center gap-3">
@@ -69,7 +69,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="grid gap-12 sm:grid-cols-3 sm:gap-16">
+        <div className="grid gap-12 grid-cols-2 lg:grid-cols-3 sm:gap-16">
           <FooterColumn title="Components" links={componentLinks} />
           <FooterColumn title="Pages" links={pageLinks} />
           <FooterColumn title="Links" links={resourceLinks} />

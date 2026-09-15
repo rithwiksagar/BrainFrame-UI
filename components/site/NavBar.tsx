@@ -2,7 +2,8 @@ import Link from "next/link";
 
 export default function NavBar() {
   return (
-    <div className="fixed top-4 flex items-center justify-between gap-70 rounded-2xl bg-muted max-w-4xl py-2 px-4 z-999 dark:bg-neutral-900">
+    <div className="fixed top-4 ">
+    <div className="flex items-center justify-between gap-70 rounded-2xl bg-muted max-w-4xl py-2 px-4 z-999 dark:bg-neutral-900">
       <Link href="/" className="flex items-center px-1 py-1 cursor-pointer">
         <img
           src="/logo/mosaicLogo.jpeg"
@@ -35,5 +36,7 @@ export default function NavBar() {
         </div>
       </div>
     </div>
+
+  </div>
   );
 }

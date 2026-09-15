@@ -2,9 +2,9 @@ import { motion, spring } from "motion/react";
 
 export default function BottomCTA() {
   return (
-    <section className="relative overflow-hidden my-60">
+    <section className="my-60">
       <div className="mx-auto max-w-3xl px-6 text-center">
-        <h2 className="text-2xl font-medium tracking-tighter text-neutral-800 dark:text-neutral-200">
+        <h2 className="text-xl md:text-2xl font-medium tracking-tighter text-neutral-800 dark:text-neutral-200">
           Notify me
         </h2>
 
@@ -13,7 +13,7 @@ export default function BottomCTA() {
           applications. Copy, customize, and ship.
         </p>
 
-        <form className="mt-8 space-x-2">
+        <form className="mt-8 space-x-2 flex flex-col items-center justify-center lg:flex-row gap-3 md:gap-1">
           <motion.input
             whileHover={{ width: 300 }}
             whileFocus={{ width: 300 }}
