@@ -23,11 +23,11 @@ function Hero() {
     <div className="mt-60 flex flex-col items-center px-6">
       <div className="flex flex-col items-center justify-center gap-8 text-center">
         <div className="flex max-w-3xl flex-col items-center text-center">
-          <h1 className="text-6xl font-medium leading-tight tracking-tighter text-neutral-800">
+          <h1 className="text-6xl font-medium leading-tight tracking-tighter text-neutral-800 dark:text-neutral-100">
             Build Better AI Interfaces
           </h1>
 
-          <p className="mt-3 text-xl leading-6 tracking-tighter text-neutral-600">
+          <p className="mt-3 text-xl leading-6 tracking-tighter text-neutral-600 dark:text-neutral-400">
             <span className="mt-2 block">
               High-quality React and Next.js components
             </span>
@@ -41,7 +41,7 @@ function Hero() {
       <div className="mt-32 flex items-center gap-1">
         <motion.div
           whileHover={{ width: 340, transition: { type: spring, bounce: 0.5 } }}
-          className="flex items-center gap-1 text-sm w-76 justify-center rounded-2xl bg-muted px-4 py-3 text-neutral-500"
+          className="flex items-center gap-1 text-sm w-76 justify-center rounded-2xl bg-muted px-4 py-3 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-300"
         >
           <span>npx create-brainframe-ui@latest</span>
           <CopyButton content="" />

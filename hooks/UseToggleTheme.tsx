@@ -16,20 +16,14 @@ export default function UseToggleTheme() {
 
       <button 
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="border rounded-sm flex items-center gap-2 px-2 py-1 border-neutral-300 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium text-[13px] cursor-pointer">
+      className="cursor-pointer flex items-center">
         {resolvedTheme === "dark" ? (
           <>
             <Moon className="size-4 text-white/90" />
-            <span className="border-l border-neutral-300 pl-2 dark:border-neutral-800">
-              Dark
-            </span>
           </>
         ) : (
           <>
-            <Sun className="size-4.5 bg text-neutral-900" />
-            <span className="border-l border-neutral-300 pl-2 dark:border-neutral-800">
-              Dark
-            </span>
+            <Sun className="size-4 bg text-neutral-900" />
           </>
         )}
     </button>

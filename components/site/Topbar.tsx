@@ -1,7 +1,6 @@
 "use client";
 import UseToggleTheme from "@/hooks/UseToggleTheme";
 import { Github, GithubIcon, PanelLeft, Star } from "lucide-react";
-import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import { Dispatch, RefObject, SetStateAction } from "react";
 
