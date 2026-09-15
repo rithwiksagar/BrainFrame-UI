@@ -2,6 +2,7 @@
 import BottomCTA from "@/components/site/BottomCta";
 import ComponentsGrid from "@/components/site/componentsGrid";
 import { CopyButton } from "@/components/site/CopyButton";
+import Footer from "@/components/site/Footer";
 import NavBar from "@/components/site/NavBar";
 import { motion, spring } from "motion/react";
 
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <ComponentsGrid />
       <BottomCTA />
+      <Footer />
     </div>
   );
 }
@@ -39,7 +41,7 @@ function Hero() {
       <div className="mt-32 flex items-center gap-1">
         <motion.div
           whileHover={{ width: 340, transition: { type: spring, bounce: 0.5 } }}
-          className="flex items-center gap-1 text-sm w-76 justify-center rounded-2xl bg-neutral-200 px-4 py-3 text-neutral-500"
+          className="flex items-center gap-1 text-sm w-76 justify-center rounded-2xl bg-muted px-4 py-3 text-neutral-500"
         >
           <span>npx create-brainframe-ui@latest</span>
           <CopyButton content="" />
