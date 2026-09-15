@@ -23,10 +23,10 @@ export default function Hero() {
           </p>
         </div>
       </div>
-      <div className="mt-32 flex flex-col md:flex-col items-center gap-4 md:gap-1">
+      <div className="mt-32 flex flex-col md:flex-row items-center gap-4 md:gap-1">
         <motion.div
           whileHover={{ width: 340, transition: { type: spring, bounce: 0.5 } }}
-          className="flex items-center gap-1 text-sm md:w-72 justify-center rounded-xl md:rounded-2xl bg-muted px-4 py-2 md:py-3 text-neutral-500 dark:bg-neutral-900 dark:text-neutral-300"
+          className="flex items-center gap-1 text-sm md:w-72 justify-center rounded-xl md:rounded-2xl bg-muted px-4 py-2 md:py-3 text-neutral-500 dark:bg-neutral-900 dark:text-neutral-300 "
         >
           <span>npx create-brainframe-ui@latest</span>
           <CopyButton content="" />

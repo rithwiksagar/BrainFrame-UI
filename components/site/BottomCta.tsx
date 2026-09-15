@@ -13,13 +13,14 @@ export default function BottomCTA() {
           applications. Copy, customize, and ship.
         </p>
 
-        <form className="mt-8 space-x-2 flex flex-col items-center justify-center lg:flex-row gap-3 md:gap-1">
+        <form className="mt-8 space-x-2 flex flex-col items-center justify-center md:flex-row gap-3 md:gap-1">
           <motion.input
             whileHover={{ width: 300 }}
             whileFocus={{ width: 300 }}
             placeholder="you@gmail.com"
-            className="w-50 border border-neutral-200 p-3 rounded-2xl placeholder:text-neutral-300 outline-none dark:border-neutral-800 dark:placeholder:text-neutral-600 dark:bg-neutral-900 bg-neutral-100"
+            className="border border-neutral-200 p-3 rounded-2xl placeholder:text-neutral-300 outline-none dark:border-neutral-800 dark:placeholder:text-neutral-600 dark:bg-neutral-900 bg-neutral-100"
           ></motion.input>
+
           <motion.button
             whileHover={{
               width: 140,

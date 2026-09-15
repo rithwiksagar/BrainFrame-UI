@@ -24,7 +24,7 @@ export function CopyButton({ content }: { content: string }) {
           setCopied(false);
         }, 3000);
       }}
-      className="p-1.5 rounded-md backdrop-blur-xs"
+      className="p-1.5 rounded-md"
     >
       {!copied && (
         <Copy className="size-4 text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-300 cursor-pointer" />
