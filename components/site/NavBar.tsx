@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export default function NavBar() {
   return (
     <div className="fixed top-4 flex items-center justify-between gap-70 rounded-2xl bg-muted max-w-4xl py-2 px-4 z-999 dark:bg-neutral-900">
-      <div className="flex items-center px-1 py-1">
+      <Link href="/" className="flex items-center px-1 py-1 cursor-pointer">
         <img
           src="/logo/mosaicLogo.jpeg"
           alt="Mosaic logo"
@@ -10,14 +12,14 @@ export default function NavBar() {
         <h6 className="text-[17px] font-medium text-neutral-800 px-2 dark:text-neutral-100">
           Mosaic
         </h6>
-      </div>
+      </Link>
 
       <div className="flex items-center gap-2">
         {[
-          { label: "Github", href: "#" },
-          { label: "Docs", href: "#" },
-          { label: "Try AI", href: "#" },
-          { label: "Components", href: "#" },
+          { label: "Github", href: "https://github.com/rithwiksagar/Mosaic" },
+          { label: "Docs", href: "/docs/introduction" },
+          { label: "Try AI", href: "/try-ai" },
+          { label: "Components", href: "/components" },
         ].map((item) => (
           <a
             key={item.label}
