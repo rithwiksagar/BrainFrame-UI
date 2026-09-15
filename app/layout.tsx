@@ -3,7 +3,6 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -21,15 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${inter.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning className={`${inter.variable}`}>
       <body
         className="font-sans font-medium
       selection:bg-sky-100
-      selection:text-sky-500"
+      selection:text-sky-500 mx-28"
       >
         <ThemeProvider attribute="class" defaultTheme="system">
           {children}
